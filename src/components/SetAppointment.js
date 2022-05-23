@@ -43,7 +43,7 @@ const SetAppointment = () => {
   return (
     <>
       <NBar user={usr} />
-      <form className="form-login" onSubmit={handleSubmit}>
+      <form className="setAppointment" onSubmit={handleSubmit}>
         <select
           className="form-select"
           onChange={handleVaccineChange}
@@ -77,7 +77,7 @@ const SetAppointment = () => {
           <span>Solicitar Turno!</span>
         </button>
         {messageValue && (
-          <div className="form-group">
+          <div className="form-group message">
             <div className="alert alert-danger" role="alert">
               {messageValue}
             </div>

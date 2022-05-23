@@ -13,6 +13,7 @@ import SetAppointment from "./components/SetAppointment";
 import GetAppointmentsVacc from "./components/GetAppointmentsVacc";
 import AppointmentValidation from "./components/AppointmentValidation";
 import { useNavigate } from "react-router-dom";
+import { PageItem } from "react-bootstrap";
 
 import "./index.css";
 
@@ -25,6 +26,12 @@ const VacunAssist = () => {
 
   return (
     <>
+      <div className="header">
+        <img
+          src={require("./assets/logo-horizontal-blanco.png")}
+          className="header img"
+        />
+      </div>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

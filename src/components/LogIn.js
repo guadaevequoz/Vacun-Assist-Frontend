@@ -104,7 +104,7 @@ function LogIn() {
           No tenes una cuenta aún? <Link to="/signup"> Registrate! </Link>
         </p>
         {messageValue && (
-          <div className="form-group">
+          <div className="form-group message">
             <div className="alert alert-danger" role="alert">
               {messageValue}
             </div>

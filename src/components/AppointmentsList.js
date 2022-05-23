@@ -7,7 +7,7 @@ export const AppointmentsList = ({ data }, key) => {
   useEffect(() => {}, [data]);
   return (
     <>
-      <Card>
+      <Card style={{ width: "500px", margin: "10px auto" }}>
         <Card.Header>
           <Card.Title>Vacuna: {data.vaccine}</Card.Title>
         </Card.Header>

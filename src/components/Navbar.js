@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AuthService } from "../services/auth.service";
 import UserBoard from "./UserBoard";
@@ -8,15 +7,19 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Navbar, Nav } from "react-bootstrap";
 
 export const NBar = ({ user }) => {
+  /*
   const [state, setState] = useState({
     currentUser: "",
     showVaccinator: false,
     showAdmin: false,
-  });
+  });*/
 
   const logOut = () => {
     AuthService.logout();
-    setState({
+  };
+
+  //SI SACO ESTO FUNCIONA IGUAL, POR LAS DUDAS NO LO SACO DEL TODO
+  /*setState({
       currentUser: undefined,
       showVaccinator: false,
       showAdmin: false,
@@ -32,7 +35,7 @@ export const NBar = ({ user }) => {
         showAdmin: user.usr.rol.includes("admin"),
       });
     }
-  }, [user.rol]);
+  }, [user.rol]);*/
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
