@@ -8,7 +8,6 @@ function Board() {
    */
 
   const { usr } = AuthService.getCurrentUser();
-  console.log("Board", usr);
   return (
     <>
       <NBar user={usr} />
