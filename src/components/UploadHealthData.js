@@ -14,7 +14,8 @@ const UploadHealthData = () => {
 
   useEffect(() => {
     AuthService.getUser().then((res) => {
-      setUsr(res);
+      if (res) setUsr(res);
+      else navigate("/login");
     });
   }, []);
 

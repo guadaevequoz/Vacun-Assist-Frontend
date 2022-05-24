@@ -13,15 +13,17 @@ import SetAppointment from "./components/SetAppointment";
 import GetAppointmentsVacc from "./components/GetAppointmentsVacc";
 import AppointmentValidation from "./components/AppointmentValidation";
 import { useNavigate } from "react-router-dom";
-import { PageItem } from "react-bootstrap";
-
 import "./index.css";
+import { AuthService } from "./services/auth.service";
 
 const VacunAssist = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate("/login");
+    AuthService.getUser().then((res) => {
+      if (res) navigate("/board");
+      else navigate("/login");
+    });
   }, []);
 
   return (

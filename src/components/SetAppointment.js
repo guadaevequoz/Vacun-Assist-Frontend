@@ -17,7 +17,8 @@ const SetAppointment = () => {
 
   useEffect(() => {
     AuthService.getUser().then((res) => {
-      setUsr(res);
+      if (res) setUsr(res);
+      else navigate("/login");
     });
   }, []);
 
@@ -37,13 +38,18 @@ const SetAppointment = () => {
     });
   };
   const handleVaccineChange = (e) => {
-    console.log(e.target.value);
-
     //evaluar cual vacuna tiene del covid --> LO DEJAMOS PARA DSP PORQUE NO ESTA EN EL BACK
     setInputVaccineValue(e.target.value);
   };
   const handleVaccinationCenterChange = (e) => {
     setInputVaccinationCenterValue(e.target.value);
+  };
+
+  const reset = () => {
+    const vacc = document.getElementById("vacc");
+    const vaccCenter = document.getElementById("vaccCenter");
+    vacc.selectedIndex = 0;
+    vaccCenter.selectedIndex = 0;
   };
   return (
     <>
@@ -53,6 +59,7 @@ const SetAppointment = () => {
           className="form-select"
           onChange={handleVaccineChange}
           defaultValue={"DEFAULT"}
+          id="vacc"
         >
           <option value="DEFAULT" disabled>
             Selecciona tu vacuna
@@ -67,6 +74,7 @@ const SetAppointment = () => {
           className="form-select"
           onChange={handleVaccinationCenterChange}
           defaultValue={"DEFAULT"}
+          id="vaccCenter"
         >
           <option value="DEFAULT" disabled>
             Selecciona tus vacunatorios
@@ -75,7 +83,11 @@ const SetAppointment = () => {
           <option value="2">Corralón municipal</option>
           <option value="3">Polideportivo</option>
         </select>
-        <button type="submit" className="btn btn-light btn-block">
+        <button
+          type="submit"
+          className="btn btn-light btn-block"
+          onClick={reset}
+        >
           {loadingValue && (
             <span className="spinner-border spinner-border-sm"></span>
           )}

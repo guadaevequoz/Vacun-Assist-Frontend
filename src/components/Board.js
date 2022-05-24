@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { AuthService } from "../services/auth.service";
 import { NBar } from "./Navbar";
+import { useNavigate } from "react-router-dom";
 
 function Board() {
   /**
    * Pagina de bienvenida del usuario
    */
+  const navigate = useNavigate();
   const [usr, setUsr] = useState("");
   useEffect(() => {
     AuthService.getUser().then((res) => {
-      setUsr(res);
+      if (res) setUsr(res);
+      else navigate("/login");
     });
   }, []);
 
-  console.log(usr);
   return (
     <>
       <NBar user={usr} />

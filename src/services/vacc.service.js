@@ -60,7 +60,6 @@ const validateAppointment = async (id, lot, state) => {
       credentials: "include",
     });
     const { data } = await resp.json();
-    console.log(data);
     return data;
   } catch (err) {
     return false;

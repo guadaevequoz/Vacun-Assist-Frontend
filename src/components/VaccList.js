@@ -3,7 +3,7 @@ import { Button, Card } from "react-bootstrap";
 import { useState } from "react";
 import AppointmentValidation from "./AppointmentValidation";
 
-export const VaccList = ({ data }) => {
+export const VaccList = ({ data }, key) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);

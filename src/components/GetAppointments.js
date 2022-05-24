@@ -3,8 +3,9 @@ import { VaccService } from "../services/vacc.service";
 import { AppointmentsList } from "./AppointmentsList";
 import { useEffect, useState } from "react";
 import { NBar } from "./Navbar";
-
+import { useNavigate } from "react-router-dom";
 const GetAppointments = () => {
+  const navigate = useNavigate();
   const [usr, setUsr] = useState("");
   const [message, setMessage] = useState([""]);
   useEffect(() => {
@@ -16,10 +17,10 @@ const GetAppointments = () => {
         setMessage(error);
       },
       AuthService.getUser().then((res) => {
-        setUsr(res);
+        if (res) setUsr(res);
+        else navigate("/login");
       })
     );
-    console.log("Me ejecute");
   }, []);
 
   return (

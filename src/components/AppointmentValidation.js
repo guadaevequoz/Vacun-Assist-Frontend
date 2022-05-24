@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { AuthService } from "../services/auth.service";
 import { Button, Modal } from "react-bootstrap";
 import { VaccService } from "../services/vacc.service";
-
+import { useNavigate } from "react-router-dom";
 const AppointmentValidation = ({ show, handleClose, id }) => {
+  const navigate = useNavigate();
   const [inputLot, setInputLot] = useState("");
   const [messageValue, setMessageValue] = useState("");
 
@@ -11,7 +12,8 @@ const AppointmentValidation = ({ show, handleClose, id }) => {
 
   useEffect(() => {
     AuthService.getUser().then((res) => {
-      setUsr(res);
+      if (res) setUsr(res);
+      else navigate("/login");
     });
   }, []);
 
@@ -21,7 +23,6 @@ const AppointmentValidation = ({ show, handleClose, id }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(id, inputLot);
     VaccService.validateAppointment(id, inputLot, "Finalizado").then((res) => {
       if (res) {
         setMessageValue("El turno se valido con exito.");

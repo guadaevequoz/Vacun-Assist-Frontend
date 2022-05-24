@@ -3,8 +3,9 @@ import { VaccService } from "../services/vacc.service";
 import { useEffect, useState } from "react";
 import { NBar } from "./Navbar";
 import { VaccList } from "./VaccList";
-
+import { useNavigate } from "react-router-dom";
 const GetAppointments = () => {
+  const navigate = useNavigate();
   const [message, setMessage] = useState([""]);
   const [usr, setUsr] = useState("");
 
@@ -17,7 +18,8 @@ const GetAppointments = () => {
         setMessage(error);
       },
       AuthService.getUser().then((res) => {
-        setUsr(res);
+        if (res) setUsr(res);
+        else navigate("/login");
       })
     );
   }, []);
@@ -26,7 +28,12 @@ const GetAppointments = () => {
     <>
       <NBar user={usr} />
       {message.map((data) => {
-        return <VaccList data={data} />;
+        return (
+          <VaccList
+            data={data}
+            key={Math.floor(Math.random() * (0 - 9999999) + 0)}
+          />
+        );
       })}
     </>
   );

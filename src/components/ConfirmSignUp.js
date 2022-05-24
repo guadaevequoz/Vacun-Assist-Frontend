@@ -18,13 +18,16 @@ const ConfirmSignUp = () => {
    */
   const handleSubmit = (e) => {
     e.preventDefault();
-    AuthService.confirm(inputCodeValue).then((res) => {
-      if (res.data.status === "fail") {
+    AuthService.confirm(inputCodeValue).then(({ data }) => {
+      if (data.status === "fail") {
         setInputCodeValue("");
-        setMessageValue(res.data.message);
+        setMessageValue(data.message);
         setLoadingValue(false);
       } else {
-        navigate("/login");
+        const usr = data.data.usr;
+        AuthService.login(usr.dni, usr.code, usr.password).then(() => {
+          navigate("/board");
+        });
       }
     });
   };
