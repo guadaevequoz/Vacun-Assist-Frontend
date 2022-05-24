@@ -21,7 +21,7 @@ const login = async (dni, token, pass) => {
     });
 
     const data = await resp.json();
-    localStorage.setItem("user", JSON.stringify(data.data));
+
     return { data };
   } catch (err) {
     return false;
@@ -41,7 +41,6 @@ const logout = async () => {
 
     const { data } = await resp.json();
 
-    localStorage.removeItem("user");
     return data;
   } catch (err) {
     return false;
@@ -66,8 +65,6 @@ const signup = async (dni, email, pass) => {
 
     const data = await resp.json();
 
-    localStorage.setItem("user", JSON.stringify({ data }));
-
     return { data };
   } catch (err) {
     return false;
@@ -90,18 +87,10 @@ const confirm = async (token) => {
 
     const data = await resp.json();
 
-    localStorage.setItem("user", JSON.stringify({ data }));
-
     return { data };
   } catch (err) {
     return false;
   }
-};
-
-const getCurrentUser = () => {
-  return (
-    localStorage.getItem("user") && JSON.parse(localStorage.getItem("user"))
-  );
 };
 
 //tomar el usuario loggeado
@@ -141,8 +130,6 @@ const uploadHealthData = async (isRisk) => {
     //Arreglo temporal --> El Back deberia devolver un objeto "data:{usr:{datos}}", en vez de un objeto "data:{datos}"
     const { data: usr } = await resp.json();
 
-    localStorage.setItem("user", JSON.stringify({ usr }));
-
     return { usr };
   } catch (err) {
     return false;
@@ -154,7 +141,6 @@ export const AuthService = {
   logout,
   signup,
   confirm,
-  getCurrentUser,
   getUser,
   uploadHealthData,
 };

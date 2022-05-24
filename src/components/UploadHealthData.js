@@ -1,15 +1,22 @@
 /**
  * Componente de subir datos de salud del usuario
  */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { NBar } from "./Navbar";
 import { AuthService } from "../services/auth.service";
 
 const UploadHealthData = () => {
   const navigate = useNavigate();
-  const { usr } = AuthService.getCurrentUser();
   const [isRisk, setIsRisk] = useState(false);
+
+  const [usr, setUsr] = useState("");
+
+  useEffect(() => {
+    AuthService.getUser().then((res) => {
+      setUsr(res);
+    });
+  }, []);
 
   /**
    *

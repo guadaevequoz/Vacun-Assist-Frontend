@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { VaccService } from "../services/vacc.service";
 import { AuthService } from "../services/auth.service";
@@ -6,13 +6,20 @@ import { NBar } from "./Navbar";
 
 const SetAppointment = () => {
   const navigate = useNavigate();
-  const { usr } = AuthService.getCurrentUser();
 
   const [inputVaccineValue, setInputVaccineValue] = useState("");
   const [inputVaccinationCenterValue, setInputVaccinationCenterValue] =
     useState("");
   const [messageValue, setMessageValue] = useState("");
   const [loadingValue, setLoadingValue] = useState(false);
+
+  const [usr, setUsr] = useState("");
+
+  useEffect(() => {
+    AuthService.getUser().then((res) => {
+      setUsr(res);
+    });
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,8 +29,6 @@ const SetAppointment = () => {
       inputVaccinationCenterValue
     ).then((res) => {
       if (res.data.status === "fail") {
-        setInputVaccineValue("");
-        setInputVaccinationCenterValue("");
         setMessageValue(res.data.message);
         setLoadingValue(false);
       } else {

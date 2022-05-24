@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { NBar } from "./Navbar";
 
 const GetAppointments = () => {
-  const { usr } = AuthService.getCurrentUser();
+  const [usr, setUsr] = useState("");
   const [message, setMessage] = useState([""]);
   useEffect(() => {
     VaccService.getAppointments().then(
@@ -14,8 +14,12 @@ const GetAppointments = () => {
       },
       (error) => {
         setMessage(error);
-      }
+      },
+      AuthService.getUser().then((res) => {
+        setUsr(res);
+      })
     );
+    console.log("Me ejecute");
   }, []);
 
   return (

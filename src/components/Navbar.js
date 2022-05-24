@@ -25,17 +25,7 @@ export const NBar = ({ user }) => {
       showAdmin: false,
     });
   };
-
-  useEffect(() => {
-    const user = AuthService.getCurrentUser();
-    if (user) {
-      setState({
-        currentUser: user.usr,
-        showVaccinator: user.usr.rol.includes("vacc"),
-        showAdmin: user.usr.rol.includes("admin"),
-      });
-    }
-  }, [user.rol]);*/
+*/
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">

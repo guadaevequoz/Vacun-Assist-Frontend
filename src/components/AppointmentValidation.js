@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AuthService } from "../services/auth.service";
 import { Button, Modal } from "react-bootstrap";
 import { VaccService } from "../services/vacc.service";
 
 const AppointmentValidation = ({ show, handleClose, id }) => {
-  const { usr } = AuthService.getCurrentUser();
-
   const [inputLot, setInputLot] = useState("");
   const [messageValue, setMessageValue] = useState("");
+
+  const [usr, setUsr] = useState("");
+
+  useEffect(() => {
+    AuthService.getUser().then((res) => {
+      setUsr(res);
+    });
+  }, []);
 
   const handleLotChange = (e) => {
     setInputLot(e.target.value);

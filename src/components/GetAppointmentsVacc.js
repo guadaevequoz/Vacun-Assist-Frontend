@@ -5,8 +5,9 @@ import { NBar } from "./Navbar";
 import { VaccList } from "./VaccList";
 
 const GetAppointments = () => {
-  const { usr } = AuthService.getCurrentUser();
   const [message, setMessage] = useState([""]);
+  const [usr, setUsr] = useState("");
+
   useEffect(() => {
     VaccService.getAppointments().then(
       ({ appointments }) => {
@@ -14,7 +15,10 @@ const GetAppointments = () => {
       },
       (error) => {
         setMessage(error);
-      }
+      },
+      AuthService.getUser().then((res) => {
+        setUsr(res);
+      })
     );
   }, []);
 
