@@ -85,13 +85,10 @@ function SignUp() {
           onChange={handlePasswordChange}
           placeholder="Ingresa tu contraseña."
           className="form-control"
+          minLength={"8"}
           required
         ></input>
-        <button
-          type="submit"
-          className="btn btn-light btn-block"
-          //disabled={state.loading}
-        >
+        <button type="submit" className="btn btn-light btn-block">
           {loadingValue && (
             <span className="spinner-border spinner-border-sm"></span>
           )}

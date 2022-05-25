@@ -59,8 +59,8 @@ const validateAppointment = async (id, lot, state) => {
       }),
       credentials: "include",
     });
-    const { data } = await resp.json();
-    return data;
+    const data = await resp.json();
+    return { data };
   } catch (err) {
     return false;
   }

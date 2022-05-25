@@ -92,6 +92,7 @@ function LogIn() {
           onChange={handlePasswordChange}
           placeholder="Ingresa tu contraseña."
           className="form-control"
+          minLength={"8"}
           required
         ></input>
         <button type="submit" className="btn btn-light btn-block">

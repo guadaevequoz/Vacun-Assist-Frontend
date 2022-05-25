@@ -11,7 +11,7 @@ const VaccinatorBoard = (vaccCenter) => {
     <>
       <Nav.Link>
         <Link to={"/getAppointmentsVacc"} className="nav-link">
-          Listar turnos
+          Visualizar turnos
         </Link>
       </Nav.Link>
     </>
