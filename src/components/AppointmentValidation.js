@@ -15,7 +15,7 @@ const AppointmentValidation = ({ show, handleClose, id }) => {
       if (res) setUsr(res);
       else navigate("/login");
     });
-  }, []);
+  }, [show]);
 
   const handleLotChange = (e) => {
     setInputLot(e.target.value);
@@ -24,8 +24,11 @@ const AppointmentValidation = ({ show, handleClose, id }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     VaccService.validateAppointment(id, inputLot, "Finalizado").then((res) => {
-      if (res) {
-        setMessageValue("El turno se valido con exito.");
+      if (res.data.status === "fail") {
+        setInputLot("");
+        setMessageValue(res.data.message);
+      } else {
+        navigate("/getAppointmentsVacc");
       }
     });
   };

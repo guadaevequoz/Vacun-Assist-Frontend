@@ -1,14 +1,15 @@
 //Arreglar las Keys
 import { Button, Card } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AppointmentValidation from "./AppointmentValidation";
+import { useNavigate } from "react-router-dom";
 
 export const VaccList = ({ data }, key) => {
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   return (
     <>
       <Card style={{ width: "500px", margin: "10px auto" }}>

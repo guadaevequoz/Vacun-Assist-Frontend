@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { VaccService } from "../services/vacc.service";
 import { AuthService } from "../services/auth.service";
 import { NBar } from "./Navbar";
+import { Button, Modal } from "react-bootstrap";
+import SetAppointmentConfirm from "./SetAppointmentConfirm";
 
 const SetAppointment = () => {
+  const [date, setDate] = useState("");
   const navigate = useNavigate();
 
   const [inputVaccineValue, setInputVaccineValue] = useState("");
@@ -15,6 +18,11 @@ const SetAppointment = () => {
 
   const [usr, setUsr] = useState("");
 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   useEffect(() => {
     AuthService.getUser().then((res) => {
       if (res) setUsr(res);
@@ -24,16 +32,17 @@ const SetAppointment = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    reset();
     VaccService.setAppointment(
       inputVaccineValue,
       inputVaccinationCenterValue
-    ).then((res) => {
-      if (res.data.status === "fail") {
-        setMessageValue(res.data.message);
+    ).then(({ data }) => {
+      if (data.status === "fail") {
+        setMessageValue(data.message);
         setLoadingValue(false);
       } else {
-        navigate("/board");
+        setDate(data.data.newAppointment.vaccinationDate);
+        handleShow();
       }
     });
   };
@@ -51,40 +60,47 @@ const SetAppointment = () => {
     vacc.selectedIndex = 0;
     vaccCenter.selectedIndex = 0;
   };
+
   return (
     <div className="section-container">
       <NBar user={usr} />
       <form className="setAppointment" onSubmit={handleSubmit}>
         <h3>selecciona los datos de tu turno</h3>
+
         <select
           className="form-select"
           onChange={handleVaccineChange}
-          defaultValue={"DEFAULT"}
           id="vacc"
+          name="vacunas"
+          required
         >
-          <option value="DEFAULT" disabled>
+          {/*<option value="" disabled>
             Selecciona tu vacuna
-          </option>
+  </option>*/}
+          <option></option>
           <option value="Gripe">Gripe</option>
           <option value="Covid1">COVID1</option>
           <option value="Covid2">COVID2</option>
           <option value="Covid3">COVID3</option>
           <option value="FiebreAmarilla">Fiebre amarilla</option>
         </select>
+        {/* <label htmlFor="vacunatorios">Selecciona tus vacunatorios:</label> */}
         <select
           className="form-select"
           onChange={handleVaccinationCenterChange}
-          defaultValue={"DEFAULT"}
           id="vaccCenter"
+          name="vacunatorios"
+          required
         >
-          <option value="DEFAULT" disabled>
+          {/*<option value="" disabled>
             Selecciona tus vacunatorios
-          </option>
+  </option>*/}
+          <option></option>
           <option value="1">Hospital 9 de Julio</option>
           <option value="2">Corralón municipal</option>
           <option value="3">Polideportivo</option>
         </select>
-        <button type="submit" onClick={reset}>
+        <button type="submit">
           {loadingValue && (
             <span className="spinner-border spinner-border-sm"></span>
           )}
@@ -98,6 +114,11 @@ const SetAppointment = () => {
           </div>
         )}
       </form>
+      <SetAppointmentConfirm
+        show={show}
+        handleClose={handleClose}
+        data={date}
+      />
     </div>
   );
 };
