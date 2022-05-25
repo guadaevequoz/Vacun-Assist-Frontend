@@ -1,0 +1,18 @@
+.section-container {
+  background-color: red;
+  width: 80%;
+  height: 450px;
+  margin: auto;
+  background-color: white;
+  border-radius: 10px;
+
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.39);
+}
+
+nav {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}

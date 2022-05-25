@@ -61,7 +61,7 @@ function LogIn() {
   return (
     <>
       <form className="form-login" onSubmit={handleSubmit}>
-        <h1> Bienvenido! </h1>
+        {/* <h1> Bienvenido! </h1> */}
         <h3>Inicia sesión para poder acceder a tu cuenta!</h3>
         <input
           type="number"
@@ -69,7 +69,6 @@ function LogIn() {
           value={inputDniValue}
           onChange={handleDniChange}
           placeholder="Ingresa tu DNI."
-          className="form-control"
           min={5000000}
           max={90000000}
           required
@@ -80,7 +79,6 @@ function LogIn() {
           value={inputCodeValue}
           onChange={handleCodeChange}
           placeholder="Ingresa tu token."
-          className="form-control"
           min={1000}
           max={9999}
           required
@@ -91,10 +89,9 @@ function LogIn() {
           value={inputPasswordValue}
           onChange={handlePasswordChange}
           placeholder="Ingresa tu contraseña."
-          className="form-control"
           required
         ></input>
-        <button type="submit" className="btn btn-light btn-block">
+        <button type="submit">
           {loadingValue && (
             <span className="spinner-border spinner-border-sm"></span>
           )}

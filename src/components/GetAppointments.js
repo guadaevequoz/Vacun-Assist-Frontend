@@ -24,7 +24,7 @@ const GetAppointments = () => {
   }, []);
 
   return (
-    <>
+    <div className="section-container">
       <NBar user={usr} />
       {message.map((data, idx) => {
         return (
@@ -34,7 +34,7 @@ const GetAppointments = () => {
           />
         );
       })}
-    </>
+    </div>
   );
 };
 

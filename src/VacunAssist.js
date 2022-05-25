@@ -13,7 +13,12 @@ import SetAppointment from "./components/SetAppointment";
 import GetAppointmentsVacc from "./components/GetAppointmentsVacc";
 import AppointmentValidation from "./components/AppointmentValidation";
 import { useNavigate } from "react-router-dom";
-import "./index.css";
+// import "./index.css";
+import "./css/login-singup.css";
+import "./css/board.css";
+import "./css/health-form.css";
+import "./css/set-appointment.css";
+import "./css/get-appointments.css";
 import { AuthService } from "./services/auth.service";
 
 const VacunAssist = () => {
@@ -28,12 +33,12 @@ const VacunAssist = () => {
 
   return (
     <>
-      <div className="header">
+      {/* <div className="header">
         <img
           src={require("./assets/logo-horizontal-blanco.png")}
           className="header img"
         />
-      </div>
+      </div> */}
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

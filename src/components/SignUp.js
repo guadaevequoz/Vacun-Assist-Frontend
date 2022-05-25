@@ -58,7 +58,7 @@ function SignUp() {
   return (
     <>
       <form className="form-login" onSubmit={handleSubmit}>
-        <h1>Crea tu cuenta </h1>
+        {/* <h1>Crea tu cuenta </h1> */}
         <h3>Por favor completá estos datos para continuar.</h3>
         <input
           type="number"
@@ -66,7 +66,6 @@ function SignUp() {
           value={inputDniValue}
           onChange={handleDniChange}
           placeholder="Ingresa tu DNI."
-          className="form-control"
           required
         ></input>
         <input
@@ -75,7 +74,6 @@ function SignUp() {
           value={inputMailValue}
           onChange={handleMailChange}
           placeholder="Ingresa tu mail."
-          className="form-control"
           required
         ></input>
         <input
@@ -84,12 +82,10 @@ function SignUp() {
           value={inputPasswordValue}
           onChange={handlePasswordChange}
           placeholder="Ingresa tu contraseña."
-          className="form-control"
           required
         ></input>
         <button
           type="submit"
-          className="btn btn-light btn-block"
           //disabled={state.loading}
         >
           {loadingValue && (

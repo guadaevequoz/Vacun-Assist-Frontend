@@ -52,9 +52,10 @@ const SetAppointment = () => {
     vaccCenter.selectedIndex = 0;
   };
   return (
-    <>
+    <div className="section-container">
       <NBar user={usr} />
       <form className="setAppointment" onSubmit={handleSubmit}>
+        <h3>selecciona los datos de tu turno</h3>
         <select
           className="form-select"
           onChange={handleVaccineChange}
@@ -83,11 +84,7 @@ const SetAppointment = () => {
           <option value="2">Corralón municipal</option>
           <option value="3">Polideportivo</option>
         </select>
-        <button
-          type="submit"
-          className="btn btn-light btn-block"
-          onClick={reset}
-        >
+        <button type="submit" onClick={reset}>
           {loadingValue && (
             <span className="spinner-border spinner-border-sm"></span>
           )}
@@ -101,7 +98,7 @@ const SetAppointment = () => {
           </div>
         )}
       </form>
-    </>
+    </div>
   );
 };
 

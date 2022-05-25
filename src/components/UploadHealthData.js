@@ -41,11 +41,11 @@ const UploadHealthData = () => {
     setIsRisk(e.target.checked);
   };
   return (
-    <>
+    <div className="section-container">
       <NBar user={usr} />
       <form className="health-data" onSubmit={handleSubmit}>
-        <h1>Cargar datos de salud </h1>
-        <hr></hr>
+        {/* <h1>Cargar datos de salud </h1>
+        <hr></hr> */}
         <h3>Completa el cuestionario de salud para poder sacar tu turno.</h3>
         <div className="form-check">
           <input
@@ -59,11 +59,9 @@ const UploadHealthData = () => {
             riesgo
           </label>
         </div>
-        <button type="submit" className="btn btn-light">
-          Enviar mis datos
-        </button>
+        <button type="submit">Enviar mis datos</button>
       </form>
-    </>
+    </div>
   );
 };
 

@@ -28,7 +28,7 @@ export const NBar = ({ user }) => {
 */
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar bg="dark" variant="dark" expand="lg" className="nav-bar">
       <Container>
         <Navbar.Brand>
           <Link to={"/board"} className="navbar-brand">
