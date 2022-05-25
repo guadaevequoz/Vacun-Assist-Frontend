@@ -62,7 +62,9 @@ function LogIn() {
     <>
       <form className="form-login" onSubmit={handleSubmit}>
         {/* <h1> Bienvenido! </h1> */}
-        <h3>Inicia sesión para poder acceder a tu cuenta!</h3>
+        <h3 className="form-login-signup-header">
+          Inicia sesión para poder acceder a tu cuenta!
+        </h3>
         <input
           type="number"
           name="dni"

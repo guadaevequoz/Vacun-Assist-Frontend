@@ -27,6 +27,11 @@ h3 {
   padding: 10px;
   font-size: 18px;
 }
+.form-login-signup-header {
+  top: 10px !important;
+  left: 0px !important;
+  transform: translateX(-5%) !important;
+}
 h1 {
   margin-bottom: 100px;
 }

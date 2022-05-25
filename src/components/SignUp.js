@@ -59,7 +59,9 @@ function SignUp() {
     <>
       <form className="form-login" onSubmit={handleSubmit}>
         {/* <h1>Crea tu cuenta </h1> */}
-        <h3>Por favor completá estos datos para continuar.</h3>
+        <h3 className="form-login-signup-header">
+          Por favor completá estos datos para continuar.
+        </h3>
         <input
           type="number"
           name="dni"
