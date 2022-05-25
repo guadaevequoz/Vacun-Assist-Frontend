@@ -26,14 +26,16 @@ const GetAppointments = () => {
   return (
     <div className="section-container">
       <NBar user={usr} />
-      {message.map((data, idx) => {
-        return (
-          <AppointmentsList
-            data={data}
-            key={Math.floor(Math.random() * (0 - 9999999) + 0)}
-          />
-        );
-      })}
+      <div className="appointments-container">
+        {message.map((data, idx) => {
+          return (
+            <AppointmentsList
+              data={data}
+              key={Math.floor(Math.random() * (0 - 9999999) + 0)}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 };

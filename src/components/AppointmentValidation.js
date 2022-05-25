@@ -46,10 +46,10 @@ const AppointmentValidation = ({ show, handleClose, id }) => {
           ></input>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button className="btn-close-validate" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
+          <Button className="btn-validate" type="submit" onClick={handleSubmit}>
             Validar
           </Button>
           <hr />

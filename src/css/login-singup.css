@@ -57,6 +57,7 @@ input {
   padding-bottom: 0px;
   font-family: "Roboto Mono", monospace;
 }
+input[type="text"],
 input[type="email"],
 input[type="number"],
 input[type="password"] {
@@ -70,6 +71,7 @@ input[type="password"] {
   transition: 0.2s;
   font-weight: 300;
 }
+input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="number"]:focus,
 input[type="password"]:focus {

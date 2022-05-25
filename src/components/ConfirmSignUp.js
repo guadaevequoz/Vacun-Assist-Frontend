@@ -50,12 +50,10 @@ const ConfirmSignUp = () => {
           value={inputCodeValue}
           onChange={handleCodeChange}
           placeholder="Ingresa tu token."
-          className="form-control"
           required
         ></input>
         <button
           type="submit"
-          className="btn btn-light btn-block"
           //disabled={state.loading}
         >
           {loadingValue && (

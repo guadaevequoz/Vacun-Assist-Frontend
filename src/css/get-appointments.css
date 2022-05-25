@@ -1,3 +1,13 @@
 .card-header {
   background-color: #ffef82;
 }
+.appointments-container {
+  overflow-y: scroll;
+}
+.appointments-container::-webkit-scrollbar {
+  background-color: #eee;
+  width: 10px;
+}
+.appointments-container::-webkit-scrollbar-thumb {
+  background-color: #ffee8281;
+}

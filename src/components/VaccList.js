@@ -11,7 +11,7 @@ export const VaccList = ({ data }, key) => {
 
   return (
     <>
-      <Card>
+      <Card style={{ width: "500px", margin: "10px auto" }}>
         {data.state === "Activo" && (
           <>
             <Card.Header>
@@ -24,7 +24,7 @@ export const VaccList = ({ data }, key) => {
                 </div>
               </Card.Text>
             </Card.Body>
-            <Button variant="success" onClick={handleShow}>
+            <Button className="validate-window-btn" onClick={handleShow}>
               Validar
             </Button>
             <AppointmentValidation
