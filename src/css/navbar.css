@@ -1,0 +1,8 @@
+.navbar-toggler:focus {
+  box-shadow: none;
+  background-color: rgba(255, 255, 255, 0.55);
+}
+.collapsed {
+  box-shadow: none;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+}

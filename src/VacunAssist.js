@@ -20,6 +20,7 @@ import "./css/health-form.css";
 import "./css/set-appointment.css";
 import "./css/get-appointments.css";
 import "./css/validate-appointment.css";
+import "./css/navbar.css";
 import { AuthService } from "./services/auth.service";
 
 const VacunAssist = () => {
