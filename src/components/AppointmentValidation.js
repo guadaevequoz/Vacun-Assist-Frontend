@@ -50,7 +50,7 @@ const AppointmentValidation = ({ loadAppointments, show, handleClose, id }) => {
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>Validar Turno para DNI:{usr.patientDni}</Modal.Title>
+          <Modal.Title>Validar turno para DNI: {usr.patientDni}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <input
@@ -63,7 +63,7 @@ const AppointmentValidation = ({ loadAppointments, show, handleClose, id }) => {
         </Modal.Body>
         <Modal.Footer>
           <Button className="btn-close-validate" onClick={handleClose}>
-            Close
+            Cerrar
           </Button>
           <Button className="btn-validate" type="submit" onClick={handleSubmit}>
             Validar

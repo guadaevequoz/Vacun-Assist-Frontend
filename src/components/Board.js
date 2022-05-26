@@ -21,7 +21,7 @@ function Board() {
   return (
     <div className="section-container">
       <NBar user={usr} />
-      <p className="text">Bienvenido {usr.fullName} !</p>
+      <p className="text">Bienvenido {usr.fullName}!</p>
     </div>
   );
 }

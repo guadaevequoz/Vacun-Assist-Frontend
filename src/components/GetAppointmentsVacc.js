@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { NBar } from "./Navbar";
 import { VaccList } from "./VaccList";
 import { useNavigate } from "react-router-dom";
+import { Card } from "react-bootstrap";
 
 /**
  * Funcion que devuelve una lista de los turnos activos de un usuario vacunador
@@ -39,7 +40,15 @@ const GetAppointments = () => {
   return (
     <div className="section-container">
       <NBar user={usr} />
+
       <div className="appointments-container">
+        {message.length === 0 && (
+          <Card style={{ width: "500px", margin: "10px auto" }}>
+            <Card.Body>
+              <Card.Text>No existen más turnos para el día de hoy 😊</Card.Text>
+            </Card.Body>
+          </Card>
+        )}
         {message.map((data) => {
           return (
             <VaccList

@@ -43,13 +43,13 @@ const ConfirmSignUp = () => {
   return (
     <>
       <form className="form-login" onSubmit={handleSubmit}>
-        <h3>Ingresa el Token Recibido</h3>
+        <h3>Ingresa el código numerico que recibiste en tu mail. </h3>
         <input
           type="number"
           name="token"
           value={inputCodeValue}
           onChange={handleCodeChange}
-          placeholder="Ingresa tu token."
+          placeholder="Ingresa tu código."
           required
         ></input>
         <button type="submit">

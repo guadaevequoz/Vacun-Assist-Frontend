@@ -17,7 +17,12 @@ export const AppointmentsList = ({ data }, key) => {
         </Card.Header>
         <Card.Body>
           <div className="list-group-item">Día: {data.vaccinationDate}</div>
-          <div className="list-group-item">Estado: {data.state}</div>
+          <div className="list-group-item">
+            Estado:{" "}
+            {data.state === "Finalizado"
+              ? "Turno concretado ✅"
+              : "Turno pendiente ❌"}
+          </div>
           <div className="list-group-item">
             Vacunatorio: {data.vaccinationCenter}
           </div>

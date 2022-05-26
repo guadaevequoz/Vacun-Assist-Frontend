@@ -58,7 +58,7 @@ export const NBar = ({ user }) => {
             {user.rol !== "" && (
               <Nav.Link>
                 <Link to={"/login"} className="nav-link" onClick={logOut}>
-                  Salir
+                  Cerrar sesión
                 </Link>
               </Nav.Link>
             )}

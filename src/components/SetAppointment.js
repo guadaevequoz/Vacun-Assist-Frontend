@@ -87,7 +87,7 @@ const SetAppointment = () => {
     <div className="section-container">
       <NBar user={usr} />
       <form className="setAppointment" onSubmit={handleSubmit}>
-        <h3>selecciona los datos de tu turno</h3>
+        <h3>Selecciona los datos de tu turno</h3>
 
         <select
           className="form-select"
@@ -119,7 +119,7 @@ const SetAppointment = () => {
           {loadingValue && (
             <span className="spinner-border spinner-border-sm"></span>
           )}
-          <span>Solicitar Turno!</span>
+          <span>Solicitar Turno</span>
         </button>
         {messageValue && (
           <div className="form-group message">

@@ -30,19 +30,28 @@ const GetAppointments = () => {
     );
   }, []);
   return (
-    <div className="section-container">
-      <NBar user={usr} />
-      <div className="appointments-container">
-        {message.map((data, idx) => {
-          return (
-            <AppointmentsList
-              data={data}
-              key={Math.floor(Math.random() * (0 - 9999999) + 0)}
-            />
-          );
-        })}
+    <>
+      {!message && (
+        <p>
+          Aún no tenes turnos vinculados, pero no te desanimes! Ingresa a la
+          sección "Sacar turno" para solicitarlo, si no hay disponibles te
+          notificaremos cuando haya uno 😊
+        </p>
+      )}
+      <div className="section-container">
+        <NBar user={usr} />
+        <div className="appointments-container">
+          {message.map((data, idx) => {
+            return (
+              <AppointmentsList
+                data={data}
+                key={Math.floor(Math.random() * (0 - 9999999) + 0)}
+              />
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

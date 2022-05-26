@@ -64,9 +64,8 @@ function LogIn() {
   return (
     <>
       <form className="form-login" onSubmit={handleSubmit}>
-        {/* <h1> Bienvenido! </h1> */}
         <h3 className="form-login-signup-header">
-          Inicia sesión para poder acceder a tu cuenta!
+          Inicia sesión para poder acceder a tu cuenta.
         </h3>
         <input
           type="number"
@@ -94,6 +93,7 @@ function LogIn() {
           value={inputPasswordValue}
           onChange={handlePasswordChange}
           placeholder="Ingresa tu contraseña."
+          minLength={"8"}
           required
         ></input>
         <button type="submit">
@@ -103,7 +103,7 @@ function LogIn() {
           <span>Iniciar sesión</span>
         </button>
         <p className="message">
-          No tenes una cuenta aún? <Link to="/signup"> Registrate! </Link>
+          ¿No tenes una cuenta? <Link to="/signup"> ¡Registrate! </Link>
         </p>
         {messageValue && (
           <div className="form-group message">

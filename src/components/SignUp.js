@@ -89,6 +89,7 @@ function SignUp() {
           value={inputPasswordValue}
           onChange={handlePasswordChange}
           placeholder="Ingresa tu contraseña."
+          minLength={"8"}
           required
         ></input>
         <button type="submit">
@@ -98,7 +99,7 @@ function SignUp() {
           <span>Registrarse</span>
         </button>
         <p className="message">
-          Ya tenes una cuenta? <Link to="/login"> Inicia sesión! </Link>
+          ¿Ya tenes una cuenta? <Link to="/login"> ¡Inicia sesión! </Link>
         </p>
         {messageValue && (
           <div className="form-group message">

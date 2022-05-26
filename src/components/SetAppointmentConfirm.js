@@ -32,10 +32,10 @@ const SetAppointmentConfirm = ({ show, handleClose, data }) => {
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>Tu turno fue sacado con exito</Modal.Title>
+          <Modal.Title>Tu turno fue sacado con éxito. </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Presentate en tu vacunatorio el dia {date} para poder vacunarte
+          Presentate en tu vacunatorio el día {date} para poder vacunarte.
         </Modal.Body>
         <Modal.Footer>
           <Button className="btn-validate" type="submit" onClick={handleSubmit}>
