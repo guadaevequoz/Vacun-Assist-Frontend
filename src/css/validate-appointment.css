@@ -1,0 +1,23 @@
+.btn-close-validate {
+  border: none;
+  background-color: #ffef82;
+  color: #232323;
+}
+.btn-close-validate:hover {
+  background-color: rgb(253, 240, 156);
+  color: #333333;
+}
+.validate-window-btn,
+.btn-validate,
+.btn-validate:focus,
+.validate-window-btn:focus {
+  border: none;
+  background-color: rgb(154, 236, 167);
+  color: #232323;
+  box-shadow: none;
+}
+.validate-window-btn:hover,
+.btn-validate:hover {
+  background-color: rgba(161, 228, 172, 0.8);
+  color: #333333;
+}

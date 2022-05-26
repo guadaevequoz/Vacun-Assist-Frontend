@@ -13,9 +13,20 @@ import SetAppointment from "./components/SetAppointment";
 import GetAppointmentsVacc from "./components/GetAppointmentsVacc";
 import AppointmentValidation from "./components/AppointmentValidation";
 import { useNavigate } from "react-router-dom";
-import "./index.css";
+// import "./index.css";
+import "./css/login-singup.css";
+import "./css/board.css";
+import "./css/health-form.css";
+import "./css/set-appointment.css";
+import "./css/get-appointments.css";
+import "./css/validate-appointment.css";
+import "./css/navbar.css";
 import { AuthService } from "./services/auth.service";
 
+/**
+ * Funcion que se ejecuta cuando se abre la aplicacion y carga todas las rutas
+ * @returns Retorna todas las rutas necesarias para el funcionamiento de la aplicacion
+ */
 const VacunAssist = () => {
   const navigate = useNavigate();
 
@@ -28,12 +39,6 @@ const VacunAssist = () => {
 
   return (
     <>
-      <div className="header">
-        <img
-          src={require("./assets/logo-horizontal-blanco.png")}
-          className="header img"
-        />
-      </div>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -52,7 +57,10 @@ const VacunAssist = () => {
     </>
   );
 };
-
+/**
+ * Funcion que se ejecuta cunado no encuentra una ruta
+ * @returns Retorna un mensaje indicando que no encontro la ruta
+ */
 const NotFound = () => {
   return <>Esta ruta no existe. </>;
 };

@@ -3,9 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { VaccService } from "../services/vacc.service";
 import { AuthService } from "../services/auth.service";
 import { NBar } from "./Navbar";
-import { Button, Modal } from "react-bootstrap";
 import SetAppointmentConfirm from "./SetAppointmentConfirm";
 
+/**
+ * Funcion para sacar un turno de un usuario paciente
+ * @returns Retorna un formulario para sacar un turno
+ */
 const SetAppointment = () => {
   const [date, setDate] = useState("");
   const navigate = useNavigate();
@@ -17,19 +20,27 @@ const SetAppointment = () => {
   const [loadingValue, setLoadingValue] = useState(false);
 
   const [usr, setUsr] = useState("");
-
   const [show, setShow] = useState(false);
-
+  /**
+   * Funcion que cierra el "Modal" del componenete "SetAppointmentConform"
+   */
   const handleClose = () => setShow(false);
+  /**
+   * Funcion que abre el "Modal" del componenete "SetAppointmentConform"
+   */
   const handleShow = () => setShow(true);
 
+  //Renderiza "SetAppointment" solo una vez
   useEffect(() => {
     AuthService.getUser().then((res) => {
       if (res) setUsr(res);
       else navigate("/login");
     });
   }, []);
-
+  /**
+   * Funcion que maneja el envio de datos al completar el formulario SetAppointment
+   * @param {*} e Representa el evento
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     reset();
@@ -46,14 +57,25 @@ const SetAppointment = () => {
       }
     });
   };
+
+  /**
+   * Funcion que maneja el cambio de "InputVaccine"
+   * @param {*} e Representa el evento
+   */
   const handleVaccineChange = (e) => {
     //evaluar cual vacuna tiene del covid --> LO DEJAMOS PARA DSP PORQUE NO ESTA EN EL BACK
     setInputVaccineValue(e.target.value);
   };
+  /**
+   * Funcion que maneja el cambio de "InputVaccinationCenter"
+   * @param {*} e Representa el evento
+   */
   const handleVaccinationCenterChange = (e) => {
     setInputVaccinationCenterValue(e.target.value);
   };
-
+  /**
+   * Funcion que resetea los valores de "InputVaccine" y "InputVaccinationCenter"
+   */
   const reset = () => {
     const vacc = document.getElementById("vacc");
     const vaccCenter = document.getElementById("vaccCenter");
@@ -62,10 +84,11 @@ const SetAppointment = () => {
   };
 
   return (
-    <>
+    <div className="section-container">
       <NBar user={usr} />
       <form className="setAppointment" onSubmit={handleSubmit}>
-        <label htmlFor="vacunas">Selecciona tu vacuna:</label>
+        <h3>selecciona los datos de tu turno</h3>
+
         <select
           className="form-select"
           onChange={handleVaccineChange}
@@ -73,9 +96,6 @@ const SetAppointment = () => {
           name="vacunas"
           required
         >
-          {/*<option value="" disabled>
-            Selecciona tu vacuna
-  </option>*/}
           <option></option>
           <option value="Gripe">Gripe</option>
           <option value="Covid1">COVID1</option>
@@ -83,7 +103,6 @@ const SetAppointment = () => {
           <option value="Covid3">COVID3</option>
           <option value="FiebreAmarilla">Fiebre amarilla</option>
         </select>
-        <label htmlFor="vacunatorios">Selecciona tus vacunatorios:</label>
         <select
           className="form-select"
           onChange={handleVaccinationCenterChange}
@@ -91,15 +110,12 @@ const SetAppointment = () => {
           name="vacunatorios"
           required
         >
-          {/*<option value="" disabled>
-            Selecciona tus vacunatorios
-  </option>*/}
           <option></option>
           <option value="1">Hospital 9 de Julio</option>
           <option value="2">Corralón municipal</option>
           <option value="3">Polideportivo</option>
         </select>
-        <button type="submit" className="btn btn-light btn-block">
+        <button type="submit">
           {loadingValue && (
             <span className="spinner-border spinner-border-sm"></span>
           )}
@@ -118,7 +134,7 @@ const SetAppointment = () => {
         handleClose={handleClose}
         data={date}
       />
-    </>
+    </div>
   );
 };
 

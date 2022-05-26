@@ -1,6 +1,5 @@
 /**
- * Servicio que se conecta con la API, enviando los datos y recibiendo su respectiva respuesta.
- * Además, hace utilizacion del local storage y guarda ahí la info del usuario.
+ * Servicio que se conecta con la API, enviando los datos de usuarios y recibiendo su respectiva respuesta.
  */
 const url = `http://localhost:8082/users`;
 

@@ -1,10 +1,11 @@
-/**
- * Componente del inicio de sesión del usuario
- */
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthService } from "../services/auth.service";
 
+/**
+ * Funcion que permite Iniciar sesion a un usuario
+ * @returns Retorna un formulario para iniciar sesion
+ */
 function LogIn() {
   const navigate = useNavigate();
 
@@ -15,18 +16,14 @@ function LogIn() {
   const [loadingValue, setLoadingValue] = useState(false);
 
   /**
-   *
+   * Función que maneja el envio de datos cuando termino de completar el formulario LogIn
    * @param {*} e representa el evento.
-   * Esta función maneja el envio cuando termino de completar el formulario y envio. Se activa el loading del botón.
    */
   const handleSubmit = (e) => {
     e.preventDefault();
 
     setMessageValue("");
     setLoadingValue(true);
-    /**
-     * Envio los inputs al servicio que se conecta con la API y recibo su respuesta.
-     */
     AuthService.login(inputDniValue, inputCodeValue, inputPasswordValue).then(
       (res) => {
         if (res.data.status === "fail") {
@@ -43,17 +40,23 @@ function LogIn() {
   };
 
   /**
-   *
+   * Funcion que maneja el cambio del "InputDni"
    * @param {*} e representa el evento.
-   * Esta funcion maneja el cambio cada vez que ingreso un dato en los inputs y actualiza el estado del componente.
    */
-
   const handleDniChange = (e) => {
     setInputDniValue(e.target.value);
   };
+  /**
+   * Funcion que maneja el cambio del "InputPassword"
+   * @param {*} e representa el evento.
+   */
   const handlePasswordChange = (e) => {
     setInputPasswordValue(e.target.value);
   };
+  /**
+   * Funcion que maneja el cambio del "InputCode"
+   * @param {*} e representa el evento.
+   */
   const handleCodeChange = (e) => {
     setInputCodeValue(e.target.value);
   };
@@ -61,15 +64,16 @@ function LogIn() {
   return (
     <>
       <form className="form-login" onSubmit={handleSubmit}>
-        <h1> Bienvenido! </h1>
-        <h3>Inicia sesión para poder acceder a tu cuenta!</h3>
+        {/* <h1> Bienvenido! </h1> */}
+        <h3 className="form-login-signup-header">
+          Inicia sesión para poder acceder a tu cuenta!
+        </h3>
         <input
           type="number"
           name="dni"
           value={inputDniValue}
           onChange={handleDniChange}
           placeholder="Ingresa tu DNI."
-          className="form-control"
           min={5000000}
           max={90000000}
           required
@@ -80,7 +84,6 @@ function LogIn() {
           value={inputCodeValue}
           onChange={handleCodeChange}
           placeholder="Ingresa tu token."
-          className="form-control"
           min={1000}
           max={9999}
           required
@@ -91,11 +94,9 @@ function LogIn() {
           value={inputPasswordValue}
           onChange={handlePasswordChange}
           placeholder="Ingresa tu contraseña."
-          className="form-control"
-          minLength={"8"}
           required
         ></input>
-        <button type="submit" className="btn btn-light btn-block">
+        <button type="submit">
           {loadingValue && (
             <span className="spinner-border spinner-border-sm"></span>
           )}

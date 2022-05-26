@@ -3,13 +3,22 @@ import { AuthService } from "../services/auth.service";
 import { Button, Modal } from "react-bootstrap";
 import { VaccService } from "../services/vacc.service";
 import { useNavigate } from "react-router-dom";
-const AppointmentValidation = ({ show, handleClose, id }) => {
+
+/**
+ * Muestra la opcion para validar la aplicacion de un turno, ingresando el lote de la vacuna
+ * @param {*} loadAppointments Funcion que recarga la lista de turnos activos
+ * @param {*} show Determina si el "Modal" se visualiza o no
+ * @param {*} handleClose Funcion que cierra el "Modal" una vez validado el turno
+ * @param {*} id Identificador del turno a validar
+ * @returns Retorna un "Modal" que se despliega en pantalla para validar un turno espeficico
+ */
+const AppointmentValidation = ({ loadAppointments, show, handleClose, id }) => {
   const navigate = useNavigate();
   const [inputLot, setInputLot] = useState("");
   const [messageValue, setMessageValue] = useState("");
-
   const [usr, setUsr] = useState("");
 
+  //Solo se renderiza "AppointmentValidation" si el parametro "show" cambia
   useEffect(() => {
     AuthService.getUser().then((res) => {
       if (res) setUsr(res);
@@ -20,7 +29,10 @@ const AppointmentValidation = ({ show, handleClose, id }) => {
   const handleLotChange = (e) => {
     setInputLot(e.target.value);
   };
-
+  /**
+   * Funcion que maneja el envio de datos para validar un turno
+   * @param {*} e representa el evento
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     VaccService.validateAppointment(id, inputLot, "Finalizado").then((res) => {
@@ -28,7 +40,8 @@ const AppointmentValidation = ({ show, handleClose, id }) => {
         setInputLot("");
         setMessageValue(res.data.message);
       } else {
-        navigate("/getAppointmentsVacc");
+        handleClose();
+        loadAppointments();
       }
     });
   };
@@ -36,7 +49,7 @@ const AppointmentValidation = ({ show, handleClose, id }) => {
   return (
     <>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Validar Turno para DNI:{usr.patientDni}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -49,10 +62,10 @@ const AppointmentValidation = ({ show, handleClose, id }) => {
           ></input>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button className="btn-close-validate" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" type="submit" onClick={handleSubmit}>
+          <Button className="btn-validate" type="submit" onClick={handleSubmit}>
             Validar
           </Button>
           <hr />

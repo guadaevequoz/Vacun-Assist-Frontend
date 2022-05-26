@@ -1,3 +1,6 @@
+/**
+ * Servicio que se conecta con la API, enviando los datos correspondientes a turnos y vacunas; y recibiendo su respectiva respuesta.
+ */
 const url = `http://localhost:8082/appointment`;
 
 //visualizar turnos

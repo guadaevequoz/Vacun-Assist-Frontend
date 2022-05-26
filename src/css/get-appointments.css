@@ -1,0 +1,30 @@
+.card-header {
+  background-color: #ffef82;
+}
+.appointments-container {
+  overflow-y: scroll;
+}
+.appointments-container::-webkit-scrollbar {
+  background-color: #eee;
+  width: 10px;
+}
+.appointments-container::-webkit-scrollbar-thumb {
+  background-color: #ffee8281;
+}
+
+/* DISEÑO RESPONSIVE */
+@media only screen and (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+  .card {
+    /* transform: scale(0.8); */
+    width: 90% !important;
+  }
+  .appointments-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}

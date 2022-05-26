@@ -1,17 +1,19 @@
-/**
- * Componente de subir datos de salud del usuario
- */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { NBar } from "./Navbar";
 import { AuthService } from "../services/auth.service";
 
+/**
+ * Funcion que permite actualizar los datos de salud de un usuario paciente
+ * @returns Retorna un formulario para actualiar los datos de salud
+ */
 const UploadHealthData = () => {
   const navigate = useNavigate();
   const [isRisk, setIsRisk] = useState(false);
 
   const [usr, setUsr] = useState("");
 
+  //Se renderiza "UploadHealthData" solo una vez
   useEffect(() => {
     AuthService.getUser().then((res) => {
       if (res) setUsr(res);
@@ -20,15 +22,11 @@ const UploadHealthData = () => {
   }, []);
 
   /**
-   *
+   * Esta función maneja el envio de datso cuando termino de completar el formulario UploadHealthData
    * @param {*} e representa el evento.
-   * Esta función maneja el envio cuando termino de completar el formulario y envio.
    */
   const handleSubmit = (e) => {
     e.preventDefault();
-    /**
-     * Envio los inputs al servicio que se conecta con la API y recibo su respuesta.
-     */
     AuthService.uploadHealthData(isRisk).then((res) => {
       if (res) navigate("/board");
       else {
@@ -37,15 +35,20 @@ const UploadHealthData = () => {
     });
   };
 
+  /**
+   * Funcion que maneja el cambio de "InputIsRisk"
+   * @param {*} e representa el evento.
+   */
   const handleIsRisk = (e) => {
     setIsRisk(e.target.checked);
   };
+
   return (
-    <>
+    <div className="section-container">
       <NBar user={usr} />
       <form className="health-data" onSubmit={handleSubmit}>
-        <h1>Cargar datos de salud </h1>
-        <hr></hr>
+        {/* <h1>Cargar datos de salud </h1>
+        <hr></hr> */}
         <h3>Completa el cuestionario de salud para poder sacar tu turno.</h3>
         <div className="form-check">
           <input
@@ -59,11 +62,9 @@ const UploadHealthData = () => {
             riesgo
           </label>
         </div>
-        <button type="submit" className="btn btn-light">
-          Enviar mis datos
-        </button>
+        <button type="submit">Enviar mis datos</button>
       </form>
-    </>
+    </div>
   );
 };
 

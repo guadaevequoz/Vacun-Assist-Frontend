@@ -1,0 +1,14 @@
+.health-data h3 {
+  /* padding-top: 160px; */
+  top: 10px;
+}
+.health-data {
+  padding-top: 90px;
+}
+
+/* DISEÑO RESPONSIVE */
+@media only screen and (max-width: 768px) {
+  .health-data {
+    padding-top: 140px;
+  }
+}

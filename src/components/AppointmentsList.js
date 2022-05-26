@@ -1,7 +1,11 @@
-//Arreglar las Keys
 import { useEffect } from "react";
 import { Card } from "react-bootstrap";
-
+/**
+ * Muesta una lista de los turnos asignados que tiene un usario paciente
+ * @param {*} data Es toda la informacion sobre un turno especifico
+ * @param {*} key Identificador del turno
+ * @returns Retorna una "Card" con la informacion de un turno espeficico
+ */
 export const AppointmentsList = ({ data }, key) => {
   //Sin el useEffect aparece un Dia: vacio. ¿Porque? ni idea
   useEffect(() => {}, [data]);

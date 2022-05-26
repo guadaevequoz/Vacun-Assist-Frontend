@@ -6,29 +6,21 @@ import VaccinatorBoard from "./VaccinatorBoard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Navbar, Nav } from "react-bootstrap";
 
+/**
+ * Funcion que setea la barra de navegacion dependiendo del rol del usuario
+ * @param {*} user  Toda la informacion del usuario conectado
+ * @returns Retorna una barra de navegacion correspondiente al rol del usuario
+ */
 export const NBar = ({ user }) => {
-  /*
-  const [state, setState] = useState({
-    currentUser: "",
-    showVaccinator: false,
-    showAdmin: false,
-  });*/
-
+  /**
+   * Funcion que desconecta a un usuario
+   */
   const logOut = () => {
     AuthService.logout();
   };
 
-  //SI SACO ESTO FUNCIONA IGUAL, POR LAS DUDAS NO LO SACO DEL TODO
-  /*setState({
-      currentUser: undefined,
-      showVaccinator: false,
-      showAdmin: false,
-    });
-  };
-*/
-
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar bg="dark" variant="dark" expand="lg" className="nav-bar">
       <Container>
         <Navbar.Brand>
           <Link to={"/board"} className="navbar-brand">

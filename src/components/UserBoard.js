@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 
+/**
+ * Funcion que muestra la barra de navegacion de un usuario paciente
+ * @param {*} user Toda la informacion del usuario concetado
+ * @returns Retorna una barra de navegacion correspondiente a un usuario paciente
+ */
 const UserBoard = ({ user }) => {
   return (
     <>

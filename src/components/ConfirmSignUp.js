@@ -1,10 +1,11 @@
-/**
- * Componenete para confirmar el registro
- */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthService } from "../services/auth.service";
 
+/**
+ * Formulario donde ingresar el token para validar el registro de un usuario paciente
+ * @returns un formulario donde ingresar  el token
+ */
 const ConfirmSignUp = () => {
   const navigate = useNavigate();
   const [inputCodeValue, setInputCodeValue] = useState("");
@@ -12,9 +13,8 @@ const ConfirmSignUp = () => {
   const [loadingValue, setLoadingValue] = useState(false);
 
   /**
-   *
-   * @param {*} e respresenta el evento
    * Esta funcion maneja el envio del formulario para completar el registro con el token
+   * @param {*} e respresenta el evento
    */
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,13 +33,13 @@ const ConfirmSignUp = () => {
   };
 
   /**
-   *
-   * @param {*} e representa el evento
    * Esta funcion maneja el cambio cada vez que ingreso un dato en los inputs y actualiza el estado del componente.
+   * @param {*} e representa el evento
    */
   const handleCodeChange = (e) => {
     setInputCodeValue(e.target.value);
   };
+
   return (
     <>
       <form className="form-login" onSubmit={handleSubmit}>
@@ -50,14 +50,9 @@ const ConfirmSignUp = () => {
           value={inputCodeValue}
           onChange={handleCodeChange}
           placeholder="Ingresa tu token."
-          className="form-control"
           required
         ></input>
-        <button
-          type="submit"
-          className="btn btn-light btn-block"
-          //disabled={state.loading}
-        >
+        <button type="submit">
           {loadingValue && (
             <span className="spinner-border spinner-border-sm"></span>
           )}

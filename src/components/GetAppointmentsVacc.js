@@ -4,38 +4,53 @@ import { useEffect, useState } from "react";
 import { NBar } from "./Navbar";
 import { VaccList } from "./VaccList";
 import { useNavigate } from "react-router-dom";
+
+/**
+ * Funcion que devuelve una lista de los turnos activos de un usuario vacunador
+ * @returns Retorna una lista de los turnos activos
+ */
 const GetAppointments = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState([""]);
   const [usr, setUsr] = useState("");
 
+  //Renderiza "GetAppointments" solo una vez
   useEffect(() => {
+    AuthService.getUser().then((res) => {
+      if (res) setUsr(res);
+      else navigate("/login");
+    }, loadAppointments());
+  }, []);
+
+  /**
+   * Funcion que devuelve todos los turnos de un vacunatorio espeficico
+   */
+  const loadAppointments = () => {
     VaccService.getAppointments().then(
       ({ appointments }) => {
         setMessage([...appointments]);
       },
       (error) => {
         setMessage(error);
-      },
-      AuthService.getUser().then((res) => {
-        if (res) setUsr(res);
-        else navigate("/login");
-      })
+      }
     );
-  }, []);
+  };
 
   return (
-    <>
+    <div className="section-container">
       <NBar user={usr} />
-      {message.map((data) => {
-        return (
-          <VaccList
-            data={data}
-            key={Math.floor(Math.random() * (0 - 9999999) + 0)}
-          />
-        );
-      })}
-    </>
+      <div className="appointments-container">
+        {message.map((data) => {
+          return (
+            <VaccList
+              loadAppointments={loadAppointments}
+              data={data}
+              key={Math.floor(Math.random() * (0 - 9999999) + 0)}
+            />
+          );
+        })}
+      </div>
+    </div>
   );
 };
 

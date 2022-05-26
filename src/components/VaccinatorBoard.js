@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 
-const VaccinatorBoard = (vaccCenter) => {
-  /**
-   * Pagina de bienvenida del vacunador
-   */
-
+/**
+ * Funcion que muestra la barra de navegacion de un usuario vacunador
+ * @returns Retorna una barra de navegacion correspondiente a un usuario vacunador
+ */
+const VaccinatorBoard = () => {
   return (
     <>
       <Nav.Link>
