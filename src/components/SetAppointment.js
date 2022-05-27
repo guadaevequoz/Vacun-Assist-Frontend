@@ -52,12 +52,23 @@ const SetAppointment = () => {
         setMessageValue(data.message);
         setLoadingValue(false);
       } else {
-        setDate(data.data.newAppointment.vaccinationDate);
+        setDate(showDate(new Date(data.data.newAppointment.vaccinationDate)));
         handleShow();
       }
     });
   };
-
+  /**
+   * Retorna un String con el estilo de visualizacion necesario para SetAppointmentConfirm (Dia/Mes/Año)
+   * @param {*} date variable tipo Date con el dia del turno para vacunarse
+   * @returns
+   */
+  const showDate = (date) => {
+    let fullDate = "";
+    if (date) {
+      fullDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+    }
+    return fullDate;
+  };
   /**
    * Funcion que maneja el cambio de "InputVaccine"
    * @param {*} e Representa el evento
@@ -111,9 +122,9 @@ const SetAppointment = () => {
           required
         >
           <option></option>
-          <option value="1">Hospital 9 de Julio</option>
-          <option value="2">Corralón municipal</option>
-          <option value="3">Polideportivo</option>
+          <option value="Hospital 9 de Julio">Hospital 9 de Julio</option>
+          <option value="Corralón municipal">Corralón municipal</option>
+          <option value="Polideportivo">Polideportivo</option>
         </select>
         <button type="submit">
           {loadingValue && (
@@ -132,7 +143,8 @@ const SetAppointment = () => {
       <SetAppointmentConfirm
         show={show}
         handleClose={handleClose}
-        data={date}
+        dateData={date}
+        vaccinationCenter={inputVaccinationCenterValue}
       />
     </div>
   );

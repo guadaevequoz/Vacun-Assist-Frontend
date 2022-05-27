@@ -47,7 +47,7 @@ const setAppointment = async (vaccine, vaccinationCenter) => {
 };
 
 //validar vacuna
-const validateAppointment = async (id, lot, state) => {
+const validateAppointment = async (id, lot, mark, state) => {
   try {
     const resp = await fetch(url + "/validate", {
       method: "POST",
@@ -59,6 +59,7 @@ const validateAppointment = async (id, lot, state) => {
         id: id,
         state: state,
         lot: lot,
+        mark: mark,
       }),
       credentials: "include",
     });

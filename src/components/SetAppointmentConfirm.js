@@ -9,14 +9,16 @@ import { useNavigate } from "react-router-dom";
  *  @param {*} data Dia asignado para el turno
  * @returns Retorna un "Modal" que se despliega en pantalla cuando se saca un turno
  */
-const SetAppointmentConfirm = ({ show, handleClose, data }) => {
-  const [date, setDate] = useState("");
+const SetAppointmentConfirm = ({
+  show,
+  handleClose,
+  dateData,
+  vaccinationCenter,
+}) => {
   const navigate = useNavigate();
 
   //Solo se renderiza "SetAppointmentConfirm" cuando cambia el valor de "show"
-  useEffect(() => {
-    if (data) setDate(data);
-  }, [show]);
+  useEffect(() => {}, [show]);
 
   /**
    * Funcion que cierra el "Modal" y redirige a la pagina principal
@@ -27,7 +29,6 @@ const SetAppointmentConfirm = ({ show, handleClose, data }) => {
     handleClose();
     navigate("/board");
   };
-
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -35,7 +36,8 @@ const SetAppointmentConfirm = ({ show, handleClose, data }) => {
           <Modal.Title>Tu turno fue sacado con éxito. </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Presentate en tu vacunatorio el día {date} para poder vacunarte.
+          Presentate en tu vacunatorio "{vaccinationCenter}" el día {dateData}{" "}
+          para poder vacunarte.
         </Modal.Body>
         <Modal.Footer>
           <Button className="btn-validate" type="submit" onClick={handleSubmit}>

@@ -3,6 +3,7 @@ import { AuthService } from "../services/auth.service";
 import { Button, Modal } from "react-bootstrap";
 import { VaccService } from "../services/vacc.service";
 import { useNavigate } from "react-router-dom";
+import GetAppointments from "./GetAppointmentsVacc";
 
 /**
  * Muestra la opcion para validar la aplicacion de un turno, ingresando el lote de la vacuna
@@ -15,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 const AppointmentValidation = ({ loadAppointments, show, handleClose, id }) => {
   const navigate = useNavigate();
   const [inputLot, setInputLot] = useState("");
+  const [inputMark, setInputMark] = useState("");
   const [messageValue, setMessageValue] = useState("");
   const [usr, setUsr] = useState("");
 
@@ -26,24 +28,39 @@ const AppointmentValidation = ({ loadAppointments, show, handleClose, id }) => {
     });
   }, [show]);
 
+  /**
+   * Funcion que maneja el cambio del "InputLot"
+   * @param {*} e representa el evento.
+   */
   const handleLotChange = (e) => {
     setInputLot(e.target.value);
   };
+
+  /**
+   * Funcion que maneja el cambio del "InputMark"
+   * @param {*} e representa el evento.
+   */
+  const handleMarkChange = (e) => {
+    setInputMark(e.target.value);
+  };
+
   /**
    * Funcion que maneja el envio de datos para validar un turno
    * @param {*} e representa el evento
    */
   const handleSubmit = (e) => {
     e.preventDefault();
-    VaccService.validateAppointment(id, inputLot, "Finalizado").then((res) => {
-      if (res.data.status === "fail") {
-        setInputLot("");
-        setMessageValue(res.data.message);
-      } else {
-        handleClose();
-        loadAppointments();
+    VaccService.validateAppointment(id, inputLot, inputMark, "Finalizado").then(
+      (res) => {
+        if (res.data.status === "fail") {
+          setInputLot("");
+          setMessageValue(res.data.message);
+        } else {
+          handleClose();
+          loadAppointments();
+        }
       }
-    });
+    );
   };
 
   return (
@@ -60,6 +77,16 @@ const AppointmentValidation = ({ loadAppointments, show, handleClose, id }) => {
             onChange={handleLotChange}
             placeholder="Ingrese el Lote"
           ></input>
+          <div>
+            {" "}
+            <input
+              type="text"
+              name="mark"
+              value={inputMark}
+              onChange={handleMarkChange}
+              placeholder="Ingrese la marca"
+            ></input>
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button className="btn-close-validate" onClick={handleClose}>

@@ -12,7 +12,7 @@ import { Card } from "react-bootstrap";
  */
 const GetAppointments = () => {
   const navigate = useNavigate();
-  const [message, setMessage] = useState([""]);
+  const [message, setMessage] = useState([]);
   const [usr, setUsr] = useState("");
 
   //Renderiza "GetAppointments" solo una vez
@@ -24,12 +24,15 @@ const GetAppointments = () => {
   }, []);
 
   /**
-   * Funcion que devuelve todos los turnos de un vacunatorio espeficico
+   * Funcion que devuelve todos los turnos ACTIVOS de un vacunatorio espeficico
    */
   const loadAppointments = () => {
+    setMessage([]);
     VaccService.getAppointments().then(
       ({ appointments }) => {
-        setMessage([...appointments]);
+        appointments.map((data) => {
+          if (data.state === "Activo") setMessage([...message, data]);
+        });
       },
       (error) => {
         setMessage(error);

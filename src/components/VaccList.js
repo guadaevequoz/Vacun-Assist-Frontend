@@ -25,29 +25,23 @@ export const VaccList = ({ loadAppointments, data }, key) => {
   return (
     <>
       <Card style={{ width: "500px", margin: "10px auto" }}>
-        {data.state === "Activo" && (
-          <>
-            <Card.Header>
-              <Card.Title>Vacuna: {data.vaccine}</Card.Title>
-            </Card.Header>
-            <Card.Body>
-              <Card.Text>
-                <div key={data._id + data.patientDni}>
-                  DNI: {data.patientDni}
-                </div>
-              </Card.Text>
-            </Card.Body>
-            <Button className="validate-window-btn" onClick={handleShow}>
-              Validar
-            </Button>
-            <AppointmentValidation
-              loadAppointments={loadAppointments}
-              show={show}
-              handleClose={handleClose}
-              id={data._id}
-            />
-          </>
-        )}
+        <Card.Header>
+          <Card.Title>Vacuna: {data.vaccine}</Card.Title>
+        </Card.Header>
+        <Card.Body>
+          <Card.Text>
+            <div key={data._id + data.patientDni}>DNI: {data.patientDni}</div>
+          </Card.Text>
+        </Card.Body>
+        <Button className="validate-window-btn" onClick={handleShow}>
+          Validar
+        </Button>
+        <AppointmentValidation
+          loadAppointments={loadAppointments}
+          show={show}
+          handleClose={handleClose}
+          id={data._id}
+        />
       </Card>
       <br />
     </>

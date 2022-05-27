@@ -16,6 +16,10 @@ const GetAppointments = () => {
 
   //Se renderiza "GetAppointment" solo una vez
   useEffect(() => {
+    AuthService.getUser().then((res) => {
+      if (res) setUsr(res);
+      else navigate("/login");
+    });
     VaccService.getAppointments().then(
       ({ appointments }) => {
         setMessage([...appointments]);
