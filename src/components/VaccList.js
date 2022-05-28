@@ -38,6 +38,7 @@ export const VaccList = ({ loadAppointments, data }, key) => {
         </Button>
         <AppointmentValidation
           loadAppointments={loadAppointments}
+          dni={data.patientDni}
           show={show}
           handleClose={handleClose}
           id={data._id}

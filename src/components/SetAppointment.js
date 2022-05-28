@@ -52,23 +52,12 @@ const SetAppointment = () => {
         setMessageValue(data.message);
         setLoadingValue(false);
       } else {
-        setDate(showDate(new Date(data.data.newAppointment.vaccinationDate)));
+        setDate(...data.data.newAppointment.vaccinationDate.split("T", 1));
         handleShow();
       }
     });
   };
-  /**
-   * Retorna un String con el estilo de visualizacion necesario para SetAppointmentConfirm (Dia/Mes/Año)
-   * @param {*} date variable tipo Date con el dia del turno para vacunarse
-   * @returns
-   */
-  const showDate = (date) => {
-    let fullDate = "";
-    if (date) {
-      fullDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
-    }
-    return fullDate;
-  };
+
   /**
    * Funcion que maneja el cambio de "InputVaccine"
    * @param {*} e Representa el evento

@@ -9,6 +9,7 @@ import { Card } from "react-bootstrap";
 export const AppointmentsList = ({ data }, key) => {
   //Sin el useEffect aparece un Dia: vacio. ¿Porque? ni idea
   useEffect(() => {}, [data]);
+  const date = data.vaccinationDate.split("T", 1);
   return (
     <>
       <Card style={{ width: "500px", margin: "10px auto" }}>
@@ -16,12 +17,14 @@ export const AppointmentsList = ({ data }, key) => {
           <Card.Title>Vacuna: {data.vaccine}</Card.Title>
         </Card.Header>
         <Card.Body>
-          <div className="list-group-item">Día: {data.vaccinationDate}</div>
+          <div className="list-group-item"> Día: {date}</div>
           <div className="list-group-item">
             Estado:{" "}
             {data.state === "Finalizado"
               ? "Turno concretado ✅"
-              : "Turno pendiente ⌛"}
+              : data.state === "Activo"
+              ? "Turno pendiente ⌛"
+              : "Turno cancelado ❌"}
           </div>
           <div className="list-group-item">
             Vacunatorio: {data.vaccinationCenter}

@@ -13,7 +13,13 @@ import GetAppointments from "./GetAppointmentsVacc";
  * @param {*} id Identificador del turno a validar
  * @returns Retorna un "Modal" que se despliega en pantalla para validar un turno espeficico
  */
-const AppointmentValidation = ({ loadAppointments, show, handleClose, id }) => {
+const AppointmentValidation = ({
+  loadAppointments,
+  dni,
+  show,
+  handleClose,
+  id,
+}) => {
   const navigate = useNavigate();
   const [inputLot, setInputLot] = useState("");
   const [inputMark, setInputMark] = useState("");
@@ -67,7 +73,7 @@ const AppointmentValidation = ({ loadAppointments, show, handleClose, id }) => {
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>Validar turno para DNI: {usr.patientDni}</Modal.Title>
+          <Modal.Title>Validar turno para DNI: {dni}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <input
