@@ -109,9 +109,7 @@ const SetAppointment = () => {
         >
           <option></option>
           <option value="Gripe">Gripe</option>
-          <option value="Covid1">COVID1</option>
-          <option value="Covid2">COVID2</option>
-          <option value="Covid3">COVID3</option>
+          <option value="Covid">COVID</option>
           <option value="FiebreAmarilla">Fiebre amarilla</option>
         </select>
         <select

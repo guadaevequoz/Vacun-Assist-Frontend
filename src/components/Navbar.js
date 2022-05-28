@@ -3,7 +3,6 @@ import { AuthService } from "../services/auth.service";
 import UserBoard from "./UserBoard";
 import VaccinatorBoard from "./VaccinatorBoard";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Navbar, Nav } from "react-bootstrap";
 
 /**

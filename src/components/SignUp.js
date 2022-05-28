@@ -14,6 +14,8 @@ function SignUp() {
   const [inputMailValue, setInputMailValue] = useState("");
   const [messageValue, setMessageValue] = useState("");
   const [loadingValue, setLoadingValue] = useState(false);
+  const [inputGenderValue, setInputGenderValue] = useState("");
+  const [inputTramitValue, setInputTramitValue] = useState("");
 
   /**
    * Función que maneja el envio de datos cuando termino de completar el formulario SignUp
@@ -21,16 +23,23 @@ function SignUp() {
    */
   const handleSubmit = (e) => {
     e.preventDefault();
+    reset();
 
+    setMessageValue("");
+    setLoadingValue(true);
     AuthService.signup(
       inputDniValue,
       inputMailValue,
+      inputGenderValue,
+      inputTramitValue,
       inputPasswordValue + ""
     ).then((res) => {
       if (res.data.status === "fail") {
         setInputDniValue("");
         setInputPasswordValue("");
         setInputMailValue("");
+        setInputGenderValue("");
+        setInputTramitValue("");
         setMessageValue(res.data.message);
         setLoadingValue(false);
       } else {
@@ -46,6 +55,23 @@ function SignUp() {
   const handleDniChange = (e) => {
     setInputDniValue(e.target.value);
   };
+
+  /**
+   * Funcion que maneja el cambio de "InputGender"
+   * @param {*} e representa el evento.
+   */
+  const handleGenderChange = (e) => {
+    setInputGenderValue(e.target.value);
+  };
+
+  /**
+   * Funcion que maneja el cambio de "InputTramit"
+   * @param {*} e representa el evento.
+   */
+  const handleTramitChange = (e) => {
+    setInputTramitValue(e.target.value);
+  };
+
   /**
    * Funcion que maneja el cambio de "InputPassword"
    * @param {*} e representa el evento.
@@ -53,12 +79,21 @@ function SignUp() {
   const handlePasswordChange = (e) => {
     setInputPasswordValue(e.target.value);
   };
+
   /**
    * Funcion que maneja el cambio de "InputMail"
    * @param {*} e representa el evento.
    */
   const handleMailChange = (e) => {
     setInputMailValue(e.target.value);
+  };
+
+  /**
+   * Funcion que resetea los valores de "InputGender"
+   */
+  const reset = () => {
+    const gender = document.getElementById("gender");
+    gender.selectedIndex = 0;
   };
 
   return (
@@ -73,6 +108,17 @@ function SignUp() {
           value={inputDniValue}
           onChange={handleDniChange}
           placeholder="Ingresa tu DNI."
+          min={"1000000"}
+          s
+          max={"999999999999999999"}
+          required
+        ></input>
+        <input
+          type="number"
+          name="tramit"
+          value={inputTramitValue}
+          onChange={handleTramitChange}
+          placeholder="Ingresa tu número de tramite."
           required
         ></input>
         <input
@@ -92,6 +138,18 @@ function SignUp() {
           minLength={"8"}
           required
         ></input>
+        <label htmlFor="gender">Ingrese su sexo</label>
+        <select
+          className="form-select"
+          onChange={handleGenderChange}
+          id="gender"
+          name="gender"
+          required
+        >
+          <option></option>
+          <option value="F">Femenino</option>
+          <option value="M">Masculino</option>
+        </select>
         <button type="submit">
           {loadingValue && (
             <span className="spinner-border spinner-border-sm"></span>

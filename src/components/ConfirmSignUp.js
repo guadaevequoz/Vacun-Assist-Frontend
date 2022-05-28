@@ -21,7 +21,11 @@ const ConfirmSignUp = () => {
     AuthService.confirm(inputCodeValue).then(({ data }) => {
       if (data.status === "fail") {
         setInputCodeValue("");
-        setMessageValue(data.message);
+        setMessageValue(
+          data.message === "jwt expired"
+            ? "El código que ingresaste se ha vencido. Vuelva a la pantalla de registro para recibir uno nuevo."
+            : data.message
+        );
         setLoadingValue(false);
       } else {
         const usr = data.data.usr;

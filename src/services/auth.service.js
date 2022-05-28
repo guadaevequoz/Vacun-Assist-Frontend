@@ -46,7 +46,7 @@ const logout = async () => {
   }
 };
 
-const signup = async (dni, email, pass) => {
+const signup = async (dni, email, gender, tramit, pass) => {
   try {
     const resp = await fetch(url + "/signup", {
       method: "POST",
@@ -58,6 +58,8 @@ const signup = async (dni, email, pass) => {
         dni: dni,
         email: email,
         password: pass,
+        gender: gender,
+        tramit: tramit,
       }),
       credentials: "include",
     });

@@ -21,7 +21,7 @@ export const AppointmentsList = ({ data }, key) => {
             Estado:{" "}
             {data.state === "Finalizado"
               ? "Turno concretado ✅"
-              : "Turno pendiente ❌"}
+              : "Turno pendiente ⌛"}
           </div>
           <div className="list-group-item">
             Vacunatorio: {data.vaccinationCenter}

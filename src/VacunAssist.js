@@ -14,6 +14,8 @@ import GetAppointmentsVacc from "./components/GetAppointmentsVacc";
 import AppointmentValidation from "./components/AppointmentValidation";
 import { useNavigate } from "react-router-dom";
 // import "./index.css";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/login-singup.css";
 import "./css/board.css";
 import "./css/health-form.css";

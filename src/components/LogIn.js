@@ -93,7 +93,6 @@ function LogIn() {
           value={inputPasswordValue}
           onChange={handlePasswordChange}
           placeholder="Ingresa tu contraseña."
-          minLength={"8"}
           required
         ></input>
         <button type="submit">
