@@ -16,7 +16,6 @@ const SetAppointmentConfirm = ({
   vaccinationCenter,
 }) => {
   const navigate = useNavigate();
-
   //Solo se renderiza "SetAppointmentConfirm" cuando cambia el valor de "show"
   useEffect(() => {}, [show]);
 
@@ -33,12 +32,20 @@ const SetAppointmentConfirm = ({
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>Tu turno fue sacado con éxito. </Modal.Title>
+          {dateData !== "Pendiente" ? (
+            <Modal.Title>Tu turno fue sacado con éxito. </Modal.Title>
+          ) : (
+            <Modal.Title>Tu turno está pendiente.</Modal.Title>
+          )}
         </Modal.Header>
-        <Modal.Body>
-          Presentate en tu vacunatorio "{vaccinationCenter}" el día {dateData}{" "}
-          para poder vacunarte.
-        </Modal.Body>
+        {dateData !== "Pendiente" ? (
+          <Modal.Body>
+            Presentate en tu vacunatorio "{vaccinationCenter}" el día {dateData}
+            para poder vacunarte.
+          </Modal.Body>
+        ) : (
+          <Modal.Body>Te avisaremos cuando se confirme.😉</Modal.Body>
+        )}
         <Modal.Footer>
           <Button className="btn-validate" type="submit" onClick={handleSubmit}>
             Ok

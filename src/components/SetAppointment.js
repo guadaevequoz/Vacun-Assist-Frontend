@@ -52,7 +52,9 @@ const SetAppointment = () => {
         setMessageValue(data.message);
         setLoadingValue(false);
       } else {
-        setDate(...data.data.newAppointment.vaccinationDate.split("T", 1));
+        data.data.newAppointment.vaccinationDate
+          ? setDate(...data.data.newAppointment.vaccinationDate.split("T", 1))
+          : setDate("Pendiente");
         handleShow();
       }
     });
