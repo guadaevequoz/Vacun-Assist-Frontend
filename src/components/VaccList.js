@@ -25,7 +25,17 @@ export const VaccList = ({ loadAppointments, data }, key) => {
   return (
     <>
       <Card style={{ width: "500px", margin: "10px auto" }}>
-        <Card.Header>
+        <Card.Header
+          style={{
+            backgroundColor: `${
+              data.vaccine === "Covid"
+                ? "#B7E5DD"
+                : data.vaccine === "Gripe"
+                ? "rgba(188, 250, 92)"
+                : "#ffef82"
+            }`,
+          }}
+        >
           <Card.Title>Vacuna: {data.vaccine}</Card.Title>
         </Card.Header>
         <Card.Body>
