@@ -10,9 +10,9 @@ const AdminBoard = () => {
   return (
     <>
       <Nav.Link>
-        <Link to={"/getAppointmentsAdmin"} className="nav-link">
+        {/* <Link to={"/getAppointmentsAdmin"} className="nav-link">
           Visualizar turnos
-        </Link>
+        </Link>*/}
       </Nav.Link>
     </>
   );

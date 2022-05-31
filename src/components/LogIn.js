@@ -76,7 +76,7 @@ function LogIn() {
           required
         ></input>
         <input
-          type="number"
+          type="text"
           name="token"
           value={inputCodeValue}
           onChange={handleCodeChange}

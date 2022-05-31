@@ -22,19 +22,11 @@ function Board() {
     <div className="section-container">
       <NBar user={usr} />
       <p>Bienvenido {usr.fullName}!</p>
-      {usr.rol === "admin" ? (
+      {usr.rol === "admin" && (
         <p>
-          Como <b>administrador</b> próximamente podrás: obtener un listado de
-          todos los turnos registrado en el sistema junto con estádisticas,
-          agregar stock de vacunas y registrar vacunadores.
+          Próximamente desde aquí accederas a las funciones de{" "}
+          <b>administrador</b>.
         </p>
-      ) : usr.rol === "vacc" ? (
-        <p>
-          Como <b>vacunador</b> podrás: obtener un listado de todos los turnos
-          del día y registrar el resultado de un turno.
-        </p>
-      ) : (
-        <p>Dentro de VacunAssist podrás: sacar turnos para tus vacunas.</p>
       )}
     </div>
   );
