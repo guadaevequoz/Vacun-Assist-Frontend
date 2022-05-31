@@ -15,33 +15,9 @@ const SetAppointmentConfirm = ({
   dateData,
   vaccinationCenter,
 }) => {
-  const months = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
-  ];
   const navigate = useNavigate();
   //Solo se renderiza "SetAppointmentConfirm" cuando cambia el valor de "show"
   useEffect(() => {}, [show]);
-  const newDate = new Date(dateData);
-  const date =
-    dateData !== "Pendiente"
-      ? newDate.getDate() +
-        " de " +
-        months[newDate.getMonth()] +
-        " de " +
-        newDate.getFullYear() +
-        " "
-      : "Pendiente";
 
   /**
    * Funcion que cierra el "Modal" y redirige a la pagina principal
@@ -64,7 +40,7 @@ const SetAppointmentConfirm = ({
         </Modal.Header>
         {dateData !== "Pendiente" ? (
           <Modal.Body>
-            Presentate en tu vacunatorio "{vaccinationCenter}" el día {date}
+            Presentate en tu vacunatorio "{vaccinationCenter}" el día {dateData}
             para poder vacunarte.
           </Modal.Body>
         ) : (

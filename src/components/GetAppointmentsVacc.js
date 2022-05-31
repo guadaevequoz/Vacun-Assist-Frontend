@@ -28,9 +28,11 @@ const GetAppointments = () => {
    */
   const loadAppointments = () => {
     setMessage([]);
+    const aux = [];
     VaccService.getAppointments().then(
       ({ appointments }) => {
         appointments.map((data) => {
+          console.log(data);
           if (data.state === "Activo") setMessage([...message, data]);
         });
       },
@@ -39,7 +41,6 @@ const GetAppointments = () => {
       }
     );
   };
-
   return (
     <div className="section-container">
       <NBar user={usr} />
