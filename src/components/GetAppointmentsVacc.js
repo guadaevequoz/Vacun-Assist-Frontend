@@ -40,7 +40,6 @@ const GetAppointments = () => {
       }
     );
   };
-
   return (
     <div className="section-container">
       <NBar user={usr} />

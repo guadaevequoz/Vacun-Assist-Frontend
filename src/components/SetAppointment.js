@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { VaccService } from "../services/vacc.service";
 import { AuthService } from "../services/auth.service";
 import { NBar } from "./Navbar";
+import getFullDate from "../helpers/getFullDate";
 import SetAppointmentConfirm from "./SetAppointmentConfirm";
 
 /**
@@ -53,7 +54,7 @@ const SetAppointment = () => {
         setLoadingValue(false);
       } else {
         data.data.newAppointment.vaccinationDate
-          ? setDate(...data.data.newAppointment.vaccinationDate.split("T", 1))
+          ? setDate(getFullDate(data.data.newAppointment.vaccinationDate))
           : setDate("Pendiente");
         handleShow();
       }
