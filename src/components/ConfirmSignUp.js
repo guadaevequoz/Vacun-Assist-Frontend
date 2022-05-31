@@ -20,7 +20,6 @@ const ConfirmSignUp = () => {
     e.preventDefault();
     AuthService.confirm(inputCodeValue).then(({ data }) => {
       if (data.status === "fail") {
-        setInputCodeValue("");
         setMessageValue(
           data.message === "jwt expired"
             ? "El código que ingresaste se ha vencido. Vuelva a la pantalla de registro para recibir uno nuevo."
@@ -49,11 +48,12 @@ const ConfirmSignUp = () => {
       <form className="form-login" onSubmit={handleSubmit}>
         <h3>Ingresa el código numerico que recibiste en tu mail. </h3>
         <input
-          type="number"
+          type="text"
           name="token"
           value={inputCodeValue}
           onChange={handleCodeChange}
           placeholder="Ingresa tu código."
+          maxLength={"4"}
           required
         ></input>
         <button type="submit">

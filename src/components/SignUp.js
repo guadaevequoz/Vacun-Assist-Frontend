@@ -23,7 +23,6 @@ function SignUp() {
    */
   const handleSubmit = (e) => {
     e.preventDefault();
-    reset();
 
     setMessageValue("");
     setLoadingValue(true);
@@ -35,11 +34,7 @@ function SignUp() {
       inputPasswordValue + ""
     ).then((res) => {
       if (res.data.status === "fail") {
-        setInputDniValue("");
         setInputPasswordValue("");
-        setInputMailValue("");
-        setInputGenderValue("");
-        setInputTramitValue("");
         setMessageValue(res.data.message);
         setLoadingValue(false);
       } else {
@@ -88,14 +83,6 @@ function SignUp() {
     setInputMailValue(e.target.value);
   };
 
-  /**
-   * Funcion que resetea los valores de "InputGender"
-   */
-  const reset = () => {
-    const gender = document.getElementById("gender");
-    gender.selectedIndex = 0;
-  };
-
   return (
     <>
       <form className="form-login" onSubmit={handleSubmit}>
@@ -114,11 +101,12 @@ function SignUp() {
           required
         ></input>
         <input
-          type="number"
+          type="text"
           name="tramit"
           value={inputTramitValue}
           onChange={handleTramitChange}
           placeholder="Ingresa tu número de tramite."
+          minLength={"11"}
           required
         ></input>
         <input

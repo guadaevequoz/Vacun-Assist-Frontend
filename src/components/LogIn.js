@@ -27,9 +27,7 @@ function LogIn() {
     AuthService.login(inputDniValue, inputCodeValue, inputPasswordValue).then(
       (res) => {
         if (res.data.status === "fail") {
-          setInputDniValue("");
           setInputPasswordValue("");
-          setInputCodeValue("");
           setMessageValue(res.data.message);
           setLoadingValue(false);
         } else {
