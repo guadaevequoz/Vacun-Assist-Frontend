@@ -13,6 +13,7 @@ import SetAppointment from "./components/SetAppointment";
 import GetAppointmentsVacc from "./components/GetAppointmentsVacc";
 import AppointmentValidation from "./components/AppointmentValidation";
 import { useNavigate } from "react-router-dom";
+import GetAppointmentsAdmin from "./components/GetAppointmentsAdmin";
 // import "./index.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -53,6 +54,10 @@ const VacunAssist = () => {
         <Route
           path="/appointmentValidation"
           element={<AppointmentValidation />}
+        />
+        <Route
+          path="/getAppointmentsAdmin"
+          element={<GetAppointmentsAdmin />}
         />
         <Route path="*" element={<NotFound></NotFound>} />
       </Routes>

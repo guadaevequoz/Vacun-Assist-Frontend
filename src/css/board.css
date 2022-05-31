@@ -17,6 +17,14 @@ nav {
   border-top-right-radius: 10px;
 }
 
+p {
+  margin: 0px 10px 0px 9px;
+}
+
+p .saludo {
+  text-decoration: underline;
+}
+
 /* DISEÑO RESPONSIVE */
 @media only screen and (max-width: 768px) {
   body {

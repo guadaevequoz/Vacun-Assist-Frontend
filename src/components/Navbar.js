@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { AuthService } from "../services/auth.service";
 import UserBoard from "./UserBoard";
 import VaccinatorBoard from "./VaccinatorBoard";
+import AdminBoard from "./AdminBoard";
 
 import { Container, Navbar, Nav } from "react-bootstrap";
 
@@ -46,13 +47,7 @@ export const NBar = ({ user }) => {
                 </Nav.Link>
               </>
             )}
-            {user.rol === "admin" && (
-              <Nav.Link>
-                <Link to={"/getAppointments"} className="nav-link">
-                  Listar turnos
-                </Link>
-              </Nav.Link>
-            )}
+            {user.rol === "admin" && <AdminBoard />}
             {user.rol === "vacc" && (
               <VaccinatorBoard vaccCenter={user.vaccinationCenter} />
             )}

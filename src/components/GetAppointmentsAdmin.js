@@ -10,7 +10,7 @@ import { Card } from "react-bootstrap";
  * Funcion que muestra en pantalla los turnos de un usuario paciente
  * @returns Retorna una lista con los turnos
  */
-const GetAppointments = () => {
+const GetAppointmentsAdmin = () => {
   const navigate = useNavigate();
   const [usr, setUsr] = useState("");
   const [message, setMessage] = useState([]);
@@ -39,29 +39,18 @@ const GetAppointments = () => {
       <div className="section-container">
         <NBar user={usr} />
         <div className="appointments-container">
-          {message.length === 0 && (
-            <Card style={{ width: "500px", margin: "10px auto" }}>
-              <Card.Body>
-                <Card.Text>
-                  Aún no tenes turnos vinculados, pero no te desanimes! Ingresa
-                  a la sección "Sacar turno" para solicitarlo, si no hay
-                  disponibles te notificaremos cuando haya uno 😊
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          )}
-          {message.map((data, idx) => {
-            return (
-              <AppointmentsList
-                data={data}
-                key={Math.floor(Math.random() * (0 - 9999999) + 0)}
-              />
-            );
-          })}
+          <Card style={{ width: "500px", margin: "10px auto" }}>
+            <Card.Body>
+              <Card.Text>
+                Próximamente vas a poder visualizar todas las estadísticas
+                relevantes como administrador.
+              </Card.Text>
+            </Card.Body>
+          </Card>
         </div>
       </div>
     </>
   );
 };
 
-export default GetAppointments;
+export default GetAppointmentsAdmin;
