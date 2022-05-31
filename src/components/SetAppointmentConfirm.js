@@ -32,14 +32,17 @@ const SetAppointmentConfirm = ({
   const navigate = useNavigate();
   //Solo se renderiza "SetAppointmentConfirm" cuando cambia el valor de "show"
   useEffect(() => {}, [show]);
-  const date = dateData !== "Pendiente" && new Date(dateData);
-  const newDate =
-    date.getDate() +
-    " de " +
-    months[date.getMonth()] +
-    " de " +
-    date.getFullYear() +
-    " ";
+  const newDate = new Date(dateData);
+  const date =
+    dateData !== "Pendiente"
+      ? newDate.getDate() +
+        " de " +
+        months[newDate.getMonth()] +
+        " de " +
+        newDate.getFullYear() +
+        " "
+      : "Pendiente";
+
   /**
    * Funcion que cierra el "Modal" y redirige a la pagina principal
    * @param {*} e Representa el evento
@@ -61,7 +64,7 @@ const SetAppointmentConfirm = ({
         </Modal.Header>
         {dateData !== "Pendiente" ? (
           <Modal.Body>
-            Presentate en tu vacunatorio "{vaccinationCenter}" el día {newDate}
+            Presentate en tu vacunatorio "{vaccinationCenter}" el día {date}
             para poder vacunarte.
           </Modal.Body>
         ) : (
