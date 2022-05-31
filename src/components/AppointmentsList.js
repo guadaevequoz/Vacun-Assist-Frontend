@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Card } from "react-bootstrap";
+
 /**
  * Muesta una lista de los turnos asignados que tiene un usario paciente
  * @param {*} data Es toda la informacion sobre un turno especifico
@@ -7,10 +8,30 @@ import { Card } from "react-bootstrap";
  * @returns Retorna una "Card" con la informacion de un turno espeficico
  */
 export const AppointmentsList = ({ data }, key) => {
+  const months = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+
   //Sin el useEffect aparece un Dia: vacio. ¿Porque? ni idea
   useEffect(() => {}, [data]);
+  let newDate = new Date(data.vaccinationDate);
   const date = data.vaccinationDate
-    ? data.vaccinationDate.split("T", 1)
+    ? newDate.getDate() +
+      " de " +
+      months[newDate.getMonth()] +
+      " de " +
+      newDate.getFullYear()
     : "A confirmar";
   return (
     <>
