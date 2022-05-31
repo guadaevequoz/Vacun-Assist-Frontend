@@ -24,7 +24,7 @@ export const NBar = ({ user }) => {
         <Navbar.Brand href="/board">
           <img
             alt=""
-            src={require("./valija-transparente-verde.png")}
+            src={require("../assets/valija-transparente-verde.png")}
             width="50"
           ></img>{" "}
           VacunAssist
