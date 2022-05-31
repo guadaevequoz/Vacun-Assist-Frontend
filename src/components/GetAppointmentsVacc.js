@@ -27,12 +27,13 @@ const GetAppointments = () => {
    * Funcion que devuelve todos los turnos ACTIVOS de un vacunatorio espeficico
    */
   const loadAppointments = () => {
-    setMessage([]);
     VaccService.getAppointments().then(
       ({ appointments }) => {
+        let array = [];
         appointments.map((data) => {
-          if (data.state === "Activo") setMessage([...message, data]);
+          if (data.state === "Activo") array = [...array, data];
         });
+        setMessage(array);
       },
       (error) => {
         setMessage(error);

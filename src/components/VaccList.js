@@ -13,7 +13,7 @@ export const VaccList = ({ loadAppointments, data }, key) => {
   const [show, setShow] = useState(false);
 
   //Renderiza "VaccList" solo una vez
-  useEffect(() => {});
+  useEffect(() => {}, []);
   /**
    * Funcion que cierra el "Modal" del componenete "AppointmentValidation"
    */
