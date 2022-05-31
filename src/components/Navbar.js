@@ -21,10 +21,13 @@ export const NBar = ({ user }) => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg" className="nav-bar">
       <Container>
-        <Navbar.Brand>
-          <Link to={"/board"} className="navbar-brand">
-            VacunAssist
-          </Link>
+        <Navbar.Brand href="/board">
+          <img
+            alt=""
+            src={require("./valija-transparente-verde.png")}
+            width="50"
+          ></img>{" "}
+          VacunAssist
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
