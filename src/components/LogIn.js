@@ -27,7 +27,6 @@ function LogIn() {
     AuthService.login(inputDniValue, inputCodeValue, inputPasswordValue).then(
       (res) => {
         if (res.data.status === "fail") {
-          setInputPasswordValue("");
           setMessageValue(res.data.message);
           setLoadingValue(false);
         } else {
@@ -76,7 +75,7 @@ function LogIn() {
           required
         ></input>
         <input
-          type="text"
+          type="password"
           name="token"
           value={inputCodeValue}
           onChange={handleCodeChange}

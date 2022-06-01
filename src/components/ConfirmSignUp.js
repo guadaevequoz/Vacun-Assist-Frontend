@@ -48,12 +48,11 @@ const ConfirmSignUp = () => {
       <form className="form-login" onSubmit={handleSubmit}>
         <h3>Ingresa el código numerico que recibiste en tu mail. </h3>
         <input
-          type="text"
+          type="password"
           name="token"
           value={inputCodeValue}
           onChange={handleCodeChange}
           placeholder="Ingresa tu código."
-          maxLength={"4"}
           required
         ></input>
         <button type="submit">

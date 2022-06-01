@@ -34,7 +34,6 @@ function SignUp() {
       inputPasswordValue + ""
     ).then((res) => {
       if (res.data.status === "fail") {
-        setInputPasswordValue("");
         setMessageValue(res.data.message);
         setLoadingValue(false);
       } else {
@@ -101,7 +100,7 @@ function SignUp() {
           required
         ></input>
         <input
-          type="text"
+          type="password"
           name="tramit"
           value={inputTramitValue}
           onChange={handleTramitChange}
