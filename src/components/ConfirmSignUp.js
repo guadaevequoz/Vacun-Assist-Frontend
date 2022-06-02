@@ -40,6 +40,7 @@ const ConfirmSignUp = () => {
    * @param {*} e representa el evento
    */
   const handleCodeChange = (e) => {
+    setMessageValue("");
     setInputCodeValue(e.target.value);
   };
 

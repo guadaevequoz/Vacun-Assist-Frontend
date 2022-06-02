@@ -47,6 +47,7 @@ function SignUp() {
    * @param {*} e representa el evento.
    */
   const handleDniChange = (e) => {
+    setMessageValue("");
     setInputDniValue(e.target.value);
   };
 
@@ -55,6 +56,7 @@ function SignUp() {
    * @param {*} e representa el evento.
    */
   const handleGenderChange = (e) => {
+    setMessageValue("");
     setInputGenderValue(e.target.value);
   };
 
@@ -63,6 +65,7 @@ function SignUp() {
    * @param {*} e representa el evento.
    */
   const handleTramitChange = (e) => {
+    setMessageValue("");
     setInputTramitValue(e.target.value);
   };
 
@@ -71,6 +74,7 @@ function SignUp() {
    * @param {*} e representa el evento.
    */
   const handlePasswordChange = (e) => {
+    setMessageValue("");
     setInputPasswordValue(e.target.value);
   };
 
@@ -79,6 +83,7 @@ function SignUp() {
    * @param {*} e representa el evento.
    */
   const handleMailChange = (e) => {
+    setMessageValue("");
     setInputMailValue(e.target.value);
   };
 

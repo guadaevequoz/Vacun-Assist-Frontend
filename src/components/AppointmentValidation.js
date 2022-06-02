@@ -39,6 +39,7 @@ const AppointmentValidation = ({
    * @param {*} e representa el evento.
    */
   const handleLotChange = (e) => {
+    setMessageValue("");
     setInputLot(e.target.value);
   };
 
@@ -47,6 +48,7 @@ const AppointmentValidation = ({
    * @param {*} e representa el evento.
    */
   const handleMarkChange = (e) => {
+    setMessageValue("");
     setInputMark(e.target.value);
   };
 

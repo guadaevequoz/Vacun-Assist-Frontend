@@ -66,6 +66,7 @@ const SetAppointment = () => {
    * @param {*} e Representa el evento
    */
   const handleVaccineChange = (e) => {
+    setMessageValue("");
     //evaluar cual vacuna tiene del covid --> LO DEJAMOS PARA DSP PORQUE NO ESTA EN EL BACK
     setInputVaccineValue(e.target.value);
   };
@@ -74,6 +75,7 @@ const SetAppointment = () => {
    * @param {*} e Representa el evento
    */
   const handleVaccinationCenterChange = (e) => {
+    setMessageValue("");
     setInputVaccinationCenterValue(e.target.value);
   };
   /**

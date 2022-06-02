@@ -41,6 +41,7 @@ function LogIn() {
    * @param {*} e representa el evento.
    */
   const handleDniChange = (e) => {
+    setMessageValue("");
     setInputDniValue(e.target.value);
   };
   /**
@@ -48,6 +49,7 @@ function LogIn() {
    * @param {*} e representa el evento.
    */
   const handlePasswordChange = (e) => {
+    setMessageValue("");
     setInputPasswordValue(e.target.value);
   };
   /**
@@ -55,6 +57,7 @@ function LogIn() {
    * @param {*} e representa el evento.
    */
   const handleCodeChange = (e) => {
+    setMessageValue("");
     setInputCodeValue(e.target.value);
   };
 
