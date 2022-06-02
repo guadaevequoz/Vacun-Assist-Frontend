@@ -1,6 +1,7 @@
 import { Button, Card } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import AppointmentValidation from "./AppointmentValidation";
+import { AuthService } from "../services/auth.service";
 
 /**
  * Funcion que muestra los turnos activos para un vacunatorio especifico
@@ -11,9 +12,14 @@ import AppointmentValidation from "./AppointmentValidation";
  */
 export const VaccList = ({ loadAppointments, data }, key) => {
   const [show, setShow] = useState(false);
+  const [user, setUser] = useState("");
 
   //Renderiza "VaccList" solo una vez
-  useEffect(() => {}, []);
+  useEffect(() => {
+    AuthService.getUserByDNI(data.patientDni).then((res) => {
+      if (res) setUser(res);
+    });
+  }, []);
   /**
    * Funcion que cierra el "Modal" del componenete "AppointmentValidation"
    */
@@ -21,6 +27,7 @@ export const VaccList = ({ loadAppointments, data }, key) => {
   /**
    * Funcion que abre el "Modal" del componenete "AppointmentValidation"
    */
+  console.log(user);
   const handleShow = () => setShow(true);
   return (
     <>
@@ -40,7 +47,10 @@ export const VaccList = ({ loadAppointments, data }, key) => {
         </Card.Header>
         <Card.Body>
           <Card.Text>
-            <div key={data._id + data.patientDni}>DNI: {data.patientDni}</div>
+            <div key={data._id + data.patientDni}>
+              <p>DNI: {data.patientDni}</p>
+              <p>Nombre: {user.fullName}</p>
+            </div>
           </Card.Text>
         </Card.Body>
         <Button className="validate-window-btn" onClick={handleShow}>

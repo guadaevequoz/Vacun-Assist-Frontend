@@ -137,6 +137,24 @@ const uploadHealthData = async (isRisk) => {
   }
 };
 
+//dado un DNI tomo el el usuario al que le pertenece
+const getUserByDNI = async (dni) => {
+  try {
+    const resp = await fetch(url + `/get-user/${dni}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+    });
+    const { data } = await resp.json();
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
+
 export const AuthService = {
   login,
   logout,
@@ -144,4 +162,5 @@ export const AuthService = {
   confirm,
   getUser,
   uploadHealthData,
+  getUserByDNI,
 };
