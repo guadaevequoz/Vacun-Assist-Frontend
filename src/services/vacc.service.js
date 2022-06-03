@@ -46,6 +46,29 @@ const setAppointment = async (vaccine, vaccinationCenter) => {
   }
 };
 
+//registrar turno completado turno
+const setCompletedAppointment = async (date, vaccinationCenter) => {
+  try {
+    const resp = await fetch(url + "/ACA VA EL ENDPOINT", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        date: date,
+        vaccinationCenter: vaccinationCenter,
+      }),
+      credentials: "include",
+    });
+    const data = await resp.json();
+
+    return { data };
+  } catch (err) {
+    return false;
+  }
+};
+
 //validar vacuna
 const validateAppointment = async (id, lot, mark, state) => {
   try {

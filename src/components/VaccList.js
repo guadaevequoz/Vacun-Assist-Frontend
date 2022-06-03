@@ -20,15 +20,17 @@ export const VaccList = ({ loadAppointments, data }, key) => {
       if (res) setUser(res);
     });
   }, []);
+
   /**
    * Funcion que cierra el "Modal" del componenete "AppointmentValidation"
    */
   const handleClose = () => setShow(false);
+
   /**
    * Funcion que abre el "Modal" del componenete "AppointmentValidation"
    */
-  console.log(user);
   const handleShow = () => setShow(true);
+
   return (
     <>
       <Card style={{ width: "500px", margin: "10px auto" }}>

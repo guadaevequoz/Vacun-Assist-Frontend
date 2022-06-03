@@ -78,6 +78,7 @@ const SetAppointment = () => {
     setMessageValue("");
     setInputVaccinationCenterValue(e.target.value);
   };
+
   /**
    * Funcion que resetea los valores de "InputVaccine" y "InputVaccinationCenter"
    */
