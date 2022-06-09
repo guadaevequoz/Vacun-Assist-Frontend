@@ -10,7 +10,7 @@ import { Card } from "react-bootstrap";
  * Funcion que muestra en pantalla los turnos de un usuario paciente
  * @returns Retorna una lista con los turnos
  */
-const GetAppointmentsAdmin = () => {
+const GetStats = () => {
   const navigate = useNavigate();
   const [usr, setUsr] = useState("");
   const [message, setMessage] = useState([]);
@@ -41,10 +41,7 @@ const GetAppointmentsAdmin = () => {
         <div className="appointments-container">
           <Card style={{ width: "500px", margin: "10px auto" }}>
             <Card.Body>
-              <Card.Text>
-                Próximamente vas a poder visualizar todas las estadísticas
-                relevantes como administrador.
-              </Card.Text>
+              <Card.Text>Acá van las stats</Card.Text>
             </Card.Body>
           </Card>
         </div>
@@ -53,4 +50,4 @@ const GetAppointmentsAdmin = () => {
   );
 };
 
-export default GetAppointmentsAdmin;
+export default GetStats;

@@ -57,9 +57,6 @@ export const AppointmentsList = ({ loadAppointments, data }, key) => {
             Vacunatorio: {data.vaccinationCenter}
           </div>
         </Card.Body>
-        <Button className="validate-window-btn" onClick={handleShow}>
-          Registrar turno concretado
-        </Button>
         <AppointmentCompleted
           show={show}
           handleClose={handleClose}

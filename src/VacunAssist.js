@@ -13,7 +13,7 @@ import SetAppointment from "./components/SetAppointment";
 import GetAppointmentsVacc from "./components/GetAppointmentsVacc";
 import AppointmentValidation from "./components/AppointmentValidation";
 import { useNavigate } from "react-router-dom";
-import GetAppointmentsAdmin from "./components/GetAppointmentsAdmin";
+import GetStats from "./components/GetStats";
 // import "./index.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -25,6 +25,7 @@ import "./css/get-appointments.css";
 import "./css/validate-appointment.css";
 import "./css/navbar.css";
 import { AuthService } from "./services/auth.service";
+import AddStock from "./components/AddStock";
 
 /**
  * Funcion que se ejecuta cuando se abre la aplicacion y carga todas las rutas
@@ -55,10 +56,8 @@ const VacunAssist = () => {
           path="/appointmentValidation"
           element={<AppointmentValidation />}
         />
-        <Route
-          path="/getAppointmentsAdmin"
-          element={<GetAppointmentsAdmin />}
-        />
+        <Route path="/getStats" element={<GetStats />} />
+        <Route path="/addStock" element={<AddStock />} />
         <Route path="*" element={<NotFound></NotFound>} />
       </Routes>
     </>

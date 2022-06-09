@@ -22,12 +22,6 @@ function Board() {
     <div className="section-container">
       <NBar user={usr} />
       <p>Bienvenido {usr.fullName}!</p>
-      {usr.rol === "admin" && (
-        <p>
-          Próximamente desde aquí accederas a las funciones de{" "}
-          <b>administrador</b>.
-        </p>
-      )}
     </div>
   );
 }
