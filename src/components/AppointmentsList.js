@@ -57,12 +57,6 @@ export const AppointmentsList = ({ loadAppointments, data }, key) => {
             Vacunatorio: {data.vaccinationCenter}
           </div>
         </Card.Body>
-        <AppointmentCompleted
-          show={show}
-          handleClose={handleClose}
-          loadAppointments={loadAppointments}
-          vaccine={data.vaccine}
-        />
       </Card>
       <br />
     </>

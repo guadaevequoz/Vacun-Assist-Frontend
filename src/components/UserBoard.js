@@ -16,17 +16,14 @@ const UserBoard = ({ user }) => {
               Sacar turno
             </Link>
           </Nav.Link>
-          {
-            //QUITAR COMENTARIO PARA LA SEGUNDA DEMO
-            /*<Nav.Link>
-            <Link to={"/getAppointments"} className="nav-link">
-              Listar turnos
-            </Link>
-      </Nav.Link>*/
-          }
           <Nav.Link>
             <Link to={"/getAppointments"} className="nav-link">
               Listar turnos
+            </Link>
+          </Nav.Link>
+          <Nav.Link>
+            <Link to={"/appointmentCompleted"} className="nav-link">
+              Registrar aplicacion de vacuna
             </Link>
           </Nav.Link>
         </>
