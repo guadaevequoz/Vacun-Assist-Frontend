@@ -155,6 +155,53 @@ const getUserByDNI = async (dni) => {
   }
 };
 
+const signupVaccinator = async (dni, email, vaccCenter) => {
+  try {
+    const resp = await fetch(url + "/signup", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        dni: dni,
+        email: email,
+        vaccCenter: vaccCenter,
+      }),
+      credentials: "include",
+    });
+
+    const data = await resp.json();
+
+    return { data };
+  } catch (err) {
+    return false;
+  }
+};
+
+const setCompletedAppointment = async (vacc, vaccDate) => {
+  try {
+    const resp = await fetch(url + "/vaccineAplication", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        vaccine: vacc,
+        vaccinationDate: vaccDate,
+      }),
+      credentials: "include",
+    });
+
+    const data = await resp.json();
+
+    return { data };
+  } catch (err) {
+    return false;
+  }
+};
+
 export const AuthService = {
   login,
   logout,
@@ -163,4 +210,6 @@ export const AuthService = {
   getUser,
   uploadHealthData,
   getUserByDNI,
+  signupVaccinator,
+  setCompletedAppointment,
 };

@@ -10,6 +10,8 @@ function RegisterVaccinator() {
   const [show, setShow] = useState(false);
   const [inputDniValue, setInputDniValue] = useState("");
   const [inputMailValue, setInputMailValue] = useState("");
+  const [inputVaccinationCenterValue, setInputVaccinationCenterValue] =
+    useState("");
   const [messageValue, setMessageValue] = useState("");
   const [loadingValue, setLoadingValue] = useState(false);
 
@@ -28,17 +30,17 @@ function RegisterVaccinator() {
     e.preventDefault();
     reset();
     handleShow();
-    // AuthService.signupVaccinator(
-    //   inputDniValue,
-    //   inputMailValue
-    // ).then((res) => {
-    //   if (res.data.status === "fail") {
-    //     setMessageValue(res.data.message);
-    //     setLoadingValue(false);
-    //   } else {
-    //     navigate("/registerVaccinator");
-    //   }
-    // });
+    /* AuthService.signupVaccinator(
+       inputDniValue,
+       inputMailValue
+     ).then((res) => {
+       if (res.data.status === "fail") {
+         setMessageValue(res.data.message);
+         setLoadingValue(false);
+       } else {
+         navigate("/registerVaccinator");
+       }
+     });*/
   };
 
   /**
@@ -60,6 +62,15 @@ function RegisterVaccinator() {
   };
 
   /**
+   * Funcion que maneja el cambio de "InputVaccinationCenter"
+   * @param {*} e Representa el evento
+   */
+  const handleVaccinationCenterChange = (e) => {
+    setMessageValue("");
+    setInputVaccinationCenterValue(e.target.value);
+  };
+
+  /**
    * Funcion que cierra el "Modal" del componenete "SetAppointmentConform"
    */
   const handleClose = () => setShow(false);
@@ -75,7 +86,9 @@ function RegisterVaccinator() {
   const reset = () => {
     document.getElementById("dni").innerText = "";
     document.getElementById("email").innerText = "";
+    document.getElementById("vaccCenter").selectedIndex = 0;
   };
+
   return (
     <>
       <div className="section-container">
@@ -105,6 +118,21 @@ function RegisterVaccinator() {
             placeholder="Ingresa tu mail."
             required
           ></input>
+          <label htmlFor="vaccCenter">
+            Selecciona el centro de vacunación:
+          </label>
+          <select
+            className="form-select"
+            onChange={handleVaccinationCenterChange}
+            id="vaccCenter"
+            name="vacunatorios"
+            required
+          >
+            <option></option>
+            <option value="Hospital 9 de Julio">Hospital 9 de Julio</option>
+            <option value="Corralón municipal">Corralón municipal</option>
+            <option value="Polideportivo">Polideportivo</option>
+          </select>
           <button type="submit">
             {loadingValue && (
               <span className="spinner-border spinner-border-sm"></span>
