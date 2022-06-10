@@ -27,6 +27,7 @@ import "./css/navbar.css";
 import { AuthService } from "./services/auth.service";
 import AddStock from "./components/AddStock";
 import AppointmentCompleted from "./components/AppointmentCompleted";
+import RegisterVaccinator from "./components/RegisterVaccinator";
 
 /**
  * Funcion que se ejecuta cuando se abre la aplicacion y carga todas las rutas
@@ -59,6 +60,7 @@ const VacunAssist = () => {
         />
         <Route path="/getStats" element={<GetStats />} />
         <Route path="/addStock" element={<AddStock />} />
+        <Route path="/registerVaccinator" element={<RegisterVaccinator />} />
         <Route
           path="/appointmentCompleted"
           element={<AppointmentCompleted />}

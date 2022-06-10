@@ -19,6 +19,16 @@ const AdminBoard = () => {
           Agregar stock
         </Link>
       </Nav.Link>
+      <Nav.Link>
+        <Link to={"/registerVaccinator"} className="nav-link">
+          Registrar vacunador
+        </Link>
+      </Nav.Link>
+      <Nav.Link>
+        <Link to={"/"} className="nav-link">
+          Asignar turnos pendientes
+        </Link>
+      </Nav.Link>
     </>
   );
 };
