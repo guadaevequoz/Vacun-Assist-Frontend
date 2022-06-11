@@ -93,8 +93,28 @@ const validateAppointment = async (id, lot, mark, state) => {
   }
 };
 
+const getAppointmentsByDNI = async (dni) => {
+  try {
+    const resp = await fetch(url + `/get-user-appointments/${dni}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+    });
+
+    const { data } = await resp.json();
+
+    return data;
+  } catch (err) {
+    return false;
+  }
+};
+
 export const VaccService = {
   getAppointments,
   setAppointment,
   validateAppointment,
+  getAppointmentsByDNI,
 };
