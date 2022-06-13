@@ -21,16 +21,16 @@ const FindPatientByDNI = ({
       setDNI(dni);
       VaccService.getAppointmentsByDNI(dni).then((res) => {
         console.log(res);
-        let array = res.filter(
-          (data) =>
-            data.vaccinationCenter === vaccinationCenter &&
-            data.state === "Activo"
-        );
-        setAppointments(array);
+        // let array = res.filter(
+        //   (data) =>
+        //     data.vaccinationCenter === vaccinationCenter &&
+        //     data.state === "Activo"
+        // );
+        // setAppointments(array);
       });
-      AuthService.getUserByDNI(dni).then((data) => {
-        setFullName(data.fullName);
-      });
+      // AuthService.getUserByDNI(dni).then((data) => {
+      //   setFullName(data.fullName);
+      // });
     }
   }, [dni]);
 

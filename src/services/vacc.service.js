@@ -104,8 +104,8 @@ const getAppointmentsByDNI = async (dni) => {
       credentials: "include",
     });
 
-    const { data } = await resp.json();
-
+    const data = await resp.json();
+    console.log(data);
     return data;
   } catch (err) {
     return false;

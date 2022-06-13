@@ -1,0 +1,16 @@
+.parent {
+  margin: 20px;
+  width: 20%;
+  display: grid;
+  align-items: center;
+}
+
+.div1 {
+  width: fit-content;
+}
+.div2 {
+  width: fit-content;
+}
+.div3 {
+  width: fit-content;
+}
