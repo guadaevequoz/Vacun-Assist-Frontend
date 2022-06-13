@@ -16,9 +16,9 @@ const GetAppointments = () => {
   const [message, setMessage] = useState([]);
   const [usr, setUsr] = useState("");
   const [inputPatientDniValue, setInputPatientDniValue] = useState("");
-  const [dniPatientFind, setDniPatientFind] = useState("");
   const [show, setShow] = useState(false);
-  //Renderiza "GetAppointments" solo una vez
+
+  //Renderiza "GetAppointmentsVacc" solo una vez
   useEffect(() => {
     AuthService.getUser().then((res) => {
       if (res) setUsr(res);
@@ -28,11 +28,11 @@ const GetAppointments = () => {
   }, []);
 
   /**
-   * Funcion que cierra el "Modal" del componenete "SetAppointmentConform"
+   * Funcion que cierra el "Modal" del componenete "FindPatientByDNI"
    */
   const handleClose = () => setShow(false);
   /**
-   * Funcion que abre el "Modal" del componenete "SetAppointmentConform"
+   * Funcion que abre el "Modal" del componenete "FindPatientByDNI"
    */
   const handleShow = () => setShow(true);
   /**
@@ -40,10 +40,13 @@ const GetAppointments = () => {
    */
   const loadAppointments = (patientAppointments) => {
     if (patientAppointments && !inputPatientDniValue) {
+      console.log("entre al if");
       setMessage(patientAppointments);
     } else {
+      console.log("entre al else");
       VaccService.getAppointments().then(
         ({ appointments }) => {
+          console.log(appointments);
           let array = appointments.filter((data) => data.state === "Activo");
           setMessage(array);
         },
@@ -52,10 +55,15 @@ const GetAppointments = () => {
         }
       );
     }
+    console.log(message);
   };
 
   const handlePatientDniChange = (e) => {
     setInputPatientDniValue(e.target.value);
+  };
+
+  const reLoad = () => {
+    loadAppointments();
   };
 
   const handleSubmit = (e) => {
@@ -67,22 +75,37 @@ const GetAppointments = () => {
   return (
     <div className="section-container">
       <NBar user={usr} />
-      <form onSubmit={handleSubmit}>
-        <input
-          type="number"
-          name="dni"
-          value={inputPatientDniValue}
-          onChange={handlePatientDniChange}
-          placeholder="Ingresa DNI del Paciente."
-          min={"1000000"}
-          s
-          max={"999999999999999999"}
-          required
-        ></input>
-        <button type="submit">
-          <span>Buscar</span>
+      <div style={{ display: "flex" }}>
+        <form
+          onSubmit={handleSubmit}
+          style={{ paddingTop: "15px", width: "90%", margin: "10px" }}
+        >
+          <input
+            style={{ display: "inline" }}
+            type="number"
+            name="dni"
+            value={inputPatientDniValue}
+            onChange={handlePatientDniChange}
+            placeholder="Ingresa DNI del Paciente."
+            min={"1000000"}
+            s
+            max={"999999999999999999"}
+            required
+          ></input>
+          <button type="submit">Buscar</button>
+        </form>
+        <button
+          style={{
+            width: "5%",
+            height: "30%",
+            margin: "10px",
+            marginLeft: "0px",
+          }}
+          onClick={reLoad}
+        >
+          🔄
         </button>
-      </form>
+      </div>
       <div className="appointments-container">
         {message.length === 0 && (
           <Card style={{ width: "500px", margin: "10px auto" }}>

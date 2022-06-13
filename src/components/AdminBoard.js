@@ -24,11 +24,11 @@ const AdminBoard = () => {
           Registrar vacunador
         </Link>
       </Nav.Link>
-      <Nav.Link>
+      {/* <Nav.Link>
         <Link to={"/"} className="nav-link">
           Asignar turnos pendientes
         </Link>
-      </Nav.Link>
+      </Nav.Link> */}
     </>
   );
 };

@@ -143,7 +143,7 @@ function AddStock() {
       <Modal show={show} onHide={handleClose}>
         <Modal.Header>Se actualizó el stock exitosamente!</Modal.Header>
         <Modal.Body>
-          Se actualizó el stock de la vacuna {inputVaccineValue} al vacunatorio{" "}
+          Se actualizó el stock de la vacuna {inputVaccineValue} al vacunatorio
           {inputVaccinationCenterValue}
         </Modal.Body>
         <Modal.Footer>

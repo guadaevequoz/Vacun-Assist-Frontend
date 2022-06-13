@@ -12,10 +12,13 @@ const FindPatientByDNI = ({
   loadAppointments,
 }) => {
   const [fullName, setFullName] = useState("");
+  const [DNI, setDNI] = useState("");
   const [appointments, setAppointments] = useState([]);
 
+  //Cambiar esto cuando getAppointmentsByDNI devuelva tambien la info del usuario
   useEffect(() => {
     if (dni) {
+      setDNI(dni);
       VaccService.getAppointmentsByDNI(dni).then((res) => {
         console.log(res);
         let array = res.filter(
@@ -44,7 +47,7 @@ const FindPatientByDNI = ({
         <Modal.Body>
           <ul>
             <li>Nombre Completo: {fullName}</li>
-            <li>DNI:{dni}</li>
+            <li>DNI:{DNI}</li>
           </ul>
           {appointments.length === 0 ? (
             <div>No tiene turnos activos</div>
