@@ -40,10 +40,8 @@ const GetAppointments = () => {
    */
   const loadAppointments = (patientAppointments) => {
     if (patientAppointments && !inputPatientDniValue) {
-      console.log("entre al if");
       setMessage(patientAppointments);
     } else {
-      console.log("entre al else");
       VaccService.getAppointments().then(
         ({ appointments }) => {
           console.log(appointments);
@@ -99,6 +97,7 @@ const GetAppointments = () => {
             width: "5%",
             height: "30%",
             margin: "10px",
+            marginTop: "auto",
             marginLeft: "0px",
           }}
           onClick={reLoad}

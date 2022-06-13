@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { NBar } from "./Navbar";
 import { AuthService } from "../services/auth.service";
-
+import { AdminService } from "../services/admin.service";
 import { Button, Modal } from "react-bootstrap";
 
 function AddStock() {
@@ -65,14 +65,19 @@ function AddStock() {
    */
   const handleSubmit = (e) => {
     e.preventDefault();
-    // ELSERVICE.addStock(inputStockValue, inputVaccineValue, inputVaccinationCenterValue).then(({ data }) => {
-    //   if (data.status === "fail") {
-    //     setMessageValue(data.message);
-    //     setLoadingValue(false);
-    //   } else {
-    //     handleShow();
-    //   }
-    // });
+    AdminService.addStock(
+      inputStockValue,
+      inputVaccineValue,
+      inputVaccinationCenterValue
+    ).then((res) => {
+      console.log(res);
+      if (res.data.status === "fail") {
+        setMessageValue(res.data.message);
+        setLoadingValue(false);
+      } else {
+        handleShow();
+      }
+    });
     reset();
     handleShow();
   };

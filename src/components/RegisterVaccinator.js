@@ -28,19 +28,22 @@ function RegisterVaccinator() {
    */
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    console.log(inputDniValue, inputMailValue, inputVaccinationCenterValue);
+    AuthService.signupVaccinator(
+      inputDniValue,
+      inputMailValue,
+      inputVaccinationCenterValue
+    ).then((res) => {
+      console.log(res.data);
+      if (res.data.status === "fail") {
+        setMessageValue(res.data.message);
+        setLoadingValue(false);
+      } else {
+        handleShow();
+      }
+    });
     reset();
-    handleShow();
-    /* AuthService.signupVaccinator(
-       inputDniValue,
-       inputMailValue
-     ).then((res) => {
-       if (res.data.status === "fail") {
-         setMessageValue(res.data.message);
-         setLoadingValue(false);
-       } else {
-         navigate("/registerVaccinator");
-       }
-     });*/
   };
 
   /**
@@ -137,7 +140,7 @@ function RegisterVaccinator() {
             {loadingValue && (
               <span className="spinner-border spinner-border-sm"></span>
             )}
-            <span>Registrarse</span>
+            <span>Registrar vacunador</span>
           </button>
           {messageValue && (
             <div className="form-group message">

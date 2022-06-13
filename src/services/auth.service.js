@@ -157,7 +157,7 @@ const getUserByDNI = async (dni) => {
 
 const signupVaccinator = async (dni, email, vaccCenter) => {
   try {
-    const resp = await fetch(url + "/signup", {
+    const resp = await fetch(url + "/signup-vacc", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -166,7 +166,7 @@ const signupVaccinator = async (dni, email, vaccCenter) => {
       body: JSON.stringify({
         dni: dni,
         email: email,
-        vaccCenter: vaccCenter,
+        vaccinationCenter: vaccCenter,
       }),
       credentials: "include",
     });
