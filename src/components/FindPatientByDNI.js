@@ -2,42 +2,57 @@ import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { VaccService } from "../services/vacc.service";
-import { AuthService } from "../services/auth.service";
 
-const FindPatientByDNI = ({
-  show,
-  handleClose,
-  dni,
-  vaccinationCenter,
-  loadAppointments,
-}) => {
+const FindPatientByDNI = ({ show, handleClose, dni, vaccinationCenter }) => {
   const [fullName, setFullName] = useState("");
   const [DNI, setDNI] = useState("");
-  const [appointments, setAppointments] = useState([]);
+  const [appointments, setAppointments] = useState("");
+  const [activeCovid, setActiveCovid] = useState(false);
+  const [activeFiebreA, setActiveFiebreA] = useState(false);
+  const [activeGripe, setActiveGripe] = useState(false);
 
-  //Cambiar esto cuando getAppointmentsByDNI devuelva tambien la info del usuario
   useEffect(() => {
     if (dni) {
-      setDNI(dni);
-      VaccService.getAppointmentsByDNI(dni).then((res) => {
-        console.log(res);
-        // let array = res.filter(
-        //   (data) =>
-        //     data.vaccinationCenter === vaccinationCenter &&
-        //     data.state === "Activo"
-        // );
-        // setAppointments(array);
-      });
-      // AuthService.getUserByDNI(dni).then((data) => {
-      //   setFullName(data.fullName);
-      // });
+      VaccService.getAppointmentsByDNI(dni).then(
+        ({ patient, appointments: dataAppointments }) => {
+          console.log(patient);
+          if (dataAppointments) {
+            dataAppointments = dataAppointments.filter((data) => {
+              return data.vaccinationCenter === vaccinationCenter;
+            });
+            console.log(activeCovid);
+            console.log(activeFiebreA);
+            console.log(activeGripe);
+            dataAppointments.map((data) => {
+              switch (data.vaccine) {
+                case "Covid":
+                  setActiveCovid(true);
+                  break;
+                case "Fiebre Amarilla":
+                  setActiveFiebreA(true);
+                  break;
+                case "Gripe":
+                  setActiveGripe(true);
+                  break;
+              }
+            });
+            setAppointments(dataAppointments);
+          }
+          setDNI(patient.dni);
+          setFullName(patient.fullName);
+          console.log(appointments);
+        }
+      );
     }
-  }, [dni]);
+  }, [show]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleClose();
-    loadAppointments(appointments);
+    handleClose(appointments);
+    setActiveCovid(false);
+    setActiveFiebreA(false);
+    setActiveGripe(false);
+    setAppointments("");
   };
 
   return (
@@ -49,11 +64,19 @@ const FindPatientByDNI = ({
             <li>Nombre Completo: {fullName}</li>
             <li>DNI:{DNI}</li>
           </ul>
-          {appointments.length === 0 ? (
+          {appointments === "" ? (
+            <div>No esta registrado</div>
+          ) : appointments.length === 0 ? (
             <div>No tiene turnos activos</div>
           ) : (
-            <div>Tiene turnos activos. Se veran a continuacion.</div>
+            <ul>
+              Tiene los siguientes turnos Activos:
+              {activeCovid && <li>Covid</li>}
+              {activeFiebreA && <li>Fiebre Amarilla</li>}
+              {activeGripe && <li>Gripe</li>}
+            </ul>
           )}
+          <Button className="btn-validate">Registrar Turno</Button>
         </Modal.Body>
         <Modal.Footer>
           <Button className="btn-validate" type="submit" onClick={handleSubmit}>

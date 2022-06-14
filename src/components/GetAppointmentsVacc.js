@@ -30,7 +30,11 @@ const GetAppointments = () => {
   /**
    * Funcion que cierra el "Modal" del componenete "FindPatientByDNI"
    */
-  const handleClose = () => setShow(false);
+  const handleClose = (app) => {
+    setInputPatientDniValue("");
+    setShow(false);
+    app && loadAppointments(app);
+  };
   /**
    * Funcion que abre el "Modal" del componenete "FindPatientByDNI"
    */
@@ -39,12 +43,13 @@ const GetAppointments = () => {
    * Funcion que devuelve todos los turnos ACTIVOS de un vacunatorio espeficico
    */
   const loadAppointments = (patientAppointments) => {
-    if (patientAppointments && !inputPatientDniValue) {
+    console.log(patientAppointments);
+    console.log(inputPatientDniValue);
+    if (patientAppointments) {
       setMessage(patientAppointments);
     } else {
       VaccService.getAppointments().then(
         ({ appointments }) => {
-          console.log(appointments);
           let array = appointments.filter((data) => data.state === "Activo");
           setMessage(array);
         },
@@ -53,7 +58,6 @@ const GetAppointments = () => {
         }
       );
     }
-    console.log(message);
   };
 
   const handlePatientDniChange = (e) => {
@@ -67,7 +71,6 @@ const GetAppointments = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     handleShow();
-    setInputPatientDniValue("");
   };
 
   return (
@@ -128,7 +131,6 @@ const GetAppointments = () => {
         handleClose={handleClose}
         dni={inputPatientDniValue}
         vaccinationCenter={usr.vaccinationCenter}
-        loadAppointments={loadAppointments}
       />
     </div>
   );
