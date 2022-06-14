@@ -70,8 +70,7 @@ function AddStock() {
       inputVaccineValue,
       inputVaccinationCenterValue
     ).then((res) => {
-      console.log(res);
-      if (res.data.status === "fail") {
+      if (res.status === "fail") {
         setMessageValue(res.data.message);
         setLoadingValue(false);
       } else {
@@ -88,7 +87,7 @@ function AddStock() {
   const reset = () => {
     document.getElementById("vacc").selectedIndex = 0;
     document.getElementById("vaccCenter").selectedIndex = 0;
-    document.getElementById("stock").innerText = " "; //NO ANDA DIOS YA INTENTE CON .value y con .reset() Y NO FUNCIONAAAAAAA
+    setInputStockValue(""); //NO ANDA DIOS YA INTENTE CON .value y con .reset() Y NO FUNCIONAAAAAAA
   };
 
   return (
@@ -148,7 +147,7 @@ function AddStock() {
       <Modal show={show} onHide={handleClose}>
         <Modal.Header>Se actualizó el stock exitosamente!</Modal.Header>
         <Modal.Body>
-          Se actualizó el stock de la vacuna {inputVaccineValue} al vacunatorio
+          Se actualizó el stock de la vacuna {inputVaccineValue} al vacunatorio{" "}
           {inputVaccinationCenterValue}
         </Modal.Body>
         <Modal.Footer>

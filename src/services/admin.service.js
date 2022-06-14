@@ -35,9 +35,9 @@ const addStock = async (cant, vacc, vaccCenter) => {
       }),
     });
 
-    const { stats } = await resp.json();
+    const data = await resp.json();
 
-    return stats;
+    return data;
   } catch (err) {
     return false;
   }

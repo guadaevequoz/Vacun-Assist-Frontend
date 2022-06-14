@@ -1,18 +1,21 @@
-export default (dataStats, total, colors) => {
+export default (dataStats, total, colors, borderColor, borderWidht) => {
+  let labels = [];
   let array = [];
-  let array2 = [];
   for (const element in dataStats) {
-    array = [...array, element];
+    labels = [...labels, element];
     const value = (dataStats[element] / total) * 100;
-    array2 = [...array2, value];
+    array = [...array, value];
   }
 
   const data = {
-    labels: array,
+    labels: labels,
     datasets: [
       {
-        data: array2,
+        label: "# of Votes",
+        data: array,
         backgroundColor: colors,
+        borderColor: borderColor,
+        borderWidht: borderWidht,
       },
     ],
   };
