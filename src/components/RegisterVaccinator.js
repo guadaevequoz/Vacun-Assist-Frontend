@@ -3,6 +3,7 @@ import { NBar } from "./Navbar";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 import { AuthService } from "../services/auth.service";
+import { AdminService } from "../services/admin.service";
 
 function RegisterVaccinator() {
   const navigate = useNavigate();
@@ -14,6 +15,8 @@ function RegisterVaccinator() {
     useState("");
   const [messageValue, setMessageValue] = useState("");
   const [loadingValue, setLoadingValue] = useState(false);
+  const [vaccinator, setVaccinator] = useState("");
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     AuthService.getUser().then((res) => {
@@ -26,24 +29,16 @@ function RegisterVaccinator() {
    * Función que maneja el envio de datos cuando termino de completar el formulario SignUp
    * @param {*} e representa el evento.
    */
-  const handleSubmit = (e) => {
+  const handlePrimerSubmit = (e) => {
     e.preventDefault();
 
-    console.log(inputDniValue, inputMailValue, inputVaccinationCenterValue);
-    AuthService.signupVaccinator(
-      inputDniValue,
-      inputMailValue,
-      inputVaccinationCenterValue
-    ).then((res) => {
-      console.log(res.data);
-      if (res.data.status === "fail") {
-        setMessageValue(res.data.message);
-        setLoadingValue(false);
-      } else {
-        handleShow();
-      }
+    console.log(inputDniValue);
+
+    AdminService.getUserRenaper(inputDniValue).then((res) => {
+      console.log(res);
+      setVaccinator(res.fullName);
+      handleShow();
     });
-    reset();
   };
 
   /**
@@ -59,9 +54,8 @@ function RegisterVaccinator() {
    * Funcion que maneja el cambio de "InputMail"
    * @param {*} e representa el evento.
    */
-  const handleMailChange = (e) => {
-    setMessageValue("");
-    setInputMailValue(e.target.value);
+  const handleMail = (e) => {
+    setEmail(e.target.value);
   };
 
   /**
@@ -88,15 +82,31 @@ function RegisterVaccinator() {
    */
   const reset = () => {
     document.getElementById("dni").innerText = "";
-    document.getElementById("email").innerText = "";
     document.getElementById("vaccCenter").selectedIndex = 0;
   };
 
+  const handleSubmit = () => {
+    console.log("entre");
+    AuthService.signupVaccinator(
+      inputDniValue,
+      email,
+      inputVaccinationCenterValue
+    ).then((res) => {
+      console.log(res.data);
+      if (res.data.status === "fail") {
+        setMessageValue(res.data.message);
+        setLoadingValue(false);
+      } else {
+      }
+    });
+    reset();
+    handleClose();
+  };
   return (
     <>
       <div className="section-container">
         <NBar user={usr} />
-        <form className="form-login" onSubmit={handleSubmit}>
+        <form className="form-login" onSubmit={handlePrimerSubmit}>
           <h3 className="form-login-signup-header">
             Por favor completá estos datos para continuar.
           </h3>
@@ -106,36 +116,12 @@ function RegisterVaccinator() {
             id="dni"
             value={inputDniValue}
             onChange={handleDniChange}
-            placeholder="Ingresa tu DNI."
+            placeholder="Ingresa el DNI del vacunador"
             min={"1000000"}
             s
             max={"999999999999999999"}
             required
           ></input>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={inputMailValue}
-            onChange={handleMailChange}
-            placeholder="Ingresa tu mail."
-            required
-          ></input>
-          <label htmlFor="vaccCenter">
-            Selecciona el centro de vacunación:
-          </label>
-          <select
-            className="form-select"
-            onChange={handleVaccinationCenterChange}
-            id="vaccCenter"
-            name="vacunatorios"
-            required
-          >
-            <option></option>
-            <option value="Hospital 9 de Julio">Hospital 9 de Julio</option>
-            <option value="Corralón municipal">Corralón municipal</option>
-            <option value="Polideportivo">Polideportivo</option>
-          </select>
           <button type="submit">
             {loadingValue && (
               <span className="spinner-border spinner-border-sm"></span>
@@ -152,14 +138,43 @@ function RegisterVaccinator() {
         </form>{" "}
       </div>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header>Se registro al vacunador exitosamente!</Modal.Header>
+        <Modal.Header>Valida los datos y confirma.</Modal.Header>
         <Modal.Body>
-          Se registro al vacunador con DNI {inputDniValue} y se le envió un mail
-          con su contraseña y token de ingreso.
+          Los datos del vacunador son: {vaccinator}
+          <form className="form-login">
+            <label htmlFor="email">
+              Ingrese el mail del vacunador para registrarlo:{" "}
+            </label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={email}
+              onChange={handleMail}
+            ></input>
+            <label htmlFor="vaccCenter">
+              Selecciona el centro de vacunación:
+            </label>
+            <select
+              className="form-select"
+              onChange={handleVaccinationCenterChange}
+              id="vaccCenter"
+              name="vacunatorios"
+              required
+            >
+              <option></option>
+              <option value="Hospital 9 de Julio">Hospital 9 de Julio</option>
+              <option value="Corralón municipal">Corralón municipal</option>
+              <option value="Polideportivo">Polideportivo</option>
+            </select>
+          </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button className="btn-validate" type="submit" onClick={handleClose}>
-            Ok
+          <Button type="submit" onClick={handleSubmit}>
+            {loadingValue && (
+              <span className="spinner-border spinner-border-sm"></span>
+            )}
+            <span>Confirmar y registrar</span>
           </Button>
           <hr />
         </Modal.Footer>

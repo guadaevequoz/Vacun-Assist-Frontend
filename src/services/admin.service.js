@@ -43,7 +43,30 @@ const addStock = async (cant, vacc, vaccCenter) => {
   }
 };
 
+const getUserRenaper = async (dni) => {
+  try {
+    const resp = await fetch(
+      `http://localhost:8082/users/get-user-renaper/${dni}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
+    console.log(dni);
+    const { data } = await resp.json();
+
+    return data;
+  } catch (err) {
+    return false;
+  }
+};
+
 export const AdminService = {
   getStats,
   addStock,
+  getUserRenaper,
 };

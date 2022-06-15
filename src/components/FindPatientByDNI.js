@@ -13,7 +13,7 @@ const FindPatientByDNI = ({ show, handleClose, dni, vaccinationCenter }) => {
   const [activeFiebreA, setActiveFiebreA] = useState(false);
   const [activeGripe, setActiveGripe] = useState(false);
   const [birthday, setBirthday] = useState(false);
-  const [email, setEmail] = useState(false);
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     if (dni) {
