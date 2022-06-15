@@ -14,6 +14,7 @@ import GetAppointmentsVacc from "./components/GetAppointmentsVacc";
 import AppointmentValidation from "./components/AppointmentValidation";
 import { useNavigate } from "react-router-dom";
 import GetStats from "./components/GetStats";
+import LocalApplication from "./components/LocalApplication";
 // import "./index.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -64,6 +65,10 @@ const VacunAssist = () => {
         <Route
           path="/appointmentCompleted"
           element={<AppointmentCompleted />}
+        />
+        <Route
+          path="/localApp/:dni/:birthday/:email"
+          element={<LocalApplication />}
         />
         <Route path="*" element={<NotFound></NotFound>} />
       </Routes>

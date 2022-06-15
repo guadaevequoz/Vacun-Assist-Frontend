@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { VaccService } from "../services/vacc.service";
+import LocalApplication from "./LocalApplication";
 
 const FindPatientByDNI = ({ show, handleClose, dni, vaccinationCenter }) => {
+  const navigate = useNavigate();
   const [fullName, setFullName] = useState("");
   const [DNI, setDNI] = useState("");
   const [appointments, setAppointments] = useState("");
   const [activeCovid, setActiveCovid] = useState(false);
   const [activeFiebreA, setActiveFiebreA] = useState(false);
   const [activeGripe, setActiveGripe] = useState(false);
+  const [birthday, setBirthday] = useState(false);
+  const [email, setEmail] = useState(false);
 
   useEffect(() => {
     if (dni) {
@@ -20,9 +24,6 @@ const FindPatientByDNI = ({ show, handleClose, dni, vaccinationCenter }) => {
             dataAppointments = dataAppointments.filter((data) => {
               return data.vaccinationCenter === vaccinationCenter;
             });
-            console.log(activeCovid);
-            console.log(activeFiebreA);
-            console.log(activeGripe);
             dataAppointments.map((data) => {
               switch (data.vaccine) {
                 case "Covid":
@@ -39,8 +40,9 @@ const FindPatientByDNI = ({ show, handleClose, dni, vaccinationCenter }) => {
             setAppointments(dataAppointments);
           }
           setDNI(patient.dni);
+          setBirthday(patient.birthday);
+          setEmail(patient.email);
           setFullName(patient.fullName);
-          console.log(appointments);
         }
       );
     }
@@ -55,6 +57,10 @@ const FindPatientByDNI = ({ show, handleClose, dni, vaccinationCenter }) => {
     setAppointments("");
   };
 
+  const handleMail = (e) => {
+    setEmail(e.target.value);
+  };
+
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -65,7 +71,19 @@ const FindPatientByDNI = ({ show, handleClose, dni, vaccinationCenter }) => {
             <li>DNI:{DNI}</li>
           </ul>
           {appointments === "" ? (
-            <div>No esta registrado</div>
+            <div>
+              No esta registrado.
+              <label htmlFor="email">
+                Ingrese el mail del paciente para registrarlo:{" "}
+              </label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value={email}
+                onChange={handleMail}
+              ></input>
+            </div>
           ) : appointments.length === 0 ? (
             <div>No tiene turnos activos</div>
           ) : (
@@ -76,7 +94,12 @@ const FindPatientByDNI = ({ show, handleClose, dni, vaccinationCenter }) => {
               {activeGripe && <li>Gripe</li>}
             </ul>
           )}
-          <Button className="btn-validate">Registrar Turno</Button>
+          <Button
+            className="btn-validate"
+            onClick={() => navigate(`/localApp/${DNI}/${birthday}/${email}`)}
+          >
+            Registrar Turno
+          </Button>
         </Modal.Body>
         <Modal.Footer>
           <Button className="btn-validate" type="submit" onClick={handleSubmit}>

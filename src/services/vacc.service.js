@@ -93,6 +93,7 @@ const validateAppointment = async (id, lot, mark, state) => {
   }
 };
 
+//obtener los turnos para un DNI
 const getAppointmentsByDNI = async (dni) => {
   try {
     const resp = await fetch(url + `/get-user-appointments/${dni}`, {
@@ -111,9 +112,45 @@ const getAppointmentsByDNI = async (dni) => {
   }
 };
 
+//obtener los turnos para un DNI
+const registerLocalApliccation = async (
+  vacc,
+  mark,
+  lot,
+  vaccinationCenter,
+  dni,
+  birthday,
+  email
+) => {
+  try {
+    const resp = await fetch(url + "/local", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        vaccine: vacc,
+        vaccinationCenter: vaccinationCenter,
+        lot: lot,
+        mark: mark,
+        dni: dni,
+        birthday: birthday,
+        email: email,
+      }),
+      credentials: "include",
+    });
+    const data = await resp.json();
+    return { data };
+  } catch (err) {
+    return false;
+  }
+};
+
 export const VaccService = {
   getAppointments,
   setAppointment,
   validateAppointment,
   getAppointmentsByDNI,
+  registerLocalApliccation,
 };
