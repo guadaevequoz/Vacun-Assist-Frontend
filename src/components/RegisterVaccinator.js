@@ -176,6 +176,9 @@ function RegisterVaccinator() {
             )}
             <span>Confirmar y registrar</span>
           </Button>
+          <Button type="submit" onClick={handleClose}>
+            <span>Cancelar</span>
+          </Button>
           <hr />
         </Modal.Footer>
       </Modal>
