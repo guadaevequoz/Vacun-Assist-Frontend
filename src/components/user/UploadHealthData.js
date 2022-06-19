@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { NBar } from "./Navbar";
-import { AuthService } from "../services/auth.service";
+import { NBar } from "../Navbar";
+import { AuthService } from "../../services/auth.service";
 
 /**
  * Funcion que permite actualizar los datos de salud de un usuario paciente

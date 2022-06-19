@@ -7,14 +7,14 @@ import Login from "./components/LogIn";
 import Signup from "./components/SignUp";
 import Board from "./components/Board";
 import ConfirmSignUp from "./components/ConfirmSignUp";
-import UploadHealthData from "./components/UploadHealthData";
-import GetAppointments from "./components/GetAppointments";
-import SetAppointment from "./components/SetAppointment";
-import GetAppointmentsVacc from "./components/GetAppointmentsVacc";
-import AppointmentValidation from "./components/AppointmentValidation";
+import UploadHealthData from "./components/user/UploadHealthData";
+import GetAppointments from "./components/user/GetAppointments";
+import SetAppointment from "./components/user/SetAppointment";
+import GetAppointmentsVacc from "./components/vacc/GetAppointmentsVacc";
+import AppointmentValidation from "./components/vacc/AppointmentValidation";
 import { useNavigate } from "react-router-dom";
-import GetStats from "./components/GetStats";
-import LocalApplication from "./components/LocalApplication";
+import GetStats from "./components/admin/GetStats";
+import LocalApplication from "./components/vacc/LocalApplication";
 // import "./index.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -26,9 +26,9 @@ import "./css/get-appointments.css";
 import "./css/validate-appointment.css";
 import "./css/navbar.css";
 import { AuthService } from "./services/auth.service";
-import AddStock from "./components/AddStock";
-import AppointmentCompleted from "./components/AppointmentCompleted";
-import RegisterVaccinator from "./components/RegisterVaccinator";
+import AddStock from "./components/admin/AddStock";
+import AppointmentCompleted from "./components/user/AppointmentCompleted";
+import RegisterVaccinator from "./components/admin/RegisterVaccinator";
 
 /**
  * Funcion que se ejecuta cuando se abre la aplicacion y carga todas las rutas

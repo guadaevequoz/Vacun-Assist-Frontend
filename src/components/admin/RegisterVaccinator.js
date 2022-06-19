@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { NBar } from "./Navbar";
+import { NBar } from "../Navbar";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
-import { AuthService } from "../services/auth.service";
-import { AdminService } from "../services/admin.service";
+import { AuthService } from "../../services/auth.service";
+import { AdminService } from "../../services/admin.service";
 
 function RegisterVaccinator() {
   const navigate = useNavigate();
   const [usr, setUsr] = useState("");
   const [show, setShow] = useState(false);
-  const [inputDniValue, setInputDniValue] = useState("");
-  const [inputMailValue, setInputMailValue] = useState("");
-  const [inputVaccinationCenterValue, setInputVaccinationCenterValue] =
-    useState("");
   const [messageValue, setMessageValue] = useState("");
   const [loadingValue, setLoadingValue] = useState(false);
-  const [vaccinator, setVaccinator] = useState("");
+
+  const [inputDniValue, setInputDniValue] = useState("");
   const [email, setEmail] = useState("");
+  const [inputVaccinationCenterValue, setInputVaccinationCenterValue] =
+    useState("");
+  const [vaccinator, setVaccinator] = useState("");
 
   useEffect(() => {
     AuthService.getUser().then((res) => {
@@ -81,7 +81,8 @@ function RegisterVaccinator() {
    * Funcion que resetea los valores de "InputVaccine" y "InputVaccinationCenter"
    */
   const reset = () => {
-    document.getElementById("dni").innerText = "";
+    setInputDniValue("");
+    setEmail("");
     document.getElementById("vaccCenter").selectedIndex = 0;
   };
 
@@ -122,6 +123,29 @@ function RegisterVaccinator() {
             max={"999999999999999999"}
             required
           ></input>
+          <label htmlFor="email">Ingrese el mail del vacunador: </label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            value={email}
+            onChange={handleMail}
+          ></input>
+          <label htmlFor="vaccCenter">
+            Selecciona el centro de vacunación:
+          </label>
+          <select
+            className="form-select"
+            onChange={handleVaccinationCenterChange}
+            id="vaccCenter"
+            name="vacunatorios"
+            required
+          >
+            <option></option>
+            <option value="Hospital 9 de Julio">Hospital 9 de Julio</option>
+            <option value="Corralón municipal">Corralón municipal</option>
+            <option value="Polideportivo">Polideportivo</option>
+          </select>
           <button type="submit">
             {loadingValue && (
               <span className="spinner-border spinner-border-sm"></span>
@@ -139,36 +163,7 @@ function RegisterVaccinator() {
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header>Valida los datos y confirma.</Modal.Header>
-        <Modal.Body>
-          Los datos del vacunador son: {vaccinator}
-          <form className="form-login">
-            <label htmlFor="email">
-              Ingrese el mail del vacunador para registrarlo:{" "}
-            </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              value={email}
-              onChange={handleMail}
-            ></input>
-            <label htmlFor="vaccCenter">
-              Selecciona el centro de vacunación:
-            </label>
-            <select
-              className="form-select"
-              onChange={handleVaccinationCenterChange}
-              id="vaccCenter"
-              name="vacunatorios"
-              required
-            >
-              <option></option>
-              <option value="Hospital 9 de Julio">Hospital 9 de Julio</option>
-              <option value="Corralón municipal">Corralón municipal</option>
-              <option value="Polideportivo">Polideportivo</option>
-            </select>
-          </form>
-        </Modal.Body>
+        <Modal.Body>Los datos del vacunador son: {vaccinator}</Modal.Body>
         <Modal.Footer>
           <Button type="submit" onClick={handleSubmit}>
             {loadingValue && (

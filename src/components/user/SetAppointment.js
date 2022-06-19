@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { VaccService } from "../services/vacc.service";
-import { AuthService } from "../services/auth.service";
-import { NBar } from "./Navbar";
-import getFullDate from "../helpers/getFullDate";
+import { VaccService } from "../../services/vacc.service";
+import { AuthService } from "../../services/auth.service";
+import { NBar } from "../Navbar";
+import getFullDate from "../../helpers/getFullDate";
 import SetAppointmentConfirm from "./SetAppointmentConfirm";
 
 /**

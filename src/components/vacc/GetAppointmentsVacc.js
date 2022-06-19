@@ -1,7 +1,7 @@
-import { AuthService } from "../services/auth.service";
-import { VaccService } from "../services/vacc.service";
+import { AuthService } from "../../services/auth.service";
+import { VaccService } from "../../services/vacc.service";
 import { useEffect, useState } from "react";
-import { NBar } from "./Navbar";
+import { NBar } from "../Navbar";
 import { VaccList } from "./VaccList";
 import { useNavigate } from "react-router-dom";
 import { Card } from "react-bootstrap";

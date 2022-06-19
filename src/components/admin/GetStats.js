@@ -1,13 +1,12 @@
-import { AuthService } from "../services/auth.service";
-import { AdminService } from "../services/admin.service";
+import { AuthService } from "../../services/auth.service";
+import { AdminService } from "../../services/admin.service";
 import { useEffect, useState } from "react";
-import { NBar } from "./Navbar";
+import { NBar } from "../Navbar";
 import { useNavigate } from "react-router-dom";
-import { Card } from "react-bootstrap";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import "../css/stats.css";
-import getDataStats from "../helpers/getDataStats";
+import "../../css/stats.css";
+import getDataStats from "../../helpers/getDataStats";
 
 /**
  * Funcion que muestra en pantalla los turnos de un usuario paciente
@@ -18,6 +17,8 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const GetStats = () => {
   const navigate = useNavigate();
   const [usr, setUsr] = useState("");
+  const [loadingValue, setLoadingValue] = useState(false);
+  const [messageValue, setMessageValue] = useState("");
 
   const [dayLabelStats, setDayLabelStats] = useState([]);
   const [dayDataStats, setSayDataStats] = useState([]);
@@ -29,6 +30,9 @@ const GetStats = () => {
   const [vaccineLabelStats, setVaccineLabelStats] = useState([]);
   const [vaccineDataStats, setVaccineDataStats] = useState([]);
   const [totalAppointments, setTotalAppointments] = useState("");
+
+  const [initialDate, setInitialDate] = useState(undefined);
+  const [lastDate, setLastDate] = useState(undefined);
 
   const dataDays = {
     labels: dayLabelStats,
@@ -106,10 +110,10 @@ const GetStats = () => {
       if (res) setUsr(res);
       else navigate("/login");
     });
-    AdminService.getStats().then((res) => {
+    AdminService.getStats(initialDate, lastDate).then((res) => {
       const { labels: labelsDays, data: dataDays } = getDataStats(
         res.daysStats,
-        res.totalAppointment
+        52
       );
       setDayLabelStats(labelsDays);
       setSayDataStats(dataDays);
@@ -131,12 +135,84 @@ const GetStats = () => {
       setTotalAppointments(res.totalAppointment);
     });
   }, []);
-  //Implementar graficos de torta. Lo intente con react-chartjs-2 pero no pude xd
+
+  const handleInitialDate = (e) => {
+    setMessageValue("");
+    setInitialDate(e.target.value);
+  };
+  const handleLastDate = (e) => {
+    setMessageValue("");
+    setLastDate(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (Date.parse(lastDate) < Date.parse(initialDate)) {
+      setMessageValue("La fecha final debe ser menor a la de inicio 😆");
+    } else {
+      AdminService.getStats(initialDate, lastDate).then((res) => {
+        const { labels: labelsDays, data: dataDays } = getDataStats(
+          res.daysStats,
+          52
+        );
+        setDayLabelStats(labelsDays);
+        setSayDataStats(dataDays);
+
+        const { labels: labelsVaccCenter, data: dataVaccCenter } = getDataStats(
+          res.vaccinationCenterStats,
+          res.totalAppointment
+        );
+        setVaccinationCenterLabelStats(labelsVaccCenter);
+        setVaccinationCenterDataStats(dataVaccCenter);
+
+        const { labels: labelsVacc, data: dataVacc } = getDataStats(
+          res.vaccineStats,
+          res.totalAppointment
+        );
+        setVaccineLabelStats(labelsVacc);
+        setVaccineDataStats(dataVacc);
+
+        setTotalAppointments(res.totalAppointment);
+      });
+    }
+  };
 
   return (
     <>
       <div className="section-container">
         <NBar user={usr} />
+        <form className="form-stats" onSubmit={handleSubmit}>
+          <h3>Ingrese un rango de fechas</h3>
+          <input
+            type="date"
+            name="fechaInicio"
+            id="initialDate"
+            value={initialDate}
+            onChange={handleInitialDate}
+            required
+          ></input>
+          <input
+            type="date"
+            name="fechaFin"
+            id="lastDate"
+            value={lastDate}
+            onChange={handleLastDate}
+            required
+          ></input>
+          <button type="submit">
+            {loadingValue && (
+              <span className="spinner-border spinner-border-sm"></span>
+            )}
+            <span>Buscar</span>
+          </button>
+          {messageValue && (
+            <div className="form-group">
+              <div className="alert alert-danger" role="alert">
+                {messageValue}
+              </div>
+            </div>
+          )}
+        </form>
         <div className="parent">
           <div className="div1">
             <label># Vacunas por día</label>

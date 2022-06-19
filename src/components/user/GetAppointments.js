@@ -1,8 +1,8 @@
-import { AuthService } from "../services/auth.service";
-import { VaccService } from "../services/vacc.service";
+import { AuthService } from "../../services/auth.service";
+import { VaccService } from "../../services/vacc.service";
 import { AppointmentsList } from "./AppointmentsList";
 import { useEffect, useState } from "react";
-import { NBar } from "./Navbar";
+import { NBar } from "../Navbar";
 import { useNavigate } from "react-router-dom";
 import { Card } from "react-bootstrap";
 

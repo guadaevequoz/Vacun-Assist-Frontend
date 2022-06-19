@@ -1,7 +1,7 @@
 import { Button, Card } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import AppointmentValidation from "./AppointmentValidation";
-import { AuthService } from "../services/auth.service";
+import { AuthService } from "../../services/auth.service";
 
 /**
  * Funcion que muestra los turnos activos para un vacunatorio especifico

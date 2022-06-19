@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { AuthService } from "../services/auth.service";
-import UserBoard from "./UserBoard";
-import VaccinatorBoard from "./VaccinatorBoard";
-import AdminBoard from "./AdminBoard";
+import UserBoard from "./user/UserBoard";
+import VaccinatorBoard from "./vacc/VaccinatorBoard";
+import AdminBoard from "./admin/AdminBoard";
 
 import { Container, Navbar, Nav } from "react-bootstrap";
 

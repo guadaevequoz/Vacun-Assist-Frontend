@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { AuthService } from "../services/auth.service";
+import { AuthService } from "../../services/auth.service";
 import { Button, Modal } from "react-bootstrap";
-import { VaccService } from "../services/vacc.service";
+import { VaccService } from "../../services/vacc.service";
 import { useNavigate } from "react-router-dom";
 
 /**

@@ -1,14 +1,18 @@
 const url = `http://localhost:8082/admin`;
 
-const getStats = async () => {
+const getStats = async (initialDate, lastDate) => {
   try {
     const resp = await fetch(url + "/get-stats", {
-      method: "GET",
+      method: "POST",
       headers: {
         Accept: "application/json",
         "Content-type": "application/json",
       },
       credentials: "include",
+      body: JSON.stringify({
+        date1: initialDate,
+        date2: lastDate,
+      }),
     });
 
     const { stats } = await resp.json();

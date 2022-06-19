@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { NBar } from "./Navbar";
-import { AuthService } from "../services/auth.service";
-import { AdminService } from "../services/admin.service";
+import { NBar } from "../Navbar";
+import { AuthService } from "../../services/auth.service";
+import { AdminService } from "../../services/admin.service";
 import { Button, Modal } from "react-bootstrap";
 
 function AddStock() {

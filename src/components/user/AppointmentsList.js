@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { Button, Card } from "react-bootstrap";
-import getFullDate from "../helpers/getFullDate";
-import AppointmentCompleted from "./AppointmentCompleted";
+import { Card } from "react-bootstrap";
+import getFullDate from "../../helpers/getFullDate";
 
 /**
  * Muesta una lista de los turnos asignados que tiene un usario paciente
@@ -10,21 +9,11 @@ import AppointmentCompleted from "./AppointmentCompleted";
  * @returns Retorna una "Card" con la informacion de un turno espeficico
  */
 export const AppointmentsList = ({ loadAppointments, data }, key) => {
-  const [show, setShow] = useState(false);
   useEffect(() => {}, [data]);
   const date = data.vaccinationDate
     ? getFullDate(data.vaccinationDate)
     : "A confirmar";
 
-  /**
-   * Funcion que cierra el "Modal" del componenete "AppointmentValidation"
-   */
-  const handleClose = () => setShow(false);
-
-  /**
-   * Funcion que abre el "Modal" del componenete "AppointmentValidation"
-   */
-  const handleShow = () => setShow(true);
   return (
     <>
       <Card style={{ width: "500px", margin: "10px auto" }}>

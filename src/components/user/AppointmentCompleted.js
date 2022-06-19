@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { AuthService } from "../services/auth.service";
+import { AuthService } from "../../services/auth.service";
 import { useNavigate } from "react-router-dom";
-import { NBar } from "./Navbar";
+import { NBar } from "../Navbar";
 
 const AppointmentCompleted = () => {
   const navigate = useNavigate();

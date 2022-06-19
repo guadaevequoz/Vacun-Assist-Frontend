@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 
-import { Routes, Route, useParams } from "react-router-dom";
-import { Button, Modal } from "react-bootstrap";
-import { NBar } from "./Navbar";
-import { AuthService } from "../services/auth.service";
+import { useParams } from "react-router-dom";
+
+import { NBar } from "../Navbar";
+import { AuthService } from "../../services/auth.service";
 import { useNavigate } from "react-router-dom";
-import { VaccService } from "../services/vacc.service";
+import { VaccService } from "../../services/vacc.service";
 
 function LocalApplication() {
   let { dni, birthday, email } = useParams();

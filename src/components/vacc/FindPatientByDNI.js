@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { VaccService } from "../services/vacc.service";
+import { VaccService } from "../../services/vacc.service";
 import LocalApplication from "./LocalApplication";
 
 const FindPatientByDNI = ({ show, handleClose, dni, vaccinationCenter }) => {
