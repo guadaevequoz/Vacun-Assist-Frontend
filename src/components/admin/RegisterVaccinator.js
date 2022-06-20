@@ -35,9 +35,13 @@ function RegisterVaccinator() {
     console.log(inputDniValue);
 
     AdminService.getUserRenaper(inputDniValue).then((res) => {
-      console.log(res);
-      setVaccinator(res.fullName);
-      handleShow();
+      if (res.status === "fail") {
+        setMessageValue(res.message);
+        setLoadingValue(false);
+      } else {
+        setVaccinator(res.data.fullName);
+        handleShow();
+      }
     });
   };
 

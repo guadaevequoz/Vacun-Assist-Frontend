@@ -61,7 +61,7 @@ const getUserRenaper = async (dni) => {
       }
     );
     console.log(dni);
-    const { data } = await resp.json();
+    const data = await resp.json();
 
     return data;
   } catch (err) {
