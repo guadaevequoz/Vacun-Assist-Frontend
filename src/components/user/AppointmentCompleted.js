@@ -51,11 +51,11 @@ const AppointmentCompleted = () => {
       if (res.data.status === "fail") {
         setMessageValue(res.data.message);
       } else {
+        setMessageValue(
+          `Registraste la aplicación de la vacuna ${inputVaccine} el día ${inputVaccinationDate}`
+        );
       }
     });
-    setMessageValue(
-      `Registraste la aplicación de la vacuna ${inputVaccine} el día ${inputVaccinationDate}`
-    );
   };
 
   /**

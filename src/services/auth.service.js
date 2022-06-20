@@ -195,7 +195,7 @@ const setCompletedAppointment = async (vacc, vaccDate) => {
     });
 
     const data = await resp.json();
-
+    console.log(data);
     return { data };
   } catch (err) {
     return false;
