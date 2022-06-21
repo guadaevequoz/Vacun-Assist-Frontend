@@ -3,6 +3,8 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   justify-items: center;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .parent::-webkit-scrollbar {
@@ -29,8 +31,6 @@
 @media only screen and (max-width: 989px) {
   .parent {
     grid-template-columns: repeat(4, 1fr);
-    overflow-x: hidden;
-    overflow-y: scroll;
   }
   .div1 {
     grid-area: 1 / 2 / 2 / 4;

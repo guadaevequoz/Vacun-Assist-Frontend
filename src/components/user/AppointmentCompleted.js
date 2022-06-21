@@ -44,6 +44,7 @@ const AppointmentCompleted = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     reset();
+
     AuthService.setCompletedAppointment(
       inputVaccine,
       inputVaccinationDate

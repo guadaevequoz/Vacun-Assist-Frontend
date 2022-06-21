@@ -13,6 +13,7 @@ function LocalApplication() {
   const navigate = useNavigate();
   const [inputVaccineValue, setInputVaccineValue] = useState("");
   const [messageValue, setMessageValue] = useState("");
+  const [messageConfirmValue, setMessageConfirmValue] = useState("");
   const [loadingValue, setLoadingValue] = useState(false);
   const [inputLot, setInputLot] = useState("");
   const [inputMark, setInputMark] = useState("");
@@ -72,7 +73,9 @@ function LocalApplication() {
         setInputLot("");
         setMessageValue(res.data.message);
       } else {
-        navigate("/getAppointmentsVacc");
+        setMessageConfirmValue(
+          `El turno para el DNI: ${dni} contra ${inputVaccineValue} se registro correctamente 😁`
+        );
       }
     });
   };
@@ -118,6 +121,13 @@ function LocalApplication() {
             <div className="form-group">
               <div className="alert alert-danger" role="alert">
                 {messageValue}
+              </div>
+            </div>
+          )}
+          {messageConfirmValue && (
+            <div className="form-group message">
+              <div className="alert alert-info" role="alert">
+                {messageConfirmValue}
               </div>
             </div>
           )}

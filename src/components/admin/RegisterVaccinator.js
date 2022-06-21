@@ -104,6 +104,7 @@ function RegisterVaccinator() {
       } else {
       }
     });
+    setMessageValue("Se Registro al Vacunador correctamente! 😁");
     reset();
     handleClose();
   };

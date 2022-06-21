@@ -37,7 +37,7 @@ const FindPatientByDNI = ({ show, handleClose, dni, vaccinationCenter }) => {
                 case "Covid":
                   setActiveCovid(true);
                   break;
-                case "Fiebre Amarilla":
+                case "FiebreAmarilla":
                   setActiveFiebreA(true);
                   break;
                 case "Gripe":
@@ -95,7 +95,7 @@ const FindPatientByDNI = ({ show, handleClose, dni, vaccinationCenter }) => {
               </ul>
               {appointments === "" ? (
                 <div>
-                  No esta registrado.
+                  No esta registrado. Si va a aplicarle una vacuna, Registralo!
                   <label htmlFor="email">
                     Ingrese el mail del paciente para registrarlo:{" "}
                   </label>
