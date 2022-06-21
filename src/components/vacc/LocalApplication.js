@@ -32,6 +32,7 @@ function LocalApplication() {
    */
   const handleLotChange = (e) => {
     setMessageValue("");
+    setMessageConfirmValue("");
     setInputLot(e.target.value);
   };
 
@@ -41,6 +42,7 @@ function LocalApplication() {
    */
   const handleMarkChange = (e) => {
     setMessageValue("");
+    setMessageConfirmValue("");
     setInputMark(e.target.value);
   };
 
@@ -50,7 +52,7 @@ function LocalApplication() {
    */
   const handleVaccineChange = (e) => {
     setMessageValue("");
-    //evaluar cual vacuna tiene del covid --> LO DEJAMOS PARA DSP PORQUE NO ESTA EN EL BACK
+    setMessageConfirmValue("");
     setInputVaccineValue(e.target.value);
   };
 
@@ -70,14 +72,20 @@ function LocalApplication() {
       email
     ).then((res) => {
       if (res.data.status === "fail") {
-        setInputLot("");
+        reset();
         setMessageValue(res.data.message);
       } else {
+        reset();
         setMessageConfirmValue(
           `El turno para el DNI: ${dni} contra ${inputVaccineValue} se registro correctamente 😁`
         );
       }
     });
+  };
+  const reset = () => {
+    setInputLot("");
+    setInputMark("");
+    document.getElementById("vacc").selectedIndex = 0;
   };
 
   return (
