@@ -11,6 +11,8 @@ function AddStock() {
   const [inputVaccineValue, setInputVaccineValue] = useState("");
   const [inputVaccinationCenterValue, setInputVaccinationCenterValue] =
     useState("");
+
+  const [messageStock, setMessageStock] = useState("");
   const [messageValue, setMessageValue] = useState("");
   const [loadingValue, setLoadingValue] = useState(false);
   const [usr, setUsr] = useState("");
@@ -25,19 +27,36 @@ function AddStock() {
    */
   const handleShow = () => setShow(true);
 
+  const getStock = () => {
+    console.log(inputVaccineValue, inputVaccinationCenterValue);
+    if (inputVaccineValue && inputVaccinationCenterValue) {
+      console.log("entre");
+      AdminService.getStock(
+        inputVaccineValue,
+        inputVaccinationCenterValue
+      ).then((res) => {
+        console.log(res);
+        setMessageStock(`El stock actual es ${res.data.cant}`);
+      });
+    } else setMessageStock("");
+  };
+
   //Renderiza "SetAppointment" solo una vez
   useEffect(() => {
+    console.log("useEffect");
     AuthService.getUser().then((res) => {
       if (res) setUsr(res);
       else navigate("/login");
     });
-  }, []);
+    getStock();
+  }, [inputVaccineValue, inputVaccinationCenterValue]);
 
   /**
    * Funcion que maneja el cambio de "InputVaccine"
    * @param {*} e Representa el evento
    */
   const handleVaccineChange = (e) => {
+    console.log("Cambiando vacuna");
     setMessageValue("");
     setInputVaccineValue(e.target.value);
   };
@@ -46,6 +65,7 @@ function AddStock() {
    * @param {*} e Representa el evento
    */
   const handleVaccinationCenterChange = (e) => {
+    console.log("Cambiando vacunatorio");
     setMessageValue("");
     setInputVaccinationCenterValue(e.target.value);
   };
@@ -120,6 +140,7 @@ function AddStock() {
             <option value="Corralón municipal">Corralón municipal</option>
             <option value="Polideportivo">Polideportivo</option>
           </select>
+          {messageStock && <div>{messageStock}</div>}
           <input
             type="number"
             name="stock"

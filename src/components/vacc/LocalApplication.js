@@ -6,25 +6,43 @@ import { NBar } from "../Navbar";
 import { AuthService } from "../../services/auth.service";
 import { useNavigate } from "react-router-dom";
 import { VaccService } from "../../services/vacc.service";
+import { AdminService } from "../../services/admin.service";
 
 function LocalApplication() {
   let { dni, birthday, email } = useParams();
   console.log(dni, birthday, email);
   const navigate = useNavigate();
   const [inputVaccineValue, setInputVaccineValue] = useState("");
+
   const [messageValue, setMessageValue] = useState("");
   const [messageConfirmValue, setMessageConfirmValue] = useState("");
+  const [messageStock, setMessageStock] = useState("");
+
   const [loadingValue, setLoadingValue] = useState(false);
   const [inputLot, setInputLot] = useState("");
   const [inputMark, setInputMark] = useState("");
   const [usr, setUsr] = useState("");
+
+  const getStock = () => {
+    console.log(inputVaccineValue, usr.vaccinationCenter);
+    if (inputVaccineValue) {
+      console.log("entre");
+      AdminService.getStock(inputVaccineValue, usr.vaccinationCenter).then(
+        (res) => {
+          console.log(res);
+          setMessageStock(`El stock actual es ${res.data.cant}`);
+        }
+      );
+    } else setMessageStock("");
+  };
 
   useEffect(() => {
     AuthService.getUser().then((res) => {
       if (res) setUsr(res);
       else navigate("/login");
     });
-  }, []);
+    getStock();
+  }, [inputVaccineValue]);
 
   /**
    * Funcion que maneja el cambio del "InputLot"
@@ -105,6 +123,7 @@ function LocalApplication() {
             <option></option>
             <option value="Covid">COVID</option>
           </select>
+          {messageStock && <div>{messageStock}</div>}
           <input
             type="text"
             name="lot"
