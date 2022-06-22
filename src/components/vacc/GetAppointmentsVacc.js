@@ -106,10 +106,12 @@ const GetAppointments = () => {
             margin: "10px",
             marginTop: "auto",
             marginLeft: "0px",
+            display: "flex",
+            justifyContent: "center",
           }}
           onClick={reLoad}
         >
-          🔄
+          <img alt="" src={require("../../assets/reload.png")} width="20"></img>
         </button>
       </div>
       <div className="appointments-container">
