@@ -45,7 +45,7 @@ const GetStats = () => {
           "rgba(255, 0, 0, 0.2)",
           "rgba(0, 255, 0, 0.2)",
           "rgba(0, 0, 255, 0.2)",
-          "rgba(255, 255, 0, 0.2)",
+          "rgba(255, 230, 0, 0.2)",
           "rgba(255, 0, 255, 0.2)",
           "rgba(0,255,255,0.2)",
           "rgba(255, 130, 0, 0.2)",
@@ -54,7 +54,7 @@ const GetStats = () => {
           "rgba(255, 0, 0, 1)",
           "rgba(0, 255, 0, 1)",
           "rgba(0, 0, 255, 1)",
-          "rgba(255, 255, 0, 1)",
+          "rgba(255, 230, 0, 1)",
           "rgba(255, 0, 255, 1)",
           "rgba(0,255,255,1)",
           "rgba(255, 130, 0, 1)",
@@ -74,13 +74,13 @@ const GetStats = () => {
           "rgba(255, 0, 0, 0.2)",
           "rgba(0, 255, 0, 0.2)",
           "rgba(0, 0, 255, 0.2)",
-          "rgba(255, 255, 0, 0.2)",
+          "rgba(255, 230, 0, 0.2)",
         ],
         borderColor: [
           "rgba(255, 0, 0, 1)",
           "rgba(0, 255, 0, 1)",
           "rgba(0, 0, 255, 1)",
-          "rgba(255, 255, 0, 1)",
+          "rgba(255, 230, 0, 1)",
         ],
         borderWidth: 1,
       },
@@ -95,13 +95,13 @@ const GetStats = () => {
         data: vaccineDataStats,
         backgroundColor: [
           "rgba(255, 0, 0, 0.2)",
-          "rgba(0, 255, 0, 0.2)",
           "rgba(0, 0, 255, 0.2)",
+          "rgba(255, 230, 0, 0.2)",
         ],
         borderColor: [
           "rgba(255, 0, 0, 1)",
-          "rgba(0, 255, 0, 1)",
           "rgba(0, 0, 255, 1)",
+          "rgba(255, 230, 0, 1)",
         ],
         borderWidth: 1,
       },
@@ -198,15 +198,15 @@ const GetStats = () => {
         ) : (
           <div className="parent">
             <div className="div1">
-              <label># Vacunas por día</label>
+              <label># Turnos por día</label>
               <Pie data={dataDays} />
             </div>
             <div className="div2">
-              <label># Vacunas por tipo</label>
+              <label># Turnos por vacuna</label>
               <Pie data={dataVaccines} />
             </div>
             <div className="div3">
-              <label># Vacunas por vacunador</label>
+              <label># Turnos por vacunatorio</label>
               <Pie data={dataVaccCenter} />
             </div>
           </div>

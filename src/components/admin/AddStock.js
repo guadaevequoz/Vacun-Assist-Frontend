@@ -21,7 +21,11 @@ function AddStock() {
   /**
    * Funcion que cierra el "Modal" del componenete "SetAppointmentConform"
    */
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setInputVaccinationCenterValue("");
+    setInputVaccineValue("");
+    setShow(false);
+  };
   /**
    * Funcion que abre el "Modal" del componenete "SetAppointmentConform"
    */
@@ -107,7 +111,8 @@ function AddStock() {
   const reset = () => {
     document.getElementById("vacc").selectedIndex = 0;
     document.getElementById("vaccCenter").selectedIndex = 0;
-    setInputStockValue(""); //NO ANDA DIOS YA INTENTE CON .value y con .reset() Y NO FUNCIONAAAAAAA
+    setInputStockValue("");
+    setMessageStock("");
   };
 
   return (
