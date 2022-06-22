@@ -45,11 +45,11 @@
 
 .form-stats {
   position: relative;
-  /* overflow: hidden; */
   background-color: white;
   width: 95%;
-  /* height: 55%; */
   margin: auto;
+  margin-top: 0px;
+  margin-bottom: 0px;
   padding: 10px;
   padding-top: 60px;
 
