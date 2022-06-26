@@ -31,6 +31,7 @@ import AppointmentCompleted from "./components/user/AppointmentCompleted";
 import RegisterVaccinator from "./components/admin/RegisterVaccinator";
 import UpdateHealthData from "./components/user/UpdateHealthData";
 import GetPersonalData from "./components/user/GetPersonalData";
+import AddPendingAppointments from "./components/admin/AddPendingAppointments";
 
 /**
  * Funcion que se ejecuta cuando se abre la aplicacion y carga todas las rutas
@@ -62,6 +63,10 @@ const VacunAssist = () => {
         <Route
           path="/appointmentValidation"
           element={<AppointmentValidation />}
+        />
+        <Route
+          path="/addPendingAppointments"
+          element={<AddPendingAppointments />}
         />
         <Route path="/getStats" element={<GetStats />} />
         <Route path="/addStock" element={<AddStock />} />

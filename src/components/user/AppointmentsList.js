@@ -57,6 +57,9 @@ export const AppointmentsList = ({ loadAppointments, data }, key) => {
           <div className="list-group-item">
             Vacunatorio: {data.vaccinationCenter}
           </div>
+          {data.vaccine === "FiebreAmarilla" && data.state === "Finalizado" && (
+            <button>Obtener certificado</button>
+          )}
           <button
             className="list-group-item btn btn-danger"
             onClick={handleShow}
