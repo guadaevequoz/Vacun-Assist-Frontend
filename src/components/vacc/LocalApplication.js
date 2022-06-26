@@ -6,24 +6,43 @@ import { NBar } from "../Navbar";
 import { AuthService } from "../../services/auth.service";
 import { useNavigate } from "react-router-dom";
 import { VaccService } from "../../services/vacc.service";
+import { AdminService } from "../../services/admin.service";
 
 function LocalApplication() {
   let { dni, birthday, email } = useParams();
   console.log(dni, birthday, email);
   const navigate = useNavigate();
   const [inputVaccineValue, setInputVaccineValue] = useState("");
+
   const [messageValue, setMessageValue] = useState("");
+  const [messageConfirmValue, setMessageConfirmValue] = useState("");
+  const [messageStock, setMessageStock] = useState("");
+
   const [loadingValue, setLoadingValue] = useState(false);
   const [inputLot, setInputLot] = useState("");
   const [inputMark, setInputMark] = useState("");
   const [usr, setUsr] = useState("");
+
+  const getStock = () => {
+    console.log(inputVaccineValue, usr.vaccinationCenter);
+    if (inputVaccineValue) {
+      console.log("entre");
+      AdminService.getStock(inputVaccineValue, usr.vaccinationCenter).then(
+        (res) => {
+          console.log(res);
+          setMessageStock(`El stock actual es ${res.data.cant}`);
+        }
+      );
+    } else setMessageStock("");
+  };
 
   useEffect(() => {
     AuthService.getUser().then((res) => {
       if (res) setUsr(res);
       else navigate("/login");
     });
-  }, []);
+    getStock();
+  }, [inputVaccineValue]);
 
   /**
    * Funcion que maneja el cambio del "InputLot"
@@ -31,6 +50,7 @@ function LocalApplication() {
    */
   const handleLotChange = (e) => {
     setMessageValue("");
+    setMessageConfirmValue("");
     setInputLot(e.target.value);
   };
 
@@ -40,6 +60,7 @@ function LocalApplication() {
    */
   const handleMarkChange = (e) => {
     setMessageValue("");
+    setMessageConfirmValue("");
     setInputMark(e.target.value);
   };
 
@@ -49,7 +70,7 @@ function LocalApplication() {
    */
   const handleVaccineChange = (e) => {
     setMessageValue("");
-    //evaluar cual vacuna tiene del covid --> LO DEJAMOS PARA DSP PORQUE NO ESTA EN EL BACK
+    setMessageConfirmValue("");
     setInputVaccineValue(e.target.value);
   };
 
@@ -69,12 +90,20 @@ function LocalApplication() {
       email
     ).then((res) => {
       if (res.data.status === "fail") {
-        setInputLot("");
+        reset();
         setMessageValue(res.data.message);
       } else {
-        navigate("/getAppointmentsVacc");
+        reset();
+        setMessageConfirmValue(
+          `El turno para el DNI: ${dni} contra ${inputVaccineValue} se registro correctamente 😁`
+        );
       }
     });
+  };
+  const reset = () => {
+    setInputLot("");
+    setInputMark("");
+    document.getElementById("vacc").selectedIndex = 0;
   };
 
   return (
@@ -96,6 +125,7 @@ function LocalApplication() {
             <option value="Covid">COVID</option>
             <option value="FiebreAmarilla">Fiebre amarilla</option>
           </select>
+          {messageStock && <div>{messageStock}</div>}
           <input
             type="text"
             name="lot"
@@ -120,6 +150,13 @@ function LocalApplication() {
             <div className="form-group">
               <div className="alert alert-danger" role="alert">
                 {messageValue}
+              </div>
+            </div>
+          )}
+          {messageConfirmValue && (
+            <div className="form-group message">
+              <div className="alert alert-info" role="alert">
+                {messageConfirmValue}
               </div>
             </div>
           )}

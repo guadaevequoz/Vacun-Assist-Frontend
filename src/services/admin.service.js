@@ -23,6 +23,29 @@ const getStats = async (initialDate, lastDate) => {
   }
 };
 
+const getStock = async (vacc, vaccCenter) => {
+  try {
+    const resp = await fetch(url + "/get-stock", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        vaccine: vacc,
+        vaccinationCenter: vaccCenter,
+      }),
+    });
+
+    const data = await resp.json();
+
+    return data;
+  } catch (err) {
+    return false;
+  }
+};
+
 const addStock = async (cant, vacc, vaccCenter) => {
   try {
     const resp = await fetch(url + "/add-stock", {
@@ -71,6 +94,7 @@ const getUserRenaper = async (dni) => {
 
 export const AdminService = {
   getStats,
+  getStock,
   addStock,
   getUserRenaper,
 };

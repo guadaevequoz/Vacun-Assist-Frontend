@@ -14,6 +14,8 @@ import FindPatientByDNI from "./FindPatientByDNI";
 const GetAppointments = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState([]);
+  const [messageFullName, setMessageFullName] = useState("");
+
   const [usr, setUsr] = useState("");
   const [inputPatientDniValue, setInputPatientDniValue] = useState("");
   const [show, setShow] = useState(false);
@@ -30,10 +32,10 @@ const GetAppointments = () => {
   /**
    * Funcion que cierra el "Modal" del componenete "FindPatientByDNI"
    */
-  const handleClose = (app) => {
+  const handleClose = (app, patientFullName) => {
     setInputPatientDniValue("");
     setShow(false);
-    app && loadAppointments(app);
+    app && loadAppointments(app, patientFullName);
   };
   /**
    * Funcion que abre el "Modal" del componenete "FindPatientByDNI"
@@ -42,11 +44,12 @@ const GetAppointments = () => {
   /**
    * Funcion que devuelve todos los turnos ACTIVOS de un vacunatorio espeficico
    */
-  const loadAppointments = (patientAppointments) => {
+  const loadAppointments = (patientAppointments, patientFullName) => {
     console.log(patientAppointments);
-    console.log(inputPatientDniValue);
+    console.log(patientFullName);
     if (patientAppointments) {
       setMessage(patientAppointments);
+      setMessageFullName(`Turnos del paciente: ${patientFullName}`);
     } else {
       VaccService.getAppointments().then(
         ({ appointments }) => {
@@ -65,6 +68,7 @@ const GetAppointments = () => {
   };
 
   const reLoad = () => {
+    setMessageFullName("");
     loadAppointments();
   };
 
@@ -93,7 +97,7 @@ const GetAppointments = () => {
             max={"999999999999999999"}
             required
           ></input>
-          <button type="submit">Buscar</button>
+          <button type="submit">Buscar </button>
         </form>
         <button
           style={{
@@ -102,13 +106,16 @@ const GetAppointments = () => {
             margin: "10px",
             marginTop: "auto",
             marginLeft: "0px",
+            display: "flex",
+            justifyContent: "center",
           }}
           onClick={reLoad}
         >
-          🔄
+          <img alt="" src={require("../../assets/reload.png")} width="20"></img>
         </button>
       </div>
       <div className="appointments-container">
+        {messageFullName && <div>{messageFullName}</div>}
         {message.length === 0 && (
           <Card style={{ width: "500px", margin: "10px auto" }}>
             <Card.Body>

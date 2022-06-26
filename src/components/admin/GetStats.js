@@ -19,6 +19,7 @@ const GetStats = () => {
   const [usr, setUsr] = useState("");
   const [loadingValue, setLoadingValue] = useState(false);
   const [messageValue, setMessageValue] = useState("");
+  const [initMessage, setInitMessage] = useState(true);
 
   const [dayLabelStats, setDayLabelStats] = useState([]);
   const [dayDataStats, setSayDataStats] = useState([]);
@@ -44,7 +45,7 @@ const GetStats = () => {
           "rgba(255, 0, 0, 0.2)",
           "rgba(0, 255, 0, 0.2)",
           "rgba(0, 0, 255, 0.2)",
-          "rgba(255, 255, 0, 0.2)",
+          "rgba(255, 230, 0, 0.2)",
           "rgba(255, 0, 255, 0.2)",
           "rgba(0,255,255,0.2)",
           "rgba(255, 130, 0, 0.2)",
@@ -53,7 +54,7 @@ const GetStats = () => {
           "rgba(255, 0, 0, 1)",
           "rgba(0, 255, 0, 1)",
           "rgba(0, 0, 255, 1)",
-          "rgba(255, 255, 0, 1)",
+          "rgba(255, 230, 0, 1)",
           "rgba(255, 0, 255, 1)",
           "rgba(0,255,255,1)",
           "rgba(255, 130, 0, 1)",
@@ -73,13 +74,13 @@ const GetStats = () => {
           "rgba(255, 0, 0, 0.2)",
           "rgba(0, 255, 0, 0.2)",
           "rgba(0, 0, 255, 0.2)",
-          "rgba(255, 255, 0, 0.2)",
+          "rgba(255, 230, 0, 0.2)",
         ],
         borderColor: [
           "rgba(255, 0, 0, 1)",
           "rgba(0, 255, 0, 1)",
           "rgba(0, 0, 255, 1)",
-          "rgba(255, 255, 0, 1)",
+          "rgba(255, 230, 0, 1)",
         ],
         borderWidth: 1,
       },
@@ -94,13 +95,13 @@ const GetStats = () => {
         data: vaccineDataStats,
         backgroundColor: [
           "rgba(255, 0, 0, 0.2)",
-          "rgba(0, 255, 0, 0.2)",
           "rgba(0, 0, 255, 0.2)",
+          "rgba(255, 230, 0, 0.2)",
         ],
         borderColor: [
           "rgba(255, 0, 0, 1)",
-          "rgba(0, 255, 0, 1)",
           "rgba(0, 0, 255, 1)",
+          "rgba(255, 230, 0, 1)",
         ],
         borderWidth: 1,
       },
@@ -111,31 +112,6 @@ const GetStats = () => {
     AuthService.getUser().then((res) => {
       if (res) setUsr(res);
       else navigate("/login");
-    });
-    AdminService.getStats(initialDate, lastDate).then((res) => {
-      const { labels: labelsDays, data: dataDays } = getDataStats(
-        res.daysStats,
-        52
-      );
-      setDayLabelStats(labelsDays);
-      setSayDataStats(dataDays);
-      console.log(res.vaccinationCenterStats);
-      const { labels: labelsVaccCenter, data: dataVaccCenter } = getDataStats(
-        res.vaccinationCenterStats,
-        res.totalAppointment
-      );
-      console.log(dataVaccCenter);
-      setVaccinationCenterLabelStats(labelsVaccCenter);
-      setVaccinationCenterDataStats(dataVaccCenter);
-
-      const { labels: labelsVacc, data: dataVacc } = getDataStats(
-        res.vaccineStats,
-        res.totalAppointment
-      );
-      setVaccineLabelStats(labelsVacc);
-      setVaccineDataStats(dataVacc);
-
-      setTotalAppointments(res.totalAppointment);
     });
   }, []);
 
@@ -176,6 +152,7 @@ const GetStats = () => {
         setVaccineDataStats(dataVacc);
 
         setTotalAppointments(res.totalAppointment);
+        setInitMessage(false);
       });
     }
   };
@@ -216,20 +193,24 @@ const GetStats = () => {
             </div>
           )}
         </form>
-        <div className="parent">
-          <div className="div1">
-            <label># Vacunas por día</label>
-            <Pie data={dataDays} />
+        {initMessage ? (
+          <div>Ingrese un rango de fechas para visualizar las estadisticas</div>
+        ) : (
+          <div className="parent">
+            <div className="div1">
+              <label># Turnos por día</label>
+              <Pie data={dataDays} />
+            </div>
+            <div className="div2">
+              <label># Turnos por vacuna</label>
+              <Pie data={dataVaccines} />
+            </div>
+            <div className="div3">
+              <label># Turnos por vacunatorio</label>
+              <Pie data={dataVaccCenter} />
+            </div>
           </div>
-          <div className="div2">
-            <label># Vacunas por tipo</label>
-            <Pie data={dataVaccines} />
-          </div>
-          <div className="div3">
-            <label># Vacunas por vacunador</label>
-            <Pie data={dataVaccCenter} />
-          </div>
-        </div>
+        )}
       </div>
     </>
   );
