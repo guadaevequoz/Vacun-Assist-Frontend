@@ -26,6 +26,11 @@ const UserBoard = ({ user }) => {
               Registrar aplicacion de vacuna
             </Link>
           </Nav.Link>
+          <Nav.Link>
+            <Link to={"/updatehealthdata"} className="nav-link">
+              Cambiar respuesta de cuestionario de salud
+            </Link>
+          </Nav.Link>
         </>
       )}
       {!user.updatedHealthData && (

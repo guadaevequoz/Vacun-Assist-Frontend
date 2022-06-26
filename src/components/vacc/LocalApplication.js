@@ -92,7 +92,9 @@ function LocalApplication() {
             required
           >
             <option></option>
+            <option value="Covid">Gripe</option>
             <option value="Covid">COVID</option>
+            <option value="FiebreAmarilla">Fiebre amarilla</option>
           </select>
           <input
             type="text"

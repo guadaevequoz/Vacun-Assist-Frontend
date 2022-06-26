@@ -123,7 +123,7 @@ const FindPatientByDNI = ({ show, handleClose, dni, vaccinationCenter }) => {
                   navigate(`/localApp/${DNI}/${birthday}/${email}`)
                 }
               >
-                Registrar Turno
+                Registrar aplicación
               </Button>{" "}
             </>
           )}

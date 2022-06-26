@@ -21,7 +21,15 @@ function Board() {
   return (
     <div className="section-container">
       <NBar user={usr} />
-      <p>Bienvenido {usr.fullName}!</p>
+      <p>
+        Bienvenido{" "}
+        <strong>
+          {usr.rol == "admin"
+            ? "administrador"
+            : usr.rol == "vacc" && "vacunador"}
+        </strong>{" "}
+        {usr.fullName}!
+      </p>
     </div>
   );
 }
