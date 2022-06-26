@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import getFullDate from "../../helpers/getFullDate";
 
 /**
@@ -9,11 +10,22 @@ import getFullDate from "../../helpers/getFullDate";
  * @returns Retorna una "Card" con la informacion de un turno espeficico
  */
 export const AppointmentsList = ({ loadAppointments, data }, key) => {
+  const [show, setShow] = useState(false);
+  const [changed, setChanged] = useState(false);
+  const [messageValue, setMessageValue] = useState("");
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   useEffect(() => {}, [data]);
   const date = data.vaccinationDate
     ? getFullDate(data.vaccinationDate)
     : "A confirmar";
 
+  const cancelAppointment = () => {
+    setMessageValue("Has cancelado tu turno.");
+    setChanged(true);
+  };
   return (
     <>
       <Card style={{ width: "500px", margin: "10px auto" }}>
@@ -45,6 +57,33 @@ export const AppointmentsList = ({ loadAppointments, data }, key) => {
           <div className="list-group-item">
             Vacunatorio: {data.vaccinationCenter}
           </div>
+          <button
+            className="list-group-item btn btn-danger"
+            onClick={handleShow}
+          >
+            Cancelar turno
+          </button>
+
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Cancelar turno</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {!changed
+                ? `Estas a punto de cancelar tu turno para el día: ${date}`
+                : messageValue}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                {!changed ? "Cancelar" : "Cerrar"}
+              </Button>
+              {!changed && (
+                <Button variant="success" onClick={cancelAppointment}>
+                  Confirmar
+                </Button>
+              )}
+            </Modal.Footer>
+          </Modal>
         </Card.Body>
       </Card>
       <br />
