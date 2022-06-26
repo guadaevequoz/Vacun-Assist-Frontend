@@ -31,6 +31,11 @@ const UserBoard = ({ user }) => {
               Cambiar respuesta de cuestionario de salud
             </Link>
           </Nav.Link>
+          <Nav.Link>
+            <Link to={"/getdata"} className="nav-link">
+              Mostrar datos
+            </Link>
+          </Nav.Link>
         </>
       )}
       {!user.updatedHealthData && (
