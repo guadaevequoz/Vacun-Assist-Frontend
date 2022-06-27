@@ -148,10 +148,33 @@ const registerLocalApliccation = async (
   }
 };
 
+//canmcelar turno
+const cancelAppointment = async (id, dni) => {
+  try {
+    const resp = await fetch(url + "/cancel", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+        dni: dni,
+      }),
+      credentials: "include",
+    });
+    const data = await resp.json();
+    return { data };
+  } catch (err) {
+    return false;
+  }
+};
+
 export const VaccService = {
   getAppointments,
   setAppointment,
   validateAppointment,
   getAppointmentsByDNI,
   registerLocalApliccation,
+  cancelAppointment,
 };

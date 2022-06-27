@@ -45,7 +45,9 @@ function GetPersonalData() {
           </li>
           <li>
             <em>Datos de salud: </em>{" "}
-            {usr.isRisk ? "Soy de riesgo" : "No soy de riesgo"}{" "}
+            {usr.isRisk
+              ? "Soy paciente de riesgo"
+              : "No soy paciente de riesgo"}{" "}
           </li>
         </div>
       </div>

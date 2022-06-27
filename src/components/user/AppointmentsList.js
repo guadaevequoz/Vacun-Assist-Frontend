@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Card } from "react-bootstrap";
 import { Button, Modal } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import getFullDate from "../../helpers/getFullDate";
+import { VaccService } from "../../services/vacc.service";
 
 /**
  * Muesta una lista de los turnos asignados que tiene un usario paciente
@@ -10,12 +12,14 @@ import getFullDate from "../../helpers/getFullDate";
  * @returns Retorna una "Card" con la informacion de un turno espeficico
  */
 export const AppointmentsList = ({ loadAppointments, data }, key) => {
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [changed, setChanged] = useState(false);
   const [messageValue, setMessageValue] = useState("");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleCerrar = () => navigate("/board");
 
   useEffect(() => {}, [data]);
   const date = data.vaccinationDate
@@ -23,8 +27,17 @@ export const AppointmentsList = ({ loadAppointments, data }, key) => {
     : "A confirmar";
 
   const cancelAppointment = () => {
-    setMessageValue("Has cancelado tu turno.");
-    setChanged(true);
+    VaccService.cancelAppointment(data._id, data.patientDni).then(
+      ({ data }) => {
+        if (data.status === "fail") {
+          setMessageValue(data.message);
+          setChanged(true);
+        } else {
+          setMessageValue("Has cancelado tu turno!");
+          setChanged(true);
+        }
+      }
+    );
   };
   return (
     <>
@@ -60,12 +73,14 @@ export const AppointmentsList = ({ loadAppointments, data }, key) => {
           {data.vaccine === "FiebreAmarilla" && data.state === "Finalizado" && (
             <button>Obtener certificado</button>
           )}
-          <button
-            className="list-group-item btn btn-danger"
-            onClick={handleShow}
-          >
-            Cancelar turno
-          </button>
+          {data.state === "Activo" && (
+            <button
+              className="list-group-item btn btn-danger"
+              onClick={handleShow}
+            >
+              Cancelar turno
+            </button>
+          )}
 
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -77,13 +92,20 @@ export const AppointmentsList = ({ loadAppointments, data }, key) => {
                 : messageValue}
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                {!changed ? "Cancelar" : "Cerrar"}
-              </Button>
-              {!changed && (
-                <Button variant="success" onClick={cancelAppointment}>
-                  Confirmar
+              {changed && (
+                <Button variant="secondary" onClick={handleCerrar}>
+                  Cerrar
                 </Button>
+              )}
+              {!changed && (
+                <>
+                  <Button variant="secondary" onClick={handleClose}>
+                    Cancelar
+                  </Button>
+                  <Button variant="success" onClick={cancelAppointment}>
+                    Confirmar
+                  </Button>
+                </>
               )}
             </Modal.Footer>
           </Modal>

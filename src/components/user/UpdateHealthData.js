@@ -63,7 +63,7 @@ const UpdateHealthData = () => {
         <h3>Modificar datos de salud</h3>
         <p>
           Actualmente tus datos de salud indican que{" "}
-          {usr.isRisk ? "sos de riesgo" : "no sos de riesgo"}.
+          {usr.isRisk ? "sos paciente de riesgo" : "no sos paciente de riesgo"}.
         </p>
         <p>Para cambiar tus datos selecciona tu estado actual de salud!</p>
         <div className="form-check">
@@ -75,7 +75,7 @@ const UpdateHealthData = () => {
                 checked={isRisk === "true"}
                 onChange={handleIsRisk}
               />
-              Soy de riesgo
+              Soy paciente de riesgo
             </label>
           </div>
           <div className="radio">
@@ -86,7 +86,7 @@ const UpdateHealthData = () => {
                 checked={isRisk === "false"}
                 onChange={handleIsRisk}
               />
-              No soy de riesgo
+              No soy paciente de riesgo
             </label>
           </div>
         </div>
