@@ -92,9 +92,34 @@ const getUserRenaper = async (dni) => {
   }
 };
 
+const addPendingAppointment = async (cant, vacc, date) => {
+  try {
+    const resp = await fetch(url + "ACA VA EL ENDPOINT", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        vaccine: vacc,
+        date: date,
+        cant: cant,
+      }),
+    });
+
+    const data = await resp.json();
+
+    return data;
+  } catch (err) {
+    return false;
+  }
+};
+
 export const AdminService = {
   getStats,
   getStock,
   addStock,
   getUserRenaper,
+  addPendingAppointment,
 };

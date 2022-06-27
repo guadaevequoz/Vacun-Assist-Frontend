@@ -52,6 +52,21 @@ function AddPendingAppointments() {
    */
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(
+      `Voy a agregar ${inputVaccAmount} de ${inputVaccineValue} el dia ${inputDate}`
+    );
+    setMessageValue("La fecha ta mal");
+    /*AdminService.addPendingAppointment(
+      inputVaccAmount,
+      inputVaccineValue,
+      inputDate
+    ).then((res) => {
+      if (res.status === "fail") {
+        setMessageValue(res.data.message);
+      } else {
+        console.log("se actualizó!!!");
+      }
+    });*/
   };
 
   return (
@@ -92,7 +107,14 @@ function AddPendingAppointments() {
             onChange={handleDate}
             required
           ></input>
-          <button type="submit">Habilitar turnos</button>
+          <button type="submit">Habilitar</button>
+          {messageValue && (
+            <div className="form-group message">
+              <div className="alert alert-danger" role="alert">
+                {messageValue}
+              </div>
+            </div>
+          )}
         </form>
       </div>
     </>
