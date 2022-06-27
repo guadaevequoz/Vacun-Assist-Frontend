@@ -9,14 +9,15 @@ import getFormattedAddress from "../../helpers/getFormattedAddress";
 function GetPersonalData() {
   const navigate = useNavigate();
 
-  const [messageValue, setMessageValue] = useState("");
-  const [loadingValue, setLoadingValue] = useState(false);
+  const [usrAddress, setUsrAddress] = useState("");
   const [usr, setUsr] = useState("");
 
   useEffect(() => {
     AuthService.getUser().then((res) => {
-      if (res) setUsr(res);
-      else navigate("/login");
+      if (res) {
+        setUsr(res);
+        setUsrAddress(res.home);
+      } else navigate("/login");
     });
   }, []);
 
@@ -39,11 +40,12 @@ function GetPersonalData() {
             <em>Fecha de nacimiento: </em> {getFullDate(usr.birthday)}{" "}
           </li>
           <li>
-            <em>Direccion: </em> {getFormattedAddress(usr.home)}{" "}
+            <em>Direccion: </em>
+            {/*getFormattedAddress(usrAddress) */}
           </li>
           <li>
             <em>Datos de salud: </em>{" "}
-            {usr.isRisk ? "Es de riesgo" : "No es de riesgo"}{" "}
+            {usr.isRisk ? "Soy de riesgo" : "No soy de riesgo"}{" "}
           </li>
         </div>
       </div>
