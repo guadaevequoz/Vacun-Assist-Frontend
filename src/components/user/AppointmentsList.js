@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { Card } from "react-bootstrap";
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import getFullDate from "../../helpers/getFullDate";
 import { VaccService } from "../../services/vacc.service";
-import getCertificate from "../../helpers/getCertificate";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-
+import { getCertificate } from "./getCertificate";
 /**
  * Muesta una lista de los turnos asignados que tiene un usario paciente
  * @param {*} data Es toda la informacion sobre un turno especifico
@@ -23,7 +22,9 @@ export const AppointmentsList = ({ loadAppointments, data }, key) => {
   const handleShow = () => setShow(true);
   const handleCerrar = () => navigate("/board");
 
-  useEffect(() => {}, [data]);
+  useEffect(() => {
+    console.log(getCertificate());
+  }, [data]);
   const date = data.vaccinationDate
     ? getFullDate(data.vaccinationDate)
     : "A confirmar";
@@ -41,7 +42,6 @@ export const AppointmentsList = ({ loadAppointments, data }, key) => {
       }
     );
   };
-  console.log(<getCertificate />);
   return (
     <>
       <Card style={{ width: "500px", margin: "10px auto" }}>
@@ -74,10 +74,7 @@ export const AppointmentsList = ({ loadAppointments, data }, key) => {
             Vacunatorio: {data.vaccinationCenter}
           </div>
           {data.vaccine === "FiebreAmarilla" && data.state === "Finalizado" && (
-            <PDFDownloadLink
-              document={<getCertificate />}
-              fileName="Certificado"
-            >
+            <PDFDownloadLink document={getCertificate()} fileName="Certificado">
               <button variant="info">Obtener certificado</button>
             </PDFDownloadLink>
           )}
@@ -89,7 +86,6 @@ export const AppointmentsList = ({ loadAppointments, data }, key) => {
               Cancelar turno
             </button>
           )}
-
           <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>Cancelar turno</Modal.Title>

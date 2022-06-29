@@ -52,7 +52,6 @@ const GetAppointments = () => {
       }
     );
   };
-  console.log(<AppointmentsList />);
   return (
     <>
       <div className="section-container">
