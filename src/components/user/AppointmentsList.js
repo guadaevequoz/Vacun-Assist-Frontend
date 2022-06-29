@@ -4,6 +4,8 @@ import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import getFullDate from "../../helpers/getFullDate";
 import { VaccService } from "../../services/vacc.service";
+import getCertificate from "../../helpers/getCertificate";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 /**
  * Muesta una lista de los turnos asignados que tiene un usario paciente
@@ -39,6 +41,7 @@ export const AppointmentsList = ({ loadAppointments, data }, key) => {
       }
     );
   };
+  console.log(<getCertificate />);
   return (
     <>
       <Card style={{ width: "500px", margin: "10px auto" }}>
@@ -71,7 +74,12 @@ export const AppointmentsList = ({ loadAppointments, data }, key) => {
             Vacunatorio: {data.vaccinationCenter}
           </div>
           {data.vaccine === "FiebreAmarilla" && data.state === "Finalizado" && (
-            <button>Obtener certificado</button>
+            <PDFDownloadLink
+              document={<getCertificate />}
+              fileName="Certificado"
+            >
+              <button variant="info">Obtener certificado</button>
+            </PDFDownloadLink>
           )}
           {data.state === "Activo" && (
             <button
