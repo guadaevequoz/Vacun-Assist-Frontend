@@ -5,14 +5,14 @@ import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import getFullDate from "../../helpers/getFullDate";
 import { VaccService } from "../../services/vacc.service";
-import { getCertificate } from "./getCertificate";
+import { GetCertificate } from "./getCertificate";
 /**
  * Muesta una lista de los turnos asignados que tiene un usario paciente
  * @param {*} data Es toda la informacion sobre un turno especifico
  * @param {*} key Identificador del turno
  * @returns Retorna una "Card" con la informacion de un turno espeficico
  */
-export const AppointmentsList = ({ loadAppointments, data }, key) => {
+export const AppointmentsList = ({ loadAppointments, data, user }, key) => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [changed, setChanged] = useState(false);
@@ -22,9 +22,7 @@ export const AppointmentsList = ({ loadAppointments, data }, key) => {
   const handleShow = () => setShow(true);
   const handleCerrar = () => navigate("/board");
 
-  useEffect(() => {
-    console.log(getCertificate());
-  }, [data]);
+  useEffect(() => {}, [data]);
   const date = data.vaccinationDate
     ? getFullDate(data.vaccinationDate)
     : "A confirmar";
@@ -61,8 +59,10 @@ export const AppointmentsList = ({ loadAppointments, data }, key) => {
         <Card.Body>
           <div className="list-group-item"> Día: {date}</div>
           <div className="list-group-item">
-            Estado:{" "}
-            {data.state === "Finalizado"
+            Estado:
+            {data.vaccinationCenter === "Externo"
+              ? "Ingresado por el Usuario 👍"
+              : data.state === "Finalizado"
               ? "Turno concretado ✅"
               : data.state === "Activo"
               ? "Turno pendiente ⌛"
@@ -74,7 +74,10 @@ export const AppointmentsList = ({ loadAppointments, data }, key) => {
             Vacunatorio: {data.vaccinationCenter}
           </div>
           {data.vaccine === "FiebreAmarilla" && data.state === "Finalizado" && (
-            <PDFDownloadLink document={getCertificate()} fileName="Certificado">
+            <PDFDownloadLink
+              document={GetCertificate(data, user)}
+              fileName="CertificadoFiebreAmarilla"
+            >
               <button variant="info">Obtener certificado</button>
             </PDFDownloadLink>
           )}

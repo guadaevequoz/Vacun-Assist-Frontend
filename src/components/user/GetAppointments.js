@@ -73,6 +73,7 @@ const GetAppointments = () => {
               <AppointmentsList
                 loadAppointments={loadAppointments}
                 data={data}
+                user={usr}
                 key={Math.floor(Math.random() * (0 - 9999999) + 0)}
               />
             );

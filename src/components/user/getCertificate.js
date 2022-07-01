@@ -1,7 +1,25 @@
-import React from "react";
-import { Document, Page, Text, View } from "@react-pdf/renderer";
+import React, { useEffect, useState } from "react";
+import { Document, Page, Text, View, Image } from "@react-pdf/renderer";
+import stamp from "../../assets/sello-vacunAssist.png";
 
-export const getCertificate = () => {
+export const GetCertificate = (data, user) => {
+  const [vaccine, setVaccine] = useState("");
+  const [usr, setUsr] = useState("");
+  const currentDate = new Date().toISOString().split("T", 1);
+  const [birthdayDate, setBirthdayDate] = useState("");
+  const [vaccinationDate, setVaccinationDate] = useState("");
+  useEffect(() => {
+    if (data) {
+      setVaccine(data);
+      setUsr(user);
+      setBirthdayDate(...user.birthday.split("T", 1));
+      setVaccinationDate(data.vaccinationDate.split("T", 1));
+    }
+  }, [data]);
+
+  console.log(vaccine);
+  console.log(usr);
+  console.log(birthdayDate);
   return (
     <Document>
       <Page size="A4" orientation="landscape">
@@ -29,8 +47,8 @@ export const getCertificate = () => {
             justifyContent: "left",
             alignItems: "left",
             backgroundColor: "white",
-            padding: 10,
-            paddingBottom: "20px",
+            paddingBottom: "10px",
+            paddingLeft: "10px",
           }}
         >
           <View
@@ -40,15 +58,18 @@ export const getCertificate = () => {
               justifyContent: "center",
               alignItems: "center",
               backgroundColor: "white",
-              padding: 10,
               paddingRight: "240px",
               paddingLeft: "50px",
+              paddingLeft: "10px",
               borderRightWidth: "2px",
               borderRightStyle: "solid",
             }}
           >
             <Text style={{ fontSize: "14px" }}>Certificase que (Nombre)</Text>
-            <Text style={{ fontSize: "12px" }}>This is to certify that</Text>
+            <Text style={{ fontSize: "12px", padding: "10px" }}>
+              This is to certify that
+            </Text>
+            <Text style={{ fontSize: "14px" }}>{usr.fullName}</Text>
           </View>
           <View
             style={{
@@ -57,28 +78,14 @@ export const getCertificate = () => {
               justifyContent: "center",
               alignItems: "center",
               backgroundColor: "white",
-              padding: 10,
               paddingRight: "150px",
-              borderRightWidth: "2px",
-              borderRightStyle: "solid",
             }}
           >
             <Text style={{ fontSize: "14px" }}>Nacido (a) el</Text>
-            <Text style={{ fontSize: "12px" }}>Date of birth</Text>
-          </View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "white",
-              padding: 10,
-              paddingRight: "100px",
-            }}
-          >
-            <Text style={{ fontSize: "14px" }}>Sexo</Text>
-            <Text style={{ fontSize: "12px" }}>Sex</Text>
+            <Text style={{ fontSize: "12px", padding: "10px" }}>
+              Date of birth
+            </Text>
+            <Text style={{ fontSize: "14px" }}>{birthdayDate}</Text>
           </View>
         </View>
         <View
@@ -88,8 +95,8 @@ export const getCertificate = () => {
             justifyContent: "left",
             alignItems: "left",
             backgroundColor: "white",
-            padding: 10,
-            paddingBottom: "30px",
+            paddingBottom: "10px",
+            paddingLeft: "10px",
             borderTopWidth: "1px",
             borderTopStyle: "solid",
           }}
@@ -101,49 +108,16 @@ export const getCertificate = () => {
               justifyContent: "center",
               alignItems: "center",
               backgroundColor: "white",
-              padding: 10,
               paddingRight: "180px",
-              paddingLeft: "50px",
-              borderRightWidth: "2px",
-              borderRightStyle: "solid",
-            }}
-          >
-            <Text style={{ fontSize: "14px" }}>Nacionalidad</Text>
-            <Text style={{ fontSize: "12px" }}>Nationality</Text>
-          </View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "white",
-              padding: 10,
-              paddingRight: "180px",
-              borderRightWidth: "2px",
-              borderRightStyle: "solid",
             }}
           >
             <Text style={{ fontSize: "14px" }}>
               Documento de identificacion N°
             </Text>
-            <Text style={{ fontSize: "12px" }}>Travel document N°</Text>
-          </View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "white",
-              padding: 10,
-              paddingRight: "100px",
-            }}
-          >
-            <Text style={{ fontSize: "14px" }}>
-              Cuya firma aparece a continuacion
+            <Text style={{ fontSize: "12px", padding: "10px" }}>
+              Travel document N°
             </Text>
-            <Text style={{ fontSize: "12px" }}>Whose signature follows</Text>
+            <Text style={{ fontSize: "14px" }}>{vaccine.patientDni}</Text>
           </View>
         </View>
         <View
@@ -151,9 +125,8 @@ export const getCertificate = () => {
             display: "flex",
             flexDirection: "column",
             backgroundColor: "white",
-            padding: 10,
             paddingLeft: "50px",
-            paddingBottom: "35px",
+            paddingBottom: "10px",
             borderTopWidth: "1px",
             borderTopStyle: "solid",
           }}
@@ -162,17 +135,17 @@ export const getCertificate = () => {
             En la fecha indicada ha sido vacunado (a) o ha recibido tratamiento
             profilactico contra (Nombre de la enfermedad)
           </Text>
-          <Text style={{ fontSize: "12px" }}>
+          <Text style={{ fontSize: "12px", padding: "10px" }}>
             Has on the date indicated been vaccined or recivd prophylaxis (name
             of disease or condition)
           </Text>
+          <Text style={{ fontSize: "14px" }}>{vaccine.vaccine}</Text>
         </View>
         <View
           style={{
             display: "flex",
             flexDirection: "column",
             backgroundColor: "white",
-            padding: 10,
             paddingLeft: "50px",
             borderTopWidth: "1px",
             borderTopStyle: "solid",
@@ -200,7 +173,7 @@ export const getCertificate = () => {
               flexDirection: "column",
               backgroundColor: "white",
               padding: 10,
-              width: "20%",
+              width: "15%",
               borderWidth: "1px",
               borderStyle: "solid",
             }}
@@ -218,7 +191,7 @@ export const getCertificate = () => {
               padding: 10,
               borderWidth: "1px",
               borderStyle: "solid",
-              width: "10%",
+              width: "15%",
             }}
           >
             <Text style={{ fontSize: "12px" }}>FECHA</Text>
@@ -308,7 +281,7 @@ export const getCertificate = () => {
               flexDirection: "column",
               backgroundColor: "white",
               padding: 10,
-              width: "20%",
+              width: "15%",
               borderWidth: "1px",
               borderStyle: "solid",
             }}
@@ -323,10 +296,10 @@ export const getCertificate = () => {
               padding: 10,
               borderWidth: "1px",
               borderStyle: "solid",
-              width: "10%",
+              width: "15%",
             }}
           >
-            <Text style={{ fontSize: "12px" }}>(Inserte Fecha)</Text>
+            <Text style={{ fontSize: "12px" }}>{vaccinationDate}</Text>
           </View>
           <View
             style={{
@@ -339,7 +312,7 @@ export const getCertificate = () => {
               borderStyle: "solid",
             }}
           >
-            <Text style={{ fontSize: "12px" }}>(Inserte NomyAp Vacc)</Text>
+            <Text style={{ fontSize: "12px" }}>{vaccine.vaccunator}</Text>
           </View>
           <View
             style={{
@@ -352,7 +325,8 @@ export const getCertificate = () => {
               borderStyle: "solid",
             }}
           >
-            <Text style={{ fontSize: "12px" }}>(Inserte Lote y Marca)</Text>
+            <Text style={{ fontSize: "12px" }}>Marca: {vaccine.mark}</Text>
+            <Text style={{ fontSize: "12px" }}>Lote: {vaccine.lot}</Text>
           </View>
           <View
             style={{
@@ -365,7 +339,7 @@ export const getCertificate = () => {
               borderStyle: "solid",
             }}
           >
-            <Text style={{ fontSize: "12px" }}>(Inserte fecha actual)</Text>
+            <Text style={{ fontSize: "12px" }}>{currentDate}</Text>
           </View>
           <View
             style={{
@@ -376,11 +350,13 @@ export const getCertificate = () => {
               width: "22%",
               borderWidth: "1px",
               borderStyle: "solid",
+              alignItems: "center",
             }}
           >
-            <Text style={{ fontSize: "12px" }}>
-              (Inserte sello VacunAssist)
-            </Text>
+            <Image
+              src={stamp}
+              style={{ maxWidth: "120px", maxheigh: "120px" }}
+            ></Image>
           </View>
         </View>
       </Page>
