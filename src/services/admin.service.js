@@ -94,7 +94,7 @@ const getUserRenaper = async (dni) => {
 
 const addPendingAppointment = async (cant, vacc, date) => {
   try {
-    const resp = await fetch(url + "ACA VA EL ENDPOINT", {
+    const resp = await fetch(url + "/assing-pending-appointments", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -103,8 +103,8 @@ const addPendingAppointment = async (cant, vacc, date) => {
       credentials: "include",
       body: JSON.stringify({
         vaccine: vacc,
-        date: date,
         cant: cant,
+        date: date,
       }),
     });
 

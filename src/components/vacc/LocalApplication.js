@@ -26,7 +26,7 @@ function LocalApplication() {
   const getStock = () => {
     console.log(inputVaccineValue, usr.vaccinationCenter);
     if (inputVaccineValue) {
-      console.log("entre");
+      console.log(inputVaccineValue + " " + usr.vaccinationCenter);
       AdminService.getStock(inputVaccineValue, usr.vaccinationCenter).then(
         (res) => {
           console.log(res);
@@ -71,6 +71,7 @@ function LocalApplication() {
   const handleVaccineChange = (e) => {
     setMessageValue("");
     setMessageConfirmValue("");
+    console.log(inputVaccineValue);
     setInputVaccineValue(e.target.value);
   };
 
@@ -121,7 +122,7 @@ function LocalApplication() {
             required
           >
             <option></option>
-            <option value="Covid">Gripe</option>
+            <option value="Gripe">Gripe</option>
             <option value="Covid">COVID</option>
             <option value="FiebreAmarilla">Fiebre amarilla</option>
           </select>

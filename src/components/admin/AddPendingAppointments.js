@@ -12,6 +12,8 @@ function AddPendingAppointments() {
   const [inputVaccAmount, setInputVaccineAmount] = useState("");
   const [inputDate, setInputDate] = useState("");
   const [messageValue, setMessageValue] = useState("");
+  const vaccCenter = new Set();
+  let vaccCenterImprimir = "";
 
   useEffect(() => {
     AuthService.getUser().then((res) => {
@@ -55,18 +57,50 @@ function AddPendingAppointments() {
     console.log(
       `Voy a agregar ${inputVaccAmount} de ${inputVaccineValue} el dia ${inputDate}`
     );
-    setMessageValue("La fecha ta mal");
-    /*AdminService.addPendingAppointment(
+
+    AdminService.addPendingAppointment(
       inputVaccAmount,
       inputVaccineValue,
       inputDate
     ).then((res) => {
+      console.log(res);
       if (res.status === "fail") {
-        setMessageValue(res.data.message);
+        setMessageValue(res.message);
       } else {
-        console.log("se actualizó!!!");
+        res.data.forEach((a) => {
+          vaccCenter.add(a.vaccinationCenter);
+        });
+        vaccCenter.forEach((value) => (vaccCenterImprimir += value + " "));
+        if (res.data.length == inputVaccAmount)
+          setMessageValue(
+            `Se habilitaron los ${inputVaccAmount} más antiguos para ${inputVaccineValue} para la fecha ${inputDate} en los vacunatorios: ${vaccCenterImprimir}`
+          );
+        if (
+          res.data.length < inputVaccAmount &&
+          res.data.length > 0 &&
+          !res.sesenta
+        )
+          setMessageValue(
+            "Se habilitaron menos turnos de los solicitados en los vacunatorios: " +
+              vaccCenterImprimir
+          );
+        if (
+          res.data.length < inputVaccAmount &&
+          res.data.length > 0 &&
+          res.sesenta
+        )
+          setMessageValue(
+            "Se habilitaron menos turnos de los solicitados ya que una persona era mayor de 60 años en los vacunatorios: " +
+              vaccCenterImprimir
+          );
+        if (res.data.length == 0 && res.sesenta)
+          setMessageValue(
+            "No se habilito ningun turno ya que pertenecian a personas mayores de 60 años."
+          );
+        if (res.data.length == 0 && !res.sesenta)
+          setMessageValue("No hay turnos pendientes para esta vacuna 😄");
       }
-    });*/
+    });
   };
 
   return (
@@ -94,7 +128,6 @@ function AddPendingAppointments() {
             required
           >
             <option></option>
-            <option value="Gripe">Gripe</option>
             <option value="Covid">COVID</option>
             <option value="FiebreAmarilla">Fiebre amarilla</option>
           </select>
