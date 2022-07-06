@@ -12,6 +12,7 @@ function AddPendingAppointments() {
   const [inputVaccAmount, setInputVaccineAmount] = useState("");
   const [inputDate, setInputDate] = useState("");
   const [messageValue, setMessageValue] = useState("");
+  const [messageCantValue, setMessageCantValue] = useState("");
   const vaccCenter = new Set();
   let vaccCenterImprimir = "";
 
@@ -21,6 +22,20 @@ function AddPendingAppointments() {
       else navigate("/login");
     });
   }, []);
+
+  const getCantPending = () => {
+    if (inputVaccineValue) {
+      AdminService.getCantPendingApp(
+        inputVaccineValue,
+        usr.vaccinationCenter
+      ).then((res) => {
+        console.log(res);
+        setMessageCantValue(
+          `Hay ${res.data.cant} turnos pendientes para la vacuna ${inputVaccineValue}`
+        );
+      });
+    } else setMessageCantValue("");
+  };
 
   /**
    * Funcion que maneja el cambio de "InputVaccine"
@@ -73,7 +88,7 @@ function AddPendingAppointments() {
         vaccCenter.forEach((value) => (vaccCenterImprimir += value + " "));
         if (res.data.length == inputVaccAmount)
           setMessageValue(
-            `Se habilitaron los ${inputVaccAmount} más antiguos para ${inputVaccineValue} para la fecha ${inputDate} en los vacunatorios: ${vaccCenterImprimir}`
+            `Se habilitaron los ${inputVaccAmount} más antiguos para ${inputVaccineValue} para la fecha ${inputDate}.`
           );
         if (
           res.data.length < inputVaccAmount &&
@@ -81,8 +96,9 @@ function AddPendingAppointments() {
           !res.sesenta
         )
           setMessageValue(
-            "Se habilitaron menos turnos de los solicitados en los vacunatorios: " +
-              vaccCenterImprimir
+            `Se habilitaron ${
+              inputVaccAmount - res.data.length
+            } turnos. Habia menos turnos pendientes de los que se quisieron asignar.`
           );
         if (
           res.data.length < inputVaccAmount &&
@@ -90,8 +106,9 @@ function AddPendingAppointments() {
           res.sesenta
         )
           setMessageValue(
-            "Se habilitaron menos turnos de los solicitados ya que una persona era mayor de 60 años en los vacunatorios: " +
-              vaccCenterImprimir
+            `Se habilitaron ${
+              inputVaccAmount - res.data.length
+            }. Al menos una persona con un turno pendiente cumplió 60 años antes de la fecha de aplicación.`
           );
         if (res.data.length == 0 && res.sesenta)
           setMessageValue(
@@ -131,6 +148,7 @@ function AddPendingAppointments() {
             <option value="Covid">COVID</option>
             <option value="FiebreAmarilla">Fiebre amarilla</option>
           </select>
+          {messageCantValue && <div>{messageCantValue}</div>}
           <label htmlFor="vaccDate">Ingresa la fecha</label>
           <input
             type="date"
