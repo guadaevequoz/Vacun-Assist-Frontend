@@ -30,6 +30,7 @@ export const AppointmentsList = ({ loadAppointments, data, user }, key) => {
   const cancelAppointment = () => {
     VaccService.cancelAppointment(data._id, data.patientDni).then(
       ({ data }) => {
+        console.log(data);
         if (data.status === "fail") {
           setMessageValue(data.message);
           setChanged(true);

@@ -169,6 +169,27 @@ const cancelAppointment = async (id, dni) => {
     return false;
   }
 };
+const getPendings = async (vacc) => {
+  try {
+    const resp = await fetch(url + "/get-pendings", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        vaccine: vacc,
+      }),
+    });
+
+    const data = await resp.json();
+
+    return data;
+  } catch (err) {
+    return false;
+  }
+};
 
 export const VaccService = {
   getAppointments,
@@ -177,4 +198,5 @@ export const VaccService = {
   getAppointmentsByDNI,
   registerLocalApliccation,
   cancelAppointment,
+  getPendings,
 };

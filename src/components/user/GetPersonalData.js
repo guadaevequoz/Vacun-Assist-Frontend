@@ -40,10 +40,6 @@ function GetPersonalData() {
             <em>Fecha de nacimiento: </em> {getFullDate(usr.birthday)}{" "}
           </li>
           <li>
-            <em>Direccion: </em>
-            {/*getFormattedAddress(usrAddress) */}
-          </li>
-          <li>
             <em>Datos de salud: </em>{" "}
             {usr.isRisk
               ? "Soy paciente de riesgo"

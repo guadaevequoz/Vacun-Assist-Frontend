@@ -20,6 +20,11 @@ const AdminBoard = () => {
         </Link>
       </Nav.Link>
       <Nav.Link>
+        <Link to={"/showStock"} className="nav-link">
+          Consultar stock
+        </Link>
+      </Nav.Link>
+      <Nav.Link>
         <Link to={"/registerVaccinator"} className="nav-link">
           Registrar vacunador
         </Link>

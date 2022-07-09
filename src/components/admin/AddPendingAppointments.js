@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { AdminService } from "../../services/admin.service";
 import { NBar } from "../Navbar";
 import { AuthService } from "../../services/auth.service";
+import { VaccService } from "../../services/vacc.service";
+import getFullDate from "../../helpers/getFullDate";
 function AddPendingAppointments() {
   const navigate = useNavigate();
   const [usr, setUsr] = useState("");
@@ -21,17 +23,15 @@ function AddPendingAppointments() {
       if (res) setUsr(res);
       else navigate("/login");
     });
-  }, []);
+    getCantPending();
+  }, [inputVaccineValue]);
 
   const getCantPending = () => {
     if (inputVaccineValue) {
-      AdminService.getCantPendingApp(
-        inputVaccineValue,
-        usr.vaccinationCenter
-      ).then((res) => {
+      VaccService.getPendings(inputVaccineValue).then((res) => {
         console.log(res);
         setMessageCantValue(
-          `Hay ${res.data.cant} turnos pendientes para la vacuna ${inputVaccineValue}`
+          `Hay ${res.data.allAppointments.length} turnos pendientes para la vacuna ${inputVaccineValue}`
         );
       });
     } else setMessageCantValue("");
@@ -69,9 +69,6 @@ function AddPendingAppointments() {
    */
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      `Voy a agregar ${inputVaccAmount} de ${inputVaccineValue} el dia ${inputDate}`
-    );
 
     AdminService.addPendingAppointment(
       inputVaccAmount,
@@ -82,39 +79,29 @@ function AddPendingAppointments() {
       if (res.status === "fail") {
         setMessageValue(res.message);
       } else {
-        res.data.forEach((a) => {
-          vaccCenter.add(a.vaccinationCenter);
-        });
-        vaccCenter.forEach((value) => (vaccCenterImprimir += value + " "));
-        if (res.data.length == inputVaccAmount)
+        if (res.cant == inputVaccAmount)
           setMessageValue(
-            `Se habilitaron los ${inputVaccAmount} más antiguos para ${inputVaccineValue} para la fecha ${inputDate}.`
+            `Se habilitaron los ${inputVaccAmount} más antiguos para ${inputVaccineValue} para la fecha ${getFullDate(
+              inputDate
+            )}.`
           );
-        if (
-          res.data.length < inputVaccAmount &&
-          res.data.length > 0 &&
-          !res.sesenta
-        )
+        if (res.cant < inputVaccAmount && res.cant > 0 && !res.sesenta)
           setMessageValue(
             `Se habilitaron ${
-              inputVaccAmount - res.data.length
+              inputVaccAmount - res.cant
             } turnos. Habia menos turnos pendientes de los que se quisieron asignar.`
           );
-        if (
-          res.data.length < inputVaccAmount &&
-          res.data.length > 0 &&
-          res.sesenta
-        )
+        if (res.cant < inputVaccAmount && res.cant > 0 && res.sesenta)
           setMessageValue(
             `Se habilitaron ${
               inputVaccAmount - res.data.length
             }. Al menos una persona con un turno pendiente cumplió 60 años antes de la fecha de aplicación.`
           );
-        if (res.data.length == 0 && res.sesenta)
+        if (res.cant == 0 && res.sesenta)
           setMessageValue(
             "No se habilito ningun turno ya que pertenecian a personas mayores de 60 años."
           );
-        if (res.data.length == 0 && !res.sesenta)
+        if (res.cant == 0 && !res.sesenta)
           setMessageValue("No hay turnos pendientes para esta vacuna 😄");
       }
     });
