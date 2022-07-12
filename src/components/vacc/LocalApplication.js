@@ -32,7 +32,6 @@ function LocalApplication() {
         birthday
       ).then((res) => {
         if (res.data.status === "fail") {
-          reset();
           setShowStock(false);
           setMessageValue(res.data.message);
           setShowInput(false);
@@ -114,10 +113,8 @@ function LocalApplication() {
       email
     ).then((res) => {
       if (res.data.status === "fail") {
-        reset();
         setMessageValue(res.data.message);
       } else {
-        reset();
         AuthService.getUserByDNI(dni).then((res) => {
           setMessageConfirmValue(
             `La aplicación de la vacuna contra ${inputVaccineValue} para el paciente  ${res.fullName} se registró correctamente 😁`
