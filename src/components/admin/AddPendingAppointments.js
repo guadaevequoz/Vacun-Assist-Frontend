@@ -37,6 +37,13 @@ function AddPendingAppointments() {
     } else setMessageCantValue("");
   };
 
+  const getTrueDate = (date) => {
+    const newDate = new Date(date);
+    newDate.setDate(newDate.getDate() + 1);
+    newDate.setHours(1);
+    return newDate.toISOString();
+  };
+
   /**
    * Funcion que maneja el cambio de "InputVaccine"
    * @param {*} e Representa el evento
@@ -73,7 +80,7 @@ function AddPendingAppointments() {
     AdminService.addPendingAppointment(
       inputVaccAmount,
       inputVaccineValue,
-      inputDate
+      getTrueDate(inputDate)
     ).then((res) => {
       console.log(res);
       if (res.status === "fail") {
@@ -82,7 +89,7 @@ function AddPendingAppointments() {
         if (res.cant == inputVaccAmount)
           setMessageValue(
             `Se habilitaron los ${inputVaccAmount} más antiguos para ${inputVaccineValue} para la fecha ${getFullDate(
-              inputDate
+              getTrueDate(inputDate)
             )}.`
           );
         if (res.cant < inputVaccAmount && res.cant > 0 && !res.sesenta)
