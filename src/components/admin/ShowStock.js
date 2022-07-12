@@ -26,7 +26,9 @@ function ShowStock() {
         inputVaccinationCenterValue
       ).then((res) => {
         console.log(res);
-        setMessageStock(`El stock actual es ${res.data.cant}`);
+        setMessageStock(
+          `El stock actual de la vacuna ${inputVaccineValue} en el vacunatorio ${inputVaccinationCenterValue} es ${res.data.cant}`
+        );
       });
     } else setMessageStock("");
   };

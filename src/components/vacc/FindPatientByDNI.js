@@ -21,20 +21,13 @@ const FindPatientByDNI = ({ show, handleClose, dni, vaccinationCenter }) => {
   const [fail, setFail] = useState(false);
 
   useEffect(() => {
-    console.log(loadingValue);
-    console.log(dni);
     if (dni) {
       VaccService.getAppointmentsByDNI(dni).then((res) => {
-        console.log(res.data.status);
-
         if (!(res.data.status === "fail")) {
           setLoadingValue(false);
-          console.log("No es fail, me tira esto: ", res.data);
           setFail(false);
-          console.log(res.data.data);
           let patient = res.data.data.patient;
           let dataAppointments = res.data.data.appointments;
-          console.log(patient, dataAppointments);
           if (dataAppointments) {
             dataAppointments = dataAppointments.filter((data) => {
               return data.vaccinationCenter === vaccinationCenter;
@@ -60,7 +53,6 @@ const FindPatientByDNI = ({ show, handleClose, dni, vaccinationCenter }) => {
           setEmail(patient.email);
         } else {
           setLoadingValue(false);
-          console.log(res.data.message);
           res.data.message === "Error de conexión con el RENAPER😢"
             ? setMessage(res.data.message)
             : setMessage(
@@ -160,7 +152,7 @@ const FindPatientByDNI = ({ show, handleClose, dni, vaccinationCenter }) => {
         )}
         <Modal.Footer>
           <Button className="btn-validate" type="submit" onClick={handleSubmit}>
-            Ok
+            Cerrar
           </Button>
           <hr />
         </Modal.Footer>

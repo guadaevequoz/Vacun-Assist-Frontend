@@ -113,6 +113,29 @@ const getAppointmentsByDNI = async (dni) => {
   }
 };
 
+//validar local aplication
+const validateLocalApliccation = async (vacc, dni, birthday) => {
+  try {
+    const resp = await fetch(url + "/validateLocal", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        vaccine: vacc,
+        dni: dni,
+        birthday: birthday,
+      }),
+      credentials: "include",
+    });
+    const data = await resp.json();
+    return { data };
+  } catch (err) {
+    return false;
+  }
+};
+
 //obtener los turnos para un DNI
 const registerLocalApliccation = async (
   vacc,
@@ -199,4 +222,5 @@ export const VaccService = {
   registerLocalApliccation,
   cancelAppointment,
   getPendings,
+  validateLocalApliccation,
 };

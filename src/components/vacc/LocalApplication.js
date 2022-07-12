@@ -10,7 +10,6 @@ import { AdminService } from "../../services/admin.service";
 
 function LocalApplication() {
   let { dni, birthday, email } = useParams();
-  console.log(dni, birthday, email);
   const navigate = useNavigate();
   const [inputVaccineValue, setInputVaccineValue] = useState("");
 
@@ -22,18 +21,42 @@ function LocalApplication() {
   const [inputLot, setInputLot] = useState("");
   const [inputMark, setInputMark] = useState("");
   const [usr, setUsr] = useState("");
+  const [showInput, setShowInput] = useState(false);
+  const [showStock, setShowStock] = useState(true);
 
-  const getStock = () => {
-    console.log(inputVaccineValue, usr.vaccinationCenter);
+  const getValidations = () => {
     if (inputVaccineValue) {
-      console.log(inputVaccineValue + " " + usr.vaccinationCenter);
+      VaccService.validateLocalApliccation(
+        inputVaccineValue,
+        dni,
+        birthday
+      ).then((res) => {
+        if (res.data.status === "fail") {
+          reset();
+          setShowStock(false);
+          setMessageValue(res.data.message);
+          setShowInput(false);
+        } else {
+          setShowInput(res.data.continue);
+          setShowInput(true);
+        }
+      });
+    } else {
+      setShowInput(false);
+      setMessageStock("");
+    }
+  };
+  const getStock = () => {
+    if (inputVaccineValue) {
       AdminService.getStock(inputVaccineValue, usr.vaccinationCenter).then(
         (res) => {
-          console.log(res);
-          setMessageStock(`El stock actual es ${res.data.cant}`);
+          if (showStock) setMessageStock(`El stock actual es ${res.data.cant}`);
         }
       );
-    } else setMessageStock("");
+    } else {
+      setMessageStock("");
+      setShowInput(false);
+    }
   };
 
   useEffect(() => {
@@ -41,6 +64,7 @@ function LocalApplication() {
       if (res) setUsr(res);
       else navigate("/login");
     });
+    getValidations();
     getStock();
   }, [inputVaccineValue]);
 
@@ -71,7 +95,6 @@ function LocalApplication() {
   const handleVaccineChange = (e) => {
     setMessageValue("");
     setMessageConfirmValue("");
-    console.log(inputVaccineValue);
     setInputVaccineValue(e.target.value);
   };
 
@@ -95,9 +118,11 @@ function LocalApplication() {
         setMessageValue(res.data.message);
       } else {
         reset();
-        setMessageConfirmValue(
-          `El turno para el DNI: ${dni} contra ${inputVaccineValue} se registro correctamente 😁`
-        );
+        AuthService.getUserByDNI(dni).then((res) => {
+          setMessageConfirmValue(
+            `La aplicación de la vacuna contra ${inputVaccineValue} para el paciente  ${res.fullName} se registró correctamente 😁`
+          );
+        });
       }
     });
   };
@@ -127,26 +152,31 @@ function LocalApplication() {
             <option value="FiebreAmarilla">Fiebre amarilla</option>
           </select>
           {messageStock && <div>{messageStock}</div>}
-          <input
-            type="text"
-            name="lot"
-            value={inputLot}
-            onChange={handleLotChange}
-            placeholder="Ingrese el Lote"
-          ></input>
-          <input
-            type="text"
-            name="mark"
-            value={inputMark}
-            onChange={handleMarkChange}
-            placeholder="Ingrese la marca"
-          ></input>
-          <button type="submit">
-            {loadingValue && (
-              <span className="spinner-border spinner-border-sm"></span>
-            )}
-            <span>Registrar aplicacion</span>
-          </button>
+          {showInput && (
+            <>
+              <input
+                type="text"
+                name="lot"
+                value={inputLot}
+                onChange={handleLotChange}
+                placeholder="Ingrese el Lote"
+              ></input>
+              <input
+                type="text"
+                name="mark"
+                value={inputMark}
+                onChange={handleMarkChange}
+                placeholder="Ingrese la marca"
+              ></input>
+              <button type="submit">
+                {loadingValue && (
+                  <span className="spinner-border spinner-border-sm"></span>
+                )}
+                <span>Registrar aplicacion</span>
+              </button>
+            </>
+          )}
+
           {messageValue && (
             <div className="form-group">
               <div className="alert alert-danger" role="alert">
